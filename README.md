@@ -1,4 +1,4 @@
-Crear carpeta llamada "MERCAHOME" talcual en mayusculas.
+Crear carpeta llamada "MERCAHOME" tal cual en mayusculas.
 Está será la carpeta principal que se tendrá que abrir desde visual Studio, y la carpeta desde la que se trabajará con git, es muy importante que todos mantengamos la misma estructura de archivos, por lo contrario esto puede provocar conflictos.
 
 <!--

@@ -16,7 +16,7 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 ------------------------------------------------------------
-                     ¡ MUY IMPORTANTE !
+                                   ¡ MUY IMPORTANTE !
 Recuerda trabajar en tu BRANCH, no modifiques la principal. 
 ------------------------------------------------------------
 

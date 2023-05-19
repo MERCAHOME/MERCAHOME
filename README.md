@@ -1,4 +1,5 @@
-### Hi there 👋
+Crear carpeta llamada "MERCAHOME" talcual en mayusculas.
+Está será la carpeta principal que se tendrá que abrir desde visual Studio, y la carpeta desde la que se trabajará con git, es muy importante que todos mantengamos la misma estructura de archivos, por lo contrario esto puede provocar conflictos.
 
 <!--
 **MERCAHOME/MERCAHOME** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
@@ -14,4 +15,8 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
-Recuerda trabajar en tu BRANCH, no modifiques la principal.
+------------------------------------------------------------
+                     ¡ MUY IMPORTANTE !
+------------------------------------------------------------
+Recuerda trabajar en tu BRANCH, no modifiques la principal. 
+------------------------------------------------------------

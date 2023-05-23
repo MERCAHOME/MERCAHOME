@@ -16,6 +16,8 @@ public class Cliente extends Persona {
         this.pedidoEnCurso = 0;
         this.distanciaEnKmHastaSupermercado = distanciaEnKmHastaSupermercado;
     }
+
+    // JACK OA
     
     public TipoDeCliente getTipoDeCliente() {
         return tipoDeCliente;

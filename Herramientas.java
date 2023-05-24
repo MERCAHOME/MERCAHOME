@@ -84,18 +84,20 @@ public interface Herramientas {
 
     }
 
+    
+
     public static int crearMenu(String[]titulos,String[]opciones){
-        System.out.println("____________________________________________________________________________");
+        System.out.println("\n\n*****************************");
         for (int i = 0; i < titulos.length; i++) {
             System.out.println(titulos[i]);
         }
-        System.out.println("‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾");
+        System.out.println("*****************************");
         for (int i = 0; i < opciones.length; i++) {
             System.out.println(opciones[i]);
         }
         System.out.print("Respuesta: ");
         int respuesta = pedirEnteroPositivo();
-        System.out.println("‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾");
+        System.out.println("*****************************");
         limpiarPantalla();
         return respuesta;
     }

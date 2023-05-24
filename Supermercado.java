@@ -21,6 +21,19 @@ public class Supermercado extends EstablecimientoPropio {
         this.horarioPublico = horarioPublico;
         this.horasDisParaPedidos = new ArrayList<>();
     }
+
+    public boolean vehiculosDisponibles(){
+        try {
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Vehiculo devolverVehiculoDisponible(){
+        //método no creado, solo para no dar error en otras clases
+        return new Vehiculo(getCIF());
+    }
     
     public ArrayList<Pedido> getPedidos() {
         return pedidos;

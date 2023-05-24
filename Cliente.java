@@ -9,13 +9,14 @@ public class Cliente extends Persona {
     
     public Cliente(String DNI, int numeroDeTelefono, TipoDeCliente tipoDeCliente,
                    int distanciaEnKmHastaSupermercado) {
-        super(DNI, numeroDeTelefono);
         this.tipoDeCliente = tipoDeCliente;
         this.pedidos = new ArrayList<>();
         this.facturas = new ArrayList<>();
         this.pedidoEnCurso = 0;
         this.distanciaEnKmHastaSupermercado = distanciaEnKmHastaSupermercado;
     }
+
+    // JACK OA
     
     public TipoDeCliente getTipoDeCliente() {
         return tipoDeCliente;

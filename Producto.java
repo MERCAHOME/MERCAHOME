@@ -8,15 +8,61 @@ public class Producto {
     private boolean perecedero;
     private boolean refrigerado;
     private LocalDate fechaCaducidad;
-    
-    public Producto(Distribuidor proveedor, String nombre, boolean perecedero, boolean refrigerado, LocalDate fechaCaducidad) {
+    private double precioDistribuidor;
+    private double precioVentaPublico;
+    private int diasQueTardaEnCaducar=-1;
+
+  
+   
+    //Constructor para MERCAHOME de producto que SI caduca
+    public Producto( Distribuidor proveedor, String nombre, boolean perecedero, boolean refrigerado,
+            LocalDate fechaCaducidad, double precioDistribuidor, double precioVentaPublico, int diasQueTardaEnCaducar) {
         this.id = generateID();
         this.proveedor = proveedor;
         this.nombre = nombre;
         this.perecedero = perecedero;
         this.refrigerado = refrigerado;
         this.fechaCaducidad = fechaCaducidad;
+        this.precioDistribuidor = precioDistribuidor;
+        this.precioVentaPublico = precioVentaPublico;
+        this.diasQueTardaEnCaducar = diasQueTardaEnCaducar;
     }
+    //Constructor para MERCAHOME de producto que NO caduca
+    public Producto( Distribuidor proveedor, String nombre, boolean perecedero, boolean refrigerado,
+            double precioDistribuidor, double precioVentaPublico) {
+        this.id = generateID();
+        this.proveedor = proveedor;
+        this.nombre = nombre;
+        this.perecedero = perecedero;
+        this.refrigerado = refrigerado;
+        this.precioDistribuidor = precioDistribuidor;
+        this.precioVentaPublico = precioVentaPublico;
+    }
+    
+    //constructor para distribuidor en el caso de que SI tenga fecha de caducidad
+    public Producto( Distribuidor proveedor, String nombre, boolean perecedero, boolean refrigerado,
+            double precioDistribuidor, int diasQueTardaEnCaducar) {
+        this.id = generateID();
+        this.proveedor = proveedor;
+        this.nombre = nombre;
+        this.perecedero = perecedero;
+        this.refrigerado = refrigerado;
+        this.precioDistribuidor = precioDistribuidor;
+        this.diasQueTardaEnCaducar = diasQueTardaEnCaducar;
+    }
+    //constructor para distribuidor en el caso de que NO tenga fecha de caducidad
+    public Producto( Distribuidor proveedor, String nombre, boolean perecedero, boolean refrigerado,
+            double precioDistribuidor) {
+        this.id = generateID();
+        this.proveedor = proveedor;
+        this.nombre = nombre;
+        this.perecedero = perecedero;
+        this.refrigerado = refrigerado;
+        this.precioDistribuidor = precioDistribuidor;
+    }  
+
+    public void mostrarParaDistribuidor(){}
+    public void mostrarParaCliente(){}
     
     public int getId() {
         return id;
@@ -61,7 +107,26 @@ public class Producto {
     public void setFechaCaducidad(LocalDate fechaCaducidad) {
         this.fechaCaducidad = fechaCaducidad;
     }
-    
+    public double getPrecioDistribuidor() {
+        return precioDistribuidor;
+    }
+    public void setPrecioDistribuidor(double precioDistribuidor) {
+        this.precioDistribuidor = precioDistribuidor;
+    }
+
+    public double getPrecioVentaPublico() {
+        return precioVentaPublico;
+    }
+    public void setPrecioVentaPublico(double precioVentaPublico) {
+        this.precioVentaPublico = precioVentaPublico;
+    }
+    public int getDiasQueTardaEnCaducar() {
+        return diasQueTardaEnCaducar;
+    }
+    public void setDiasQueTardaEnCaducar(int diasQueTardaEnCaducar) {
+        this.diasQueTardaEnCaducar = diasQueTardaEnCaducar;
+    }
+
     private static int generateID() {
         IDgenerator++;
         return IDgenerator;

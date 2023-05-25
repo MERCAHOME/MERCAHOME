@@ -28,7 +28,10 @@ public class Supermercado extends EstablecimientoPropio {
         } catch (Exception e) {
             return false;
         }
+        
     }
+
+    
 
     public Vehiculo devolverVehiculoDisponible(){
         //método no creado, solo para no dar error en otras clases

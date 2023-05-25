@@ -25,6 +25,8 @@ public interface Herramientas {
 
     pedirString(): Solicita al usuario que ingrese una cadena de texto y realiza validaciones en la entrada.
 
+    pedirDoublePositivo(): Solicita al usuario un número double positivo y realiza sus validaciones.
+
     limpiarPantalla(): Limpia la pantalla imprimiendo líneas en blanco.                                                                                                                                                                          */
     public static String crearDNI(){
         String dni = "";
@@ -162,9 +164,37 @@ public interface Herramientas {
             return pedirString();
         }
     }
+    public static double pedirDoublePositivo() {
+        try {
+            String numero = sc.nextLine();
+            double numeroDouble = Double.parseDouble(numero);
+            if (numeroDouble < 0) {
+                throw new NumeroInvalidoException("El número introducido es menor que 0.");
+            }
+            return numeroDouble;
+        } catch (NumberFormatException e) {
+            System.err.println("Error: El valor introducido no es un número válido.");
+            System.out.println("Introduzca el número de nuevo");
+            System.out.print("Número: ");
+            return pedirDoublePositivo();
+        } catch (NumeroInvalidoException e) {
+            System.err.println("Error: " + e.getLocalizedMessage());
+            System.out.println("Introduzca el número de nuevo");
+            System.out.print("Número: ");
+            return pedirDoublePositivo();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error inesperado");
+            System.out.println("Introduzca el número de nuevo");
+            System.out.print("Número: ");
+            return pedirDoublePositivo();
+        }
+    }
+    
     public static void limpiarPantalla(){
         for (int i = 0; i < 50; i++) {
             System.out.println("");
         }
     }
+    
 }

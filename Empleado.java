@@ -99,7 +99,7 @@ public class Empleado extends Persona implements Herramientas {
                     
                     System.out.println("No se puede dar de alta a este trabajador como conductor.");
                     System.out.println("Solo se pueden agregar conductores a los supermercados");
-                    System.out.println("Eliga otra posición para "+ super.getNombre() + " " + super.getApellidos()+".");
+                    System.out.println("Eliga otro cargo para "+ super.getNombre() + " " + super.getApellidos()+".");
                     altaEmpleado(establecimientodeEmpleado);
                 }
                 break;

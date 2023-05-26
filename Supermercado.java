@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Supermercado extends EstablecimientoPropio {
+
     private ArrayList<Pedido> pedidos;
     private ArrayList<Vehiculo> vehiculos;
     private ArrayList<Producto> stock;
@@ -131,7 +132,17 @@ public class Supermercado extends EstablecimientoPropio {
             String horarioDia = entry.getValue();
             System.out.println(dia + ": " + horarioDia);
         }
+
+        
+    public void eliminarProductoSupermercadoYEmpresa(Producto productoAEliminar){
+        empresa.getStock().remove(productoAEliminar);
+        stock.remove(productoAEliminar);
     }
+    public void agregarProductoSupermercadoYEmpresa(Producto producto){
+        empresa.getStock().add( producto);
+        stock.add( producto);
+    }
+}
 }
 /*
  

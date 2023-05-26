@@ -2,13 +2,35 @@ import java.util.ArrayList;
 
 public class Nevera {
     private int capacidad;
-    private int temperatura;
+    private double temperatura;
     private ArrayList<Producto> productos;
-    
-    public Nevera(int capacidad, int temperatura) {
-        this.capacidad = capacidad;
-        this.temperatura = temperatura;
+
+    private static int generadordenumerodeneveras = 0;
+
+    public Nevera() {
+        generadordenumerodeneveras++;
+        System.out.println("Cuantos productos caben en esta nevera?");
+        System.out.print("Cantidad: ");
+        this.capacidad = generadordenumerodeneveras;
+        this.temperatura = 2;
         this.productos = new ArrayList<>();
+    }
+
+
+    public boolean agregarproducto(Producto producto){
+     
+        if(productos.size < capacidad){
+            productos.add(producto);
+            sout
+            return true;
+
+        }else{
+
+            return false;
+        }
+
+
+   
     }
     
     public int getCapacidad() {

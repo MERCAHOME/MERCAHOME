@@ -1,14 +1,21 @@
 import java.util.ArrayList;
 
-public class Estanteria {
+public class Estanteria implements Herramientas{
     private int numeroEstanteria;
     private int capacidad;
     private ArrayList<Producto> productos;
     private int niveles;
     
-    public Estanteria(int numeroEstanteria, int capacidad, int niveles) {
-        this.numeroEstanteria = numeroEstanteria;
-        this.capacidad = capacidad;
+    private static int generadordenumerodeestanteria = 0;
+
+    public Estanteria() {
+        generadordenumerodeestanteria++;
+        this.numeroEstanteria = generadordenumerodeestanteria;
+        System.out.println("Cuantos productos caben en esta estantería?");
+        System.out.print("Cantidad: ");
+        this.capacidad = Herramientas.pedirEnteroPositivo();
+        System.out.println("Cuantos niveles tiene esta estantería?");
+         System.out.print("Niveles: ");
         this.niveles = niveles;
         this.productos = new ArrayList<>();
     }

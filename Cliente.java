@@ -5,18 +5,28 @@ public class Cliente extends Persona {
     private ArrayList<Pedido> pedidos;
     private ArrayList<Factura> facturas;
     private int pedidoEnCurso;
-    private int distanciaEnKmHastaSupermercado;
     
-    public Cliente(String DNI, int numeroDeTelefono, TipoDeCliente tipoDeCliente,
-                   int distanciaEnKmHastaSupermercado) {
-        this.tipoDeCliente = tipoDeCliente;
-        this.pedidos = new ArrayList<>();
-        this.facturas = new ArrayList<>();
+    public Cliente() {
+        this.tipoDeCliente = TipoDeCliente.STANDARD;
+        this.pedidos = new ArrayList<Pedido>();
+        this.facturas = new ArrayList<Factura>();
         this.pedidoEnCurso = 0;
-        this.distanciaEnKmHastaSupermercado = distanciaEnKmHastaSupermercado;
     }
 
-    // JACK OA
+    public void mostrarFacturas(){
+        if (facturas.size()>0) {
+            
+        }else{
+            System.out.println(super.getNombre()+" "+super.getApellidos()+" no tiene ninguna factura asociada todavía");
+        }
+    }
+    public void mostrarPedidos(){
+        if (pedidos.size()>0) {
+            
+        }else{
+            System.out.println(super.getNombre()+" "+super.getApellidos()+" no tiene ningun pedido asociado todavía");
+        }
+    }
     
     public TipoDeCliente getTipoDeCliente() {
         return tipoDeCliente;
@@ -49,12 +59,10 @@ public class Cliente extends Persona {
     public void setPedidoEnCurso(int pedidoEnCurso) {
         this.pedidoEnCurso = pedidoEnCurso;
     }
-    
-    public int getDistanciaEnKmHastaSupermercado() {
-        return distanciaEnKmHastaSupermercado;
-    }
-    
-    public void setDistanciaEnKmHastaSupermercado(int distanciaEnKmHastaSupermercado) {
-        this.distanciaEnKmHastaSupermercado = distanciaEnKmHastaSupermercado;
+
+    public enum TipoDeCliente {
+        STANDARD,
+        PREMIUM,
+        VIP
     }
 }

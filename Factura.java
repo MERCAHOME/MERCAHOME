@@ -24,6 +24,8 @@ public class Factura {
         this.id = generateID();
     }
     
+    public void mostrarFactura(){}
+
     public ArrayList<Producto> getProductos() {
         return productos;
     }

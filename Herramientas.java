@@ -85,7 +85,16 @@ public interface Herramientas {
         }
 
     }
-
+    public static String ajustarTamanioString(String cadena, int tamanio){
+        if (cadena.length()<tamanio) {
+            for (int i = 0; i < tamanio-cadena.length()/ 2.7; i++) {
+                cadena = cadena+"_";
+            }  
+        }else{
+            cadena=cadena.substring(0, tamanio-3)+"...";
+        }
+        return cadena;
+    }
     
 
     public static int crearMenu(String[]titulos,String[]opciones){

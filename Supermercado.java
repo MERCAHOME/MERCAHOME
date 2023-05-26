@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Supermercado extends EstablecimientoPropio {
+
     private ArrayList<Pedido> pedidos;
     private ArrayList<Vehiculo> vehiculos;
     private ArrayList<Producto> stock;
@@ -84,5 +85,13 @@ public class Supermercado extends EstablecimientoPropio {
     
     public void setHorasDisParaPedidos(ArrayList<HorarioPedido> horasDisParaPedidos) {
         this.horasDisParaPedidos = horasDisParaPedidos;
+    }
+    public void eliminarProductoSupermercadoYEmpresa(Producto productoAEliminar){
+        empresa.getStock().remove(productoAEliminar);
+        stock.remove(productoAEliminar);
+    }
+    public void agregarProductoSupermercadoYEmpresa(Producto producto){
+        empresa.getStock().add( producto);
+        stock.add( producto);
     }
 }

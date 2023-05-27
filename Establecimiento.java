@@ -4,11 +4,11 @@ public class Establecimiento {
     private Ubicacion ubicacion;
     private Horario horarioPublico;
     
-    public Establecimiento(String CIF, int numeroDeTelefono, Ubicacion ubicacion, Horario horarioPublico) {
-        this.CIF = CIF;
-        this.numeroDeTelefono = numeroDeTelefono;
-        this.ubicacion = ubicacion;
-        this.horarioPublico = horarioPublico;
+    public Establecimiento() {
+        this.CIF = "CIF";
+        this.numeroDeTelefono = 66;
+        this.ubicacion = new Ubicacion("p", "CIF", "CIF", "CIF", "CIF", "CIF");
+        this.horarioPublico = new Horario();
     }
     
     public String getCIF() {

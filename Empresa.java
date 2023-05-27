@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public class Empresa extends EstablecimientoPropio {
+    //Necesito un método que me muestre los proveedores y productos que distribuyen(Almacén)boolean, si hay almenos uno true, si se da error o no hay false;
+    //Necesito un método Proveedor que me retorne un proveedor(Almacén),si se da algun error o no existen proveedores o lo que sea devolver null;
     private final String nombre;
     private ArrayList<Supermercado> supermercados;
     private ArrayList<Empleado> trabajadores;
@@ -15,7 +17,6 @@ public class Empresa extends EstablecimientoPropio {
     public Empresa(String CIF, int numeroDeTelefono, Ubicacion ubicacion, Horario horarioPublico,
                    Empleado gerente, ArrayList<Empleado> encargados, ArrayList<Empleado> trabajadores,
                    String nombre) {
-        super(CIF, numeroDeTelefono, ubicacion, horarioPublico, gerente, encargados, trabajadores);
         this.nombre = nombre;
         this.supermercados = new ArrayList<>();
         this.trabajadores = new ArrayList<>();
@@ -27,6 +28,25 @@ public class Empresa extends EstablecimientoPropio {
         this.descuentos = new ArrayList<>();
         this.stock = new ArrayList<>();
     }
+    //No está hecho, solo está para que no de error
+    public boolean mostrarProveedoresYProductoQueDistribuye(){
+        return true;
+    }
+    //No está hecho tampoco
+    public Distribuidor devolverProveedor(){
+        return new Distribuidor(nombre, nombre, getNumeroDeTelefono(), getUbicacion(), getHorarioPublico(), nombre);
+    }
+    //No está hecho, preguntar al usuario cual es el almacen que quiere para su supermercado
+    public Almacen devolverAlmacen(){
+        return new Almacen(this);
+    }
+    //no hecho
+    public ArrayList<Vehiculo> darVehiculosASupermercados(int cantidad){
+        //crea tantos vehiculos como te pidan los añades a tu arraylist y me los devuelves en un arraylist
+        return new ArrayList<>(null);
+    }
+
+    //fin
     
     public String getNombre() {
         return nombre;

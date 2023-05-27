@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Supermercado extends EstablecimientoPropio {
-
+    //todo lo que es new arraylist hay que crearlo y meterlo en un archivo
     private ArrayList<Pedido> pedidos;
     private ArrayList<Vehiculo> vehiculos;
     private ArrayList<Producto> stock;
@@ -10,19 +11,40 @@ public class Supermercado extends EstablecimientoPropio {
     private Horario horarioPublico;
     private ArrayList<HorarioPedido> horasDisParaPedidos;
     
-    public Supermercado(String CIF, int numeroDeTelefono, Ubicacion ubicacion, Horario horarioPublico,
-                        Empleado gerente, ArrayList<Empleado> encargados, ArrayList<Empleado> trabajadores,
-                        Empresa empresa, Almacen almacen) {
-        super(CIF, numeroDeTelefono, ubicacion, horarioPublico, gerente, encargados, trabajadores);
+    public Supermercado(Empresa empresa) {
         this.pedidos = new ArrayList<>();
         this.vehiculos = new ArrayList<>();
+        if (agregarVehiculos()) {
+            System.out.println("Vehículos agregados con éxito!");
+        }else{
+            System.out.println("No se han podido agregar los vehículos, contacte con el administrador");
+        }
         this.stock = new ArrayList<>();
         this.empresa = empresa;
-        this.almacen = almacen;
+        this.almacen = empresa.devolverAlmacen();
+        //a ver como hace esto jack
         this.horarioPublico = horarioPublico;
+        //a ver como hace esto jack
         this.horasDisParaPedidos = new ArrayList<>();
     }
+    //Hacer persistente
+    public boolean agregarVehiculos(){
+        try {
+            System.out.println("Cuantos vehiculos desea agregar a este supermercado?");
+            System.out.print("Respuesta: ");
+            int cantidad = Herramientas.pedirEnteroPositivo();
+            ArrayList<Vehiculo> vehiculosAagregar = empresa.darVehiculosASupermercados(cantidad);
+            Iterator<Vehiculo> vehiculoIterador = vehiculosAagregar.iterator();
+            while (vehiculoIterador.hasNext()) {
+                vehiculos.add(vehiculoIterador.next());
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
+    //Depende de como sea la clase vehiculo
     public boolean vehiculosDisponibles(){
         try {
             return true;
@@ -33,7 +55,7 @@ public class Supermercado extends EstablecimientoPropio {
     }
 
     
-
+    //depende de como sea la clase vehiculo
     public Vehiculo devolverVehiculoDisponible(){
         //método no creado, solo para no dar error en otras clases
         return new Vehiculo(getCIF());

@@ -1,17 +1,29 @@
 import java.util.ArrayList;
 
 public class Estanteria {
+        //Cuando se agrega o elimina un producto se modifica su cantidad de espacioDisponible
+
     private int numeroEstanteria;
     private int capacidad;
     private ArrayList<Producto> productos;
     private int niveles;
     
-    public Estanteria(int numeroEstanteria, int capacidad, int niveles) {
-        this.numeroEstanteria = numeroEstanteria;
-        this.capacidad = capacidad;
-        this.niveles = niveles;
+    public Estanteria() {
+        this.numeroEstanteria = 1;
+        this.capacidad = 1;
+        this.niveles = 1;
         this.productos = new ArrayList<>();
     }
+    //necesito esto:
+    public Estanteria(int capacidad, int niveles){
+        //gestion de añadir niveles y capacidad
+    }
+    //no implementado
+    public int getespacioDisponible(){
+        return 1;
+    }
+
+    //fin de lo que necesito
     
     public int getNumeroEstanteria() {
         return numeroEstanteria;

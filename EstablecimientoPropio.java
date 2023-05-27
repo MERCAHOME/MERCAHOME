@@ -5,12 +5,10 @@ public class EstablecimientoPropio extends Establecimiento {
     private ArrayList<Empleado> encargados;
     private ArrayList<Empleado> trabajadores;
     
-    public EstablecimientoPropio(String CIF, int numeroDeTelefono, Ubicacion ubicacion, Horario horarioPublico,
-                                 Empleado gerente, ArrayList<Empleado> encargados, ArrayList<Empleado> trabajadores) {
-        super(CIF, numeroDeTelefono, ubicacion, horarioPublico);
-        this.gerente = gerente;
-        this.encargados = encargados;
-        this.trabajadores = trabajadores;
+    public EstablecimientoPropio() {
+        this.gerente = new Empleado(null);
+        this.encargados = null;
+        this.trabajadores = null;
     }
     
     public Empleado getGerente() {

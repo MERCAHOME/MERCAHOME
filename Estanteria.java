@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+//Crear una interface para estanteria y nevera
 public class Estanteria implements Herramientas{
     private int numeroEstanteria;
     private int capacidad;
@@ -50,7 +50,13 @@ public class Estanteria implements Herramientas{
             return false;
         }  
     }
-    
+    public boolean contieneProducto(Producto producto){
+        if (productos.contains(producto)) {
+            return true;
+        } else {
+            return false;
+        }        
+    }
     public int getNumeroEstanteria() {
         return numeroEstanteria;
     }

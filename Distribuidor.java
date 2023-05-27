@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Distribuidor extends Establecimiento implements Herramientas {
+public class Distribuidor extends Establecimiento {
     //Si cambia jack el ID de producto cambiar el método de eliminar producto/retornarUnProducto
     private String nombre;
     private String email;

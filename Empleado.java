@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Empleado extends Persona implements Herramientas {
+public class Empleado extends Persona {
     //Se puede poner plus de salario por tiempo dado de alta
     //Dar de alta vehiculos y gente a su cargo en el metodo establecerTipoDeEmpleado();
     //ImplementarHorarios

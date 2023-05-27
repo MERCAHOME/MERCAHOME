@@ -6,11 +6,6 @@ public class Nevera {
     private int temperatura;
     private ArrayList<Producto> productos;
     
-    public Nevera() {
-        this.capacidad = 10;
-        this.temperatura = 10;
-        this.productos = new ArrayList<>();
-    }
     //necesito lo siguiente:
     public Nevera(int capacidad){
         //realizar gestiones de añadir capacidad

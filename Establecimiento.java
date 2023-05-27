@@ -1,4 +1,4 @@
-public class Establecimiento {
+public class Establecimiento implements Herramientas{
     private final String CIF;
     private int numeroDeTelefono;
     private Ubicacion ubicacion;
@@ -7,10 +7,13 @@ public class Establecimiento {
     public Establecimiento() {
        
         System.out.println("Indica el CIF del Establecimiento");
-        this.CIF = CIF;
-        this.numeroDeTelefono = numeroDeTelefono;
-        this.ubicacion = ubicacion;
+        System.out.print("CIF: ");
+        this.CIF = Herramientas.pedirString();
+        this.numeroDeTelefono = Herramientas.crearNumeroDeTelefono();
+        this.ubicacion = Herramientas.crearUbicacion();
+        //Cuando Jack haga el horario publico
         this.horarioPublico = horarioPublico;
+    
     }
     
     public String getCIF() {

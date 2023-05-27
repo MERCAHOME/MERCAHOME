@@ -1,15 +1,12 @@
 import java.util.ArrayList;
 
 public class Estanteria implements Herramientas{
-        //Cuando se agrega o elimina un producto se modifica su cantidad de espacioDisponible
-
     private int numeroEstanteria;
     private int capacidad;
     private ArrayList<Producto> productos;
     private int niveles;
-    
     private static int generadordenumerodeestanteria = 0;
-
+    
     public Estanteria() {
         generadordenumerodeestanteria++;
         this.numeroEstanteria = generadordenumerodeestanteria;
@@ -21,16 +18,38 @@ public class Estanteria implements Herramientas{
         this.niveles = niveles;
         this.productos = new ArrayList<>();
     }
-    //necesito esto:
+    
     public Estanteria(int capacidad, int niveles){
-        //gestion de añadir niveles y capacidad
+        generadordenumerodeestanteria++;
+        this.numeroEstanteria = generadordenumerodeestanteria;
+        this.capacidad = capacidad;
+        this.niveles = niveles;
+        this.productos = new ArrayList<>();
     }
-    //no implementado
+    
     public int getespacioDisponible(){
-        return 1;
+        return capacidad - productos.size();
     }
-
-    //fin de lo que necesito
+    
+    public boolean agregarProducto(Producto producto){
+        if (productos.size() < capacidad) {
+            productos.add(producto);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean eliminarProducto(Producto producto){
+        try {
+            productos.remove(producto);
+            return true;
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("se ha producido un error al eliminar el producto de la estantería, contacte con el administrador");
+            return false;
+        }  
+    }
     
     public int getNumeroEstanteria() {
         return numeroEstanteria;

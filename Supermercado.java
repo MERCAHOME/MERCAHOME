@@ -112,7 +112,7 @@ public class Supermercado extends EstablecimientoPropio {
 
     //Añadido por adrian
   //Metodos para dar de alta un trabajador
-    private List<Trabajador> trabajadores;
+   /*  private List<Trabajador> trabajadores;
 
     public Supermercado() {
         trabajadores = new ArrayList<>();
@@ -152,8 +152,7 @@ public class Supermercado extends EstablecimientoPropio {
             String dia = entry.getKey();
             String horarioDia = entry.getValue();
             System.out.println(dia + ": " + horarioDia);
-        }
-
+        } */
         
     public void eliminarProductoSupermercadoYEmpresa(Producto productoAEliminar){
         empresa.getStock().remove(productoAEliminar);
@@ -164,7 +163,7 @@ public class Supermercado extends EstablecimientoPropio {
         stock.add( producto);
     }
 }
-}
+
 /*
  
 

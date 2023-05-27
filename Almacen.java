@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Almacen extends EstablecimientoPropio implements Stock, Herramientas {
     //ctrl+z de nevera, estanteria,establecimiento, y establecimientopropio y empresa
@@ -76,7 +77,125 @@ public class Almacen extends EstablecimientoPropio implements Stock, Herramienta
         }
         
     }
-    
+    //Falta persistencia
+    public boolean agregarProducto(){
+        if (empresa.mostrarProveedoresYProductoQueDistribuye()) {
+            Distribuidor distribuidor = empresa.devolverProveedor();
+            if (distribuidor!=null) {
+                distribuidor.mostrarProductosQueDistribuye();
+                System.out.println("De el producto que va a agregar cuantos va a necesitar?");
+                System.out.println("Cantidad: ");
+                int cantidad = Herramientas.pedirEnteroPositivo();
+                int tipoDeProducto =0;
+                do {
+                    System.out.println("Va a ser este producto refrigerado?");
+                    System.out.println("1- Si");
+                    System.out.println("2- No");
+                    System.out.print("Respuesta: ");
+                    tipoDeProducto = Herramientas.pedirEnteroPositivo();
+                    if (tipoDeProducto<1||tipoDeProducto>2) {
+                        System.out.println("Error, solo puede responder '1' o '2'.");
+                    }
+                } while (tipoDeProducto<1||tipoDeProducto>2);
+                int espacioDisponible =0;
+                if (tipoDeProducto==1) {
+                    for (Nevera frigo : neveras) {
+                        espacioDisponible = espacioDisponible+ frigo.getespacioDisponible();
+                    }
+                }else{
+                    for (Estanteria estanteria : estanterias) {
+                        espacioDisponible = espacioDisponible + estanteria.getespacioDisponible();
+                    }
+                }
+                if (espacioDisponible>=cantidad) {
+                    System.out.println("PONIENDO EN CONTACTO CON EL DISTRIBUIDOR");
+                    ArrayList<Producto> productosComprados = distribuidor.comprarMasDeUnProducto();
+                    Iterator<Producto> iteradorDeProducto = productosComprados.iterator();
+                    while (iteradorDeProducto.hasNext()) {
+                        if (!agregarProductoAquíEnEmpresaYEstanteriaONevera(iteradorDeProducto.next())) {
+                            System.out.println("Se ha producido un error agregando un producto");
+                        }
+                    }
+                    
+                    return true;
+
+                }else{
+                    System.out.println("No hay suficiente espacio para tantos productos");
+                    System.out.println("Cancelando compra...");
+                    return false;
+                }
+                
+            } else {
+                System.out.println("No se ha podido contactar con el proveedor, contacte con el administrador.");
+                return false;
+            }
+        }else{
+            System.out.println("Parece que la empresa no tiene ningún distribuidor o no se ha podido acceder a ellos");
+            System.out.println("No se va a poder agregar ningún producto, contacte con el administrador");
+            return false;
+        }
+        
+    }
+    //Hacer el método persistente
+    public boolean agregarProductoAquíEnEmpresaYEstanteriaONevera(Producto producto){
+        try {
+            if (producto.isRefrigerado()) {
+                agregarProductoANevera(producto);
+            }else{
+                agregarProductoAEstanteria(producto);
+            }
+            agregarProductoAquíYEnEmpresa(producto);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    //Hacer método persistente
+    //Método no hecho
+    public boolean agregarProductoANevera(Producto producto){
+        return true;
+    }
+     //Hacer método persistente
+    //Método no hecho
+    public boolean agregarProductoAEstanteria(Producto producto){
+        return true;
+    }
+      //Hacer método persistente
+    //Método no hecho
+    public boolean agregarProductoAquíYEnEmpresa(Producto producto){
+        return true;
+    }
+    //Hacer el método persistente
+    public boolean eliminarProductoAquíEnEmpresaYEstanteriaONevera(Producto producto){
+        try {
+            if (producto.isRefrigerado()) {
+                eliminarProductoANevera(producto);
+            }else{
+                eliminarProductoAEstanteria(producto);
+            }
+            eliminarProductoAquíYEnEmpresa(producto);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    //Hacer método persistente
+    //Método no hecho
+    public boolean eliminarProductoANevera(Producto producto){
+        return true;
+    }
+     //Hacer método persistente
+    //Método no hecho
+    public boolean eliminarProductoAEstanteria(Producto producto){
+        return true;
+    }
+      //Hacer método persistente
+    //Método no hecho
+    public boolean eliminarProductoAquíYEnEmpresa(Producto producto){
+        return true;
+    }
     public ArrayList<Producto> getStock() {
         return stock;
     }

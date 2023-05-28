@@ -1,7 +1,9 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Empleado extends Persona implements Herramientas {
+public class Empleado extends Persona {
+    //Comprobar que no exista un trabajador con el mismo dni ya dado de alta en empresa
+    //crear método mostrar
     //Se puede poner plus de salario por tiempo dado de alta
     //Dar de alta vehiculos y gente a su cargo en el metodo establecerTipoDeEmpleado();
     //ImplementarHorarios
@@ -118,6 +120,11 @@ public class Empleado extends Persona implements Herramientas {
             default:
                 break;
         }
+    }
+
+    public void mostrarNombreYDNI(){
+        System.out.println("Nombre: " +this.getNombre());
+        System.out.println("Dni: "+this.getDNI());
     }
 
     public LocalDate getFechaDeAlta() {

@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Producto {
     private static int IDgenerator = 0;
@@ -130,5 +131,22 @@ public class Producto {
     private static int generateID() {
         IDgenerator++;
         return IDgenerator;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Producto producto = (Producto) obj;
+        return nombre.equals(producto.nombre);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre);
     }
 }

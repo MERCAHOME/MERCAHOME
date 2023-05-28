@@ -1,5 +1,5 @@
 public interface Stock {
-    void agregarProducto(Producto producto);
-    void eliminarProducto(Producto producto);
+    boolean agregarProducto(Producto producto);
+    boolean eliminarProducto(Producto producto);
     int obtenerCantidadProductos();
 }

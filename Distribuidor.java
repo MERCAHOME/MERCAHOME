@@ -7,9 +7,10 @@ public class Distribuidor extends Establecimiento {
     private String nombre;
     private String email;
     private ArrayList<Producto> productosQueDistribuye = new ArrayList<>();
-    
+    //terminar el constructor
     public Distribuidor(String nombreDistribuidor, String CIF, int numeroDeTelefono, Ubicacion ubicacion, Horario horarioPublico, String email) {
         super(CIF, numeroDeTelefono, ubicacion, horarioPublico);
+        System.out.println("Cual es el email");
         this.email = email;
         this.nombre = nombreDistribuidor;
     }

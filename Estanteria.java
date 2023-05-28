@@ -1,30 +1,62 @@
 import java.util.ArrayList;
-
-public class Estanteria {
-        //Cuando se agrega o elimina un producto se modifica su cantidad de espacioDisponible
-
+//Crear una interface para estanteria y nevera
+public class Estanteria implements Herramientas{
     private int numeroEstanteria;
     private int capacidad;
     private ArrayList<Producto> productos;
     private int niveles;
+    private static int generadordenumerodeestanteria = 0;
     
     public Estanteria() {
-        this.numeroEstanteria = 1;
-        this.capacidad = 1;
-        this.niveles = 1;
+        generadordenumerodeestanteria++;
+        this.numeroEstanteria = generadordenumerodeestanteria;
+        System.out.println("Cuantos productos caben en esta estantería?");
+        System.out.print("Cantidad: ");
+        this.capacidad = Herramientas.pedirEnteroPositivo();
+        System.out.println("Cuantos niveles tiene esta estantería?");
+         System.out.print("Niveles: ");
+        this.niveles = niveles;
         this.productos = new ArrayList<>();
     }
-    //necesito esto:
-    public Estanteria(int capacidad, int niveles){
-        //gestion de añadir niveles y capacidad
-    }
-    //no implementado
-    public int getespacioDisponible(){
-        return 1;
-    }
-
-    //fin de lo que necesito
     
+    public Estanteria(int capacidad, int niveles){
+        generadordenumerodeestanteria++;
+        this.numeroEstanteria = generadordenumerodeestanteria;
+        this.capacidad = capacidad;
+        this.niveles = niveles;
+        this.productos = new ArrayList<>();
+    }
+    
+    public int getespacioDisponible(){
+        return capacidad - productos.size();
+    }
+    
+    public boolean agregarProducto(Producto producto){
+        if (productos.size() < capacidad) {
+            productos.add(producto);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean eliminarProducto(Producto producto){
+        try {
+            productos.remove(producto);
+            return true;
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("se ha producido un error al eliminar el producto de la estantería, contacte con el administrador");
+            return false;
+        }  
+    }
+    public boolean contieneProducto(Producto producto){
+        if (productos.contains(producto)) {
+            return true;
+        } else {
+            return false;
+        }        
+    }
     public int getNumeroEstanteria() {
         return numeroEstanteria;
     }
@@ -57,3 +89,4 @@ public class Estanteria {
         this.niveles = niveles;
     }
 }
+

@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 //metodo que talle el nom a maxim 24 caracters
+//agregar factura y pedido a el super
 public class Pedido implements Herramientas {
     private ArrayList<Producto> productos = new ArrayList<>();
     private double total;

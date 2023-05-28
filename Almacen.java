@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Almacen extends EstablecimientoPropio implements Stock, Herramientas {
-    //ctrl+z de nevera, estanteria,establecimiento, y establecimientopropio y empresa
-
+public class Almacen extends EstablecimientoPropio implements Stock {
     //Se puede crear un método para eliminar estanterias y neveras teniendo en cuenta que etén vacias, cambiando los productos de sitio en caso de que no
     private ArrayList<Producto> stock;
     private final Empresa empresa;
@@ -112,7 +110,7 @@ public class Almacen extends EstablecimientoPropio implements Stock, Herramienta
                     ArrayList<Producto> productosComprados = distribuidor.comprarMasDeUnProducto();
                     Iterator<Producto> iteradorDeProducto = productosComprados.iterator();
                     while (iteradorDeProducto.hasNext()) {
-                        if (!agregarProductoAquíEnEmpresaYEstanteriaONevera(iteradorDeProducto.next())) {
+                        if (!agregarProducto(iteradorDeProducto.next())) {
                             System.out.println("Se ha producido un error agregando un producto");
                         }
                     }
@@ -137,7 +135,7 @@ public class Almacen extends EstablecimientoPropio implements Stock, Herramienta
         
     }
     //Hacer el método persistente
-    public boolean agregarProductoAquíEnEmpresaYEstanteriaONevera(Producto producto){
+    public boolean agregarProducto(Producto producto){
         try {
             if (producto.isRefrigerado()) {
                 agregarProductoANevera(producto);
@@ -152,22 +150,51 @@ public class Almacen extends EstablecimientoPropio implements Stock, Herramienta
         }
     }
     //Hacer método persistente
-    //Método no hecho
     public boolean agregarProductoANevera(Producto producto){
-        return true;
+        Iterator <Nevera> controlNeveras = neveras.iterator();
+        while (controlNeveras.hasNext()) {
+            Nevera mercNevera = controlNeveras.next();
+            if (mercNevera.getCapacidad() >= 1) {
+                mercNevera.agregarproducto(producto);
+                return true;
+            }
+        }
+        return false;
     }
      //Hacer método persistente
-    //Método no hecho
     public boolean agregarProductoAEstanteria(Producto producto){
-        return true;
+        Iterator <Estanteria> controlEstanterias = estanterias.iterator();
+        while (controlEstanterias.hasNext()) {
+          Estanteria mercEstanteria = controlEstanterias.next();
+            if (mercEstanteria.getCapacidad() >= 1) {
+                mercEstanteria.agregarProducto(producto);
+                return true;
+            }
+        }
+        return false;
     }
       //Hacer método persistente
     //Método no hecho
     public boolean agregarProductoAquíYEnEmpresa(Producto producto){
+        try {
+            stock.add(producto);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Se ha producido un error al agregar el producto al stock del supermercado");
+            return false;
+        }
+        try {
+            empresa.getStock().add(producto);
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Se ha producido un error al agregar el producto al stock de la empresa");
+            return false;
+        }
         return true;
     }
     //Hacer el método persistente
-    public boolean eliminarProductoAquíEnEmpresaYEstanteriaONevera(Producto producto){
+    public boolean eliminarProducto(Producto producto){
         try {
             if (producto.isRefrigerado()) {
                 eliminarProductoANevera(producto);
@@ -182,18 +209,50 @@ public class Almacen extends EstablecimientoPropio implements Stock, Herramienta
         }
     }
     //Hacer método persistente
-    //Método no hecho
     public boolean eliminarProductoANevera(Producto producto){
-        return true;
+        
+        Iterator <Nevera> controlNeveras = neveras.iterator();
+        while (controlNeveras.hasNext()) {
+          Nevera mercNevera = controlNeveras.next();
+            if (mercNevera.contieneProducto(producto)) {
+                mercNevera.eliminarProducto(producto);
+                return true;
+            }
+        }
+        return false;
     }
      //Hacer método persistente
-    //Método no hecho
     public boolean eliminarProductoAEstanteria(Producto producto){
-        return true;
+        
+        Iterator <Estanteria> controlEstanterias = estanterias.iterator();
+        while (controlEstanterias.hasNext()) {
+          Estanteria mercEstanteria = controlEstanterias.next();
+            if (mercEstanteria.contieneProducto(producto)) {
+                mercEstanteria.eliminarProducto(producto);
+                return true;
+            }
+        }
+        return false;
     }
       //Hacer método persistente
     //Método no hecho
     public boolean eliminarProductoAquíYEnEmpresa(Producto producto){
+        
+        try {
+            stock.remove(producto);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Se ha producido un error al agregar el producto al stock del supermercado");
+            return false;
+        }
+        try {
+            empresa.getStock().remove(producto);
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Se ha producido un error al agregar el producto al stock de la empresa");
+            return false;
+        }
         return true;
     }
     public ArrayList<Producto> getStock() {
@@ -222,16 +281,6 @@ public class Almacen extends EstablecimientoPropio implements Stock, Herramienta
     
     public void setNeveras(ArrayList<Nevera> neveras) {
         this.neveras = neveras;
-    }
-    
-    @Override
-    public void agregarProducto(Producto producto) {
-        stock.add(producto);
-    }
-    
-    @Override
-    public void eliminarProducto(Producto producto) {
-        stock.remove(producto);
     }
     
     @Override

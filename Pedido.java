@@ -2,7 +2,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 //metodo que talle el nom a maxim 24 caracters
-//agregar factura y pedido a el super
+//agregar factura y pedido a el super empresa y cliente
+//agregar descuento
+//al consultar el estado de el pedido d¡se ha de modificar su estado dependiendo de la fecha actual
 public class Pedido implements Herramientas {
     private ArrayList<Producto> productos = new ArrayList<>();
     private double total;
@@ -16,6 +18,7 @@ public class Pedido implements Herramientas {
     private LocalDateTime horaDeEntrega;
     private EstadoDePedido estadoDePedido;
     private int distanciaEnKmHastaSupermercado;
+    private Descuento descuento;
 
     public Pedido(Supermercado supermercado) {
         this.id = generateID();
@@ -82,7 +85,7 @@ public class Pedido implements Herramientas {
 
                     break;
                 case 0:
-
+                    //preguntar por descuento
                     break;
                 default:
                     System.out.println("Error, no puede introducir un número menor que 0 o mayor que 3");

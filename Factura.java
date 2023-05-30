@@ -3,72 +3,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Factura {
-    private static ArrayList<Producto> productos = new ArrayList<>();
+    private ArrayList<Producto> productos = new ArrayList<>();
     private double totalSinIva;
     private double totalConIva;
-    private double totalConIvaYTransporte;
+    private double totalConTransporte;
     private final Cliente cliente;
-    private static LocalDate fecha;
+    private LocalDate fecha;
     private static int IDgenerator = 0;
-    private static int id;
+    private int id;
     private Establecimiento emisor;
-    private int cantidad;
+    private Descuento descuento = null;
+    private double costoTransporte;
 
-    // Factura puede u no tener descuento
-    // dependiendo del cliente tendra un descuento, otro o ninguno.
-    // sumar precioTransporte
-
-    // TOTAL incluye (IVA, TRANSPORTE (antes del iva))
-    
-    public Factura(ArrayList<Producto> productos, double totalSinIva, double totalConIva, double totalConIvaYTransporte,
-                   Cliente cliente, LocalDate fecha, Establecimiento emisor, double precioTransporte) {
+    public Factura(ArrayList<Producto> productos, Cliente cliente, LocalDate fecha, Establecimiento emisor,
+            double precioTransporte, double costoTransporte) {
         this.productos = productos;
-        this.totalSinIva = totalSinIva;
-        this.totalConIva = totalConIva;
-        this.totalConIvaYTransporte = totalConIvaYTransporte;
         this.cliente = cliente;
         this.fecha = fecha;
         this.emisor = emisor;
         this.id = generateID();
     }
 
-    public void mostrarFactura(){
-        System.out.println("FACTURA\n");
-        System.out.println("NÚMERO DE PEDIDO: " + getId());
-        System.out.println("\nFECHA: " + getFecha());
-        System.out.println("*****************************************************************************************\n\n");
-        System.out.println("De "+ emisor.getUbicacion() + "\nCIF Establecimiento: " + emisor.getCIF() + "\nTelefono: " + emisor.getNumeroDeTelefono());
-        System.out.println("Para " + cliente.getNombre() + " " + cliente.getApellidos());
-        System.out.println("*****************************************************************************************\n\n");
-        System.out.print("Descripcio                          Cantidad          Precio unidad          Importe");
-        for (Producto producto : productos) {
-            System.out.println(producto.getNombre() + "        " + cantidad + "          PRECIO           PRECIO TOTAL");
-        }
-        System.out.println("*****************************************************************************************\n\n");
-
+    public Factura(ArrayList<Producto> productos, Cliente cliente, LocalDate fecha, Establecimiento emisor,
+            double precioTransporte, Descuento descuento, double costoTransporte) {
+        this.productos = productos;
+        this.cliente = cliente;
+        this.fecha = fecha;
+        this.emisor = emisor;
+        this.id = generateID();
+        this.descuento = descuento;
     }
-    
-    public static void main(String[] args) {
-        productos.add(new Producto(null, "ye", false, false, id));
-        productos.add(new Producto(null, "ye", false, false, id));
-        productos.add(new Producto(null, "ye", false, false, id));
 
-        /*System.out.println("FACTURA\n");
-        System.out.println("NÚMERO DE PEDIDO: 4");
-        System.out.println("\nFECHA: 24/04/2023");
-        System.out.println("*****************************************************************************************\n\n");
-        System.out.println("De València, 54\nCIF Establecimiento: 876543fFfg\nTelefono: 948763477");
-        System.out.println("Para Erick Ramsdale ");
-        System.out.println("*****************************************************************************************\n\n");
-        System.out.println("DESCRIPCION                          CANTIDAD          PRECIO UNIDAD          IMPORTE\n");
-        System.out.println("Camiseta                                 4                 8.00                24.00€");
-        System.out.println("Chaqueta                                 2                12.00                24.00€");
-        System.out.println("Abrigo                                   5                40.00               200.00€");
-        System.out.println("Calcetines                               10                2.00                20.00€");
-
-
-        System.out.println("*****************************************************************************************\n\n");*/
-        
+    public static void mostrar() {
         ArrayList<String> nombresVistos = new ArrayList<>(); // Para evitar mostrar duplicados
 
         System.out.println("*********************************************************************");
@@ -78,8 +44,8 @@ public class Factura {
         System.out.println("\nFECHA: " + getFecha());
 
         System.out.println("*********************************************************************");
-        //System.out.println("PRODUCTO                PRECIO        ID        CANTIDAD");
-        System.out.printf("| %-24s | %-14s | %-10s | %-8s |%n", "PRODUCTO", "PRECIO", "ID", "CANTIDAD");
+        // System.out.println("PRODUCTO PRECIO ID CANTIDAD");
+        System.out.printf("| %-24s | %-14s | %-10s | %-8s |%n", "PRODUCTO", "PRECIO", "CANTIDAD", "TOTAL");
         System.out.printf("| %-24s | %-14s | %-10s | %-8s |%n", " ", " ", " ", " ");
         for (Producto producto : productos) {
             if (!nombresVistos.contains(producto.getNombre())) {
@@ -88,88 +54,121 @@ public class Factura {
                 double precioProducto = producto.getPrecioVentaPublico();
                 int idProducto = producto.getId();
                 int cantidadProducto = cantidad(productos, producto);
-                //System.out.println(nombreProducto + precioProducto + idProducto + cantidadProducto);
-                System.out.printf("| %-24s | %-14.2f | %-10d | %-8d |%n", nombreProducto, precioProducto, idProducto, cantidadProducto);
+                double totalProducto = cantidadProducto * precioProducto;
+                totalSinIva = totalSinIva + totalProducto;
+                System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", nombreProducto, precioProducto,
+                        cantidadProducto, totalProducto);
             }
         }
+        totalConTransporte = totalSinIva + costoTransporte;
+        totalConIva = totalConTransporte + (totalConTransporte * 0.21);
+        System.out.println("*********************************************************************");
+
+        System.out.printf("| %-26s  %-14.2s  %-10s | %-8.2f |%n", "TOTAL SIN IVA ", " ", " ", totalSinIva);
+        System.out.printf("| %-26s  %-14.2s  %-10s | %-8.2f |%n", "TOTAL CON TRANSPORTE ", " ", " ",
+                totalConTransporte);
+        double totalConDescuento;
+        if (descuento != null) {
+            if (descuento instanceof DescuentoPorcentual) {
+                totalConDescuento = totalConTransporte
+                        - (totalConTransporte * ((DescuentoPorcentual) descuento).getPorcentajeDescuento());
+            } else {
+                totalConDescuento = totalConTransporte - ((DescuentoCantidad) descuento).getCantidadDescuento();
+            }
+            System.out.printf("| %-26s  %-14.2s  %-10s | %-8.2f |%n", "TOTAL CON TRANSPORTE ", " ", " ",
+                    totalConDescuento);
+        }
+        System.out.printf("| %-26s  %-14.2s  %-10s | %-8.2f |%n", "TOTAL CON IVA ", " ", " ", totalConIva);
 
         System.out.println("*********************************************************************");
     }
 
-    public static int cantidad(ArrayList productos, Producto producto){
+    public static int cantidad(ArrayList productos, Producto producto) {
         return Collections.frequency(productos, producto);
-
     }
 
-    public boolean anyadirProducto(Producto producto){
+    public boolean anyadirProducto(Producto producto) {
         if (!productos.contains(producto)) {
             if (productos.add(producto)) {
                 return true;
-            } 
+            }
             return false;
-        } else{
+        } else {
             return false;
         }
     }
 
-    public boolean eliminarProducto(){
-        //comprovar q existix per a poder eliminar
-        return true;
+    public boolean eliminarProducto(Producto producto) {
+        if (!productos.contains(producto)) {
+            if (productos.remove(producto)) {
+                return true;
+            }
+            return false;
+        } else {
+            return false;
+        }
     }
 
-    
     public ArrayList<Producto> getProductos() {
         return productos;
     }
-    
+
+    public double getCostoTransporte() {
+        return costoTransporte;
+    }
+
+    public void setCostoTransporte(double costoTransporte) {
+        this.costoTransporte = costoTransporte;
+    }
+
     public double getTotalSinIva() {
         return totalSinIva;
     }
-    
+
     public void setTotalSinIva(double totalSinIva) {
         this.totalSinIva = totalSinIva;
     }
-    
+
     public double getTotalConIva() {
         return totalConIva;
     }
-    
+
     public void setTotalConIva(double totalConIva) {
         this.totalConIva = totalConIva;
     }
-    
-    public double getTotalConIvaYTransporte() {
-        return totalConIvaYTransporte;
+
+    public double getTotalConTransporte() {
+        return totalConTransporte;
     }
-    
-    public void setTotalConIvaYTransporte(double totalConIvaYTransporte) {
-        this.totalConIvaYTransporte = totalConIvaYTransporte;
+
+    public void setTotalConTransporte(double totalConTransporte) {
+        this.totalConTransporte = totalConTransporte;
     }
-    
+
     public Cliente getCliente() {
         return cliente;
     }
-    
+
     public static LocalDate getFecha() {
         return fecha;
     }
-    
+
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
-    
+
     public static int getId() {
         return id;
     }
-    
+
     public Establecimiento getEmisor() {
         return emisor;
     }
-    
+
     public void setEmisor(Establecimiento emisor) {
         this.emisor = emisor;
     }
-    
+
     private static int generateID() {
         IDgenerator++;
         return IDgenerator;

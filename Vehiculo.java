@@ -1,14 +1,22 @@
 public class Vehiculo {
     private final String matricula;
     private boolean repartiendo;
-    private boolean tieneConductorManyana = true;
-    private boolean tieneConductorTarde = true;
-    private Empleado conductorManyana;    
+    private boolean tieneConductorManyana = false;
+    private boolean tieneConductorTarde = false;
+    private Empleado conductorManyana;
     private Empleado conductorTarde;
 
-    //metodos
-    //disponibilitat. Si un dels booleanos (tiene) esta en true, torna true. BOOLEAN
-    //    
+    public Vehiculo(String matricula) {
+        this.matricula = matricula;
+        this.repartiendo = false;
+    }
+
+    public boolean estaDisponible() {
+        if (tieneConductorManyana || tieneConductorTarde) {
+            return true;
+        }
+        return false;
+    }
 
     public boolean isTieneConductorManyana() {
         return tieneConductorManyana;
@@ -17,6 +25,7 @@ public class Vehiculo {
     public void setTieneConductorManyana(boolean tieneConductorManyana) {
         this.tieneConductorManyana = tieneConductorManyana;
     }
+
     public boolean isTieneConductorTarde() {
         return tieneConductorTarde;
     }
@@ -32,7 +41,7 @@ public class Vehiculo {
     public void setConductorManyana(Empleado conductorManyana) {
         this.conductorManyana = conductorManyana;
     }
-    
+
     public Empleado getConductorTarde() {
         return conductorTarde;
     }
@@ -41,23 +50,19 @@ public class Vehiculo {
         this.conductorTarde = conductorTarde;
     }
 
-    public Vehiculo(String matricula) {
-        this.matricula = matricula;
-        this.repartiendo = false;
-    }
-
     public String getMatricula() {
         return matricula;
     }
-    
+
     public boolean isRepartiendo() {
         return repartiendo;
     }
-    
+
     public void setRepartiendo(boolean repartiendo) {
         this.repartiendo = repartiendo;
     }
-    public int asignarHorario(){
-       return 1;//o 0 mañana, 1 para tardes
+
+    public int asignarHorario() {
+        return 1;// o 0 mañana, 1 para tardes
     }
 }

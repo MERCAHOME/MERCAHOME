@@ -114,6 +114,7 @@ public class Factura {
 
     public boolean eliminarProducto(){
         //comprovar q existix per a poder eliminar
+        return true;
     }
 
     

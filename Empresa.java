@@ -34,7 +34,7 @@ public class Empresa extends EstablecimientoPropio {
     }
     //No está hecho tampoco
     public Distribuidor devolverProveedor(){
-        return new Distribuidor(nombre, nombre, getNumeroDeTelefono(), getUbicacion(), getHorarioPublico(), nombre);
+        return new Distribuidor();
     }
     //No está hecho, preguntar al usuario cual es el almacen que quiere para su supermercado
     public Almacen devolverAlmacen(){

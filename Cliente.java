@@ -5,7 +5,9 @@ public class Cliente extends Persona {
     private ArrayList<Pedido> pedidos;
     private ArrayList<Factura> facturas;
     private int pedidoEnCurso;
-    
+    //El tipo de cliente ha de cambiar dependiendo de el dinero que se gaste
+    //implementar métodos de mostrar
+    //crear método de realizar pedido
     public Cliente() {
         this.tipoDeCliente = TipoDeCliente.STANDARD;
         this.pedidos = new ArrayList<Pedido>();

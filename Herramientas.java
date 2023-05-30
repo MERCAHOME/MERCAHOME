@@ -71,6 +71,27 @@ public interface Herramientas {
 
     }
 
+    public static  String crearEmail(){
+        try {
+            System.out.println("Indique el correo electrónico");
+            System.out.println("Email: ");
+            String email = pedirString();
+            if (!email.matches("^[A-Za-z0-9+_.-]+@[a-zA-Z]+\\.[a-zA-Z]+$")) {
+                throw new EmailInvalidoexception("El email introducido no cumple con el patrón de validación");
+            }
+            return email;
+        } catch (EmailInvalidoexception e) {
+            System.err.println("Error: "+e.getMessage());
+            System.out.println("Introduzca un email válido");
+            return crearEmail();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error inesperado");
+            System.out.println("Introduzca un email válido");
+            return crearEmail();
+        }
+    }
+
     public static int crearNumeroDeTelefono() {
         int numeroDeTelefono = 0;
         String telefonoString = "";

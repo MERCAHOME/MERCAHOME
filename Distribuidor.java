@@ -2,17 +2,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Distribuidor extends Establecimiento {
+public class Distribuidor extends Establecimiento implements Herramientas {
     //Si cambia jack el ID de producto cambiar el método de eliminar producto/retornarUnProducto
     private String nombre;
     private String email;
     private ArrayList<Producto> productosQueDistribuye = new ArrayList<>();
     //terminar el constructor
-    public Distribuidor(String nombreDistribuidor, String CIF, int numeroDeTelefono, Ubicacion ubicacion, Horario horarioPublico, String email) {
-        super(CIF, numeroDeTelefono, ubicacion, horarioPublico);
-        System.out.println("Cual es el email");
-        this.email = email;
-        this.nombre = nombreDistribuidor;
+    public Distribuidor() {
+        System.out.println("Indique el nombre de el distribuidor");
+        System.out.print("Distribuidor: ");
+        this.nombre = Herramientas.pedirString();
+        this.email = Herramientas.crearEmail();
     }
     
     public String getEmail() {

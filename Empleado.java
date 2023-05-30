@@ -24,7 +24,8 @@ public class Empleado extends Persona {
             System.out.println("No se ha podido dar de alta al cliente "+ super.getNombre() + " " + super.getApellidos()+".\nContacte con el administrador");
         }
     }
-
+    //crear un horario para cada empleado
+    //para dar de alta a cualquier empleado ha de existir antes un Encargado y un gerente, al momento de crear al empleado hay que asignarselo
     public boolean altaEmpleado(EstablecimientoPropio establecimiento) {
         try {
             this.fechaDeAlta = LocalDate.now();
@@ -66,6 +67,7 @@ public class Empleado extends Persona {
             case 2:
                 this.tipoDeEmpleado = TipoDeEmpledo.ENCARGADO;
                 this.salario = this.tipoDeEmpleado.salario;
+                //poner empleados a su cargo
                 break;
             case 3:
                 this.tipoDeEmpleado = TipoDeEmpledo.CONDUCTOR;

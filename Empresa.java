@@ -3,6 +3,15 @@ import java.util.ArrayList;
 public class Empresa extends EstablecimientoPropio {
     //Necesito un método que me muestre los proveedores y productos que distribuyen(Almacén)boolean, si hay almenos uno true, si se da error o no hay false;
     //Necesito un método Proveedor que me retorne un proveedor(Almacén),si se da algun error o no existen proveedores o lo que sea devolver null;
+
+    // METODOS
+    // Metodos comprobar si existe cliente y trabajador (dato clau igual (ex. DNI)) PASSANT UN CLIENT O TREBALLADOR COM A PARAMETRE
+    // AGREGAR supermecado i almacen mentres no coincidixa la ubicacio.
+    // AGREGAR distribuidor sempre q no existixca amb el mateix cif
+    // AGREGAR descuento
+    // 
+
+
     private final String nombre;
     private ArrayList<Supermercado> supermercados;
     private ArrayList<Empleado> trabajadores;

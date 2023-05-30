@@ -4,7 +4,7 @@ public class Establecimiento implements Herramientas{
     private Ubicacion ubicacion;
     private Horario horarioPublico;
     
-    public Establecimiento(String cIF2, int numeroDeTelefono2, Ubicacion ubicacion2, Horario horarioPublico2) {
+    public Establecimiento() {
        
         System.out.println("Indica el CIF del Establecimiento");
         System.out.print("CIF: ");

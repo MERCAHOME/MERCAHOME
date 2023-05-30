@@ -7,6 +7,9 @@ public class Empleado extends Persona {
     //Se puede poner plus de salario por tiempo dado de alta
     //Dar de alta vehiculos y gente a su cargo en el metodo establecerTipoDeEmpleado();
     //ImplementarHorarios
+
+    // Metodo si existe cliene (dato clau igual (ex. DNI))
+
     private LocalDate fechaDeAlta;
     private Horario horariotrabajador;
     private TipoDeEmpledo tipoDeEmpleado;

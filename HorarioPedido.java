@@ -4,9 +4,18 @@ public class HorarioPedido {
     private boolean[][] horarioSemana;
     private LocalDate diaInicioSemana;
 
+    // 
+//Metodos
+// 2 CONSTRUCTORS 
+    // 1 sin descansos (3 parametros comencar i acabar, localdate dia semana)
+    // 1 con descansos ( 4 parametros comencar acabar, inicio descanso, fin descanso)
+
+    //assesguear que decimal DOUBLE no passa de 60
+    //que no pase de 24
+
     public HorarioPedido(LocalDate diaInicioSemana) {
         this.diaInicioSemana = diaInicioSemana;
-        horarioSemana = new boolean[7][24 * 4]; // 7 días de la semana y 24 horas * 4 intervalos de 15 minutos
+        horarioSemana = new boolean[7][24 * 60]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minutos
     }
 
     public boolean[][] getHorarioSemana() {

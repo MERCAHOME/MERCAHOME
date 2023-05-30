@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Factura {
-    private static ArrayList<Producto> productos;
+    private static ArrayList<Producto> productos = new ArrayList<>();
     private double totalSinIva;
     private double totalConIva;
     private double totalConIvaYTransporte;
@@ -13,9 +13,15 @@ public class Factura {
     private static int id;
     private Establecimiento emisor;
     private int cantidad;
+
+    // Factura puede u no tener descuento
+    // dependiendo del cliente tendra un descuento, otro o ninguno.
+    // sumar precioTransporte
+
+    // TOTAL incluye (IVA, TRANSPORTE (antes del iva))
     
     public Factura(ArrayList<Producto> productos, double totalSinIva, double totalConIva, double totalConIvaYTransporte,
-                   Cliente cliente, LocalDate fecha, Establecimiento emisor) {
+                   Cliente cliente, LocalDate fecha, Establecimiento emisor, double precioTransporte) {
         this.productos = productos;
         this.totalSinIva = totalSinIva;
         this.totalConIva = totalConIva;
@@ -95,12 +101,19 @@ public class Factura {
 
     }
 
-    public void anyadirProducto(){
-        
+    public boolean anyadirProducto(Producto producto){
+        if (!productos.contains(producto)) {
+            if (productos.add(producto)) {
+                return true;
+            } 
+            return false;
+        } else{
+            return false;
+        }
     }
 
-    public void eliminarProducto(){
-        
+    public boolean eliminarProducto(){
+        //comprovar q existix per a poder eliminar
     }
 
     

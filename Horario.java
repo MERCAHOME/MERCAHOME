@@ -1,8 +1,18 @@
 public class Horario {
     private boolean[][] horarioSemana;
 
+    // SUPERMERCASDO, EMPLEADO....  GENERAL
+//Metodos
+// 2 COSNTRUCOTS 
+    // 1 sin descansos (2 parametros comencar i acabar)
+    // 1 con descansos ( 4 parametros comencar acabar, inicio descanso, fin descanso)
+
+    //assesguear que decimal DOUBLE no passa de 60
+    //que no pase de 24 
+
+
     public Horario() {
-        horarioSemana = new boolean[7][24 * 4]; // 7 días de la semana y 24 horas * 4 intervalos de 15 minutos
+        horarioSemana = new boolean[7][24 * 60]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minutos
     }
 
     public boolean[][] getHorarioSemana() {

@@ -13,7 +13,8 @@ public class Producto {
     private double precioVentaPublico;
     private int diasQueTardaEnCaducar=-1;
 
-  
+  // METODOS
+  // esta baix
    
     //Constructor para MERCAHOME de producto que SI caduca
     public Producto( Distribuidor proveedor, String nombre, boolean perecedero, boolean refrigerado,
@@ -62,8 +63,12 @@ public class Producto {
         this.precioDistribuidor = precioDistribuidor;
     }  
 
-    public void mostrarParaDistribuidor(){}
-    public void mostrarParaCliente(){}
+    public void mostrarParaDistribuidor(){ // mostrar id, precioDistribuidor, nombre, if perecedero si o no, if refrigerado si o no 
+
+    }
+    public void mostrarParaCliente(){// id, nombre, precioVentaPub, if perecedero mostrar date caducidad, if refrigerado si o no
+
+    }
     
     public int getId() {
         return id;

@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Horario {
     private boolean[][] horarioSemana;
 
@@ -11,8 +13,8 @@ public class Horario {
     //que no pase de 24 
 
 
-    public Horario() {
-        horarioSemana = new boolean[7][24 * 60]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minutos
+    public Horario(LocalD) {
+        horarioSemana = new boolean[7][24 * 4]; // 7 días de la semana y 24 horas * 4 intervalos de 15 minutos
     }
 
     public boolean[][] getHorarioSemana() {

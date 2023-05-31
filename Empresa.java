@@ -118,25 +118,52 @@ public class Empresa extends EstablecimientoPropio {
         }
     }
 
-    // No está hecho, solo está para que no de error
+    
+    // llistat proveedors i tots els productes q distribuix cada proveedor
     public boolean mostrarProveedoresYProductoQueDistribuye(){
+        for (Distribuidor d : distribuidores) {
+        System.out.println("*********************************************************************");
+        System.out.println("                            PROVEEDOR");
+        System.out.println("*********************************************************************");
+        System.out.println("NOMBRE PROVEEDOR: " + d.getNombre());
+        System.out.println("\nCIF: " + d.getCIF());
+
+        System.out.println("\n*********************************************************************");
+        System.out.println("                            PRODUCTOS");
+        System.out.println("*********************************************************************");
+        System.out.println("*********************************************************************");
+        System.out.printf("| %-24s | %-14s | %-10s | %-8s |%n", "PRODUCTO", "PRECIO", "CANTIDAD", "TOTAL");
+        System.out.printf("| %-24s | %-14s | %-10s | %-8s |%n", " ", " ", " ", " ");
+        ArrayList<Producto> productos = d.getProductosQueDistribuye();
+        for (Producto producto : productos) {
+            if (!nombresVistos.contains(producto.getNombre())) {
+                nombresVistos.add(producto.getNombre());
+                String nombreProducto = producto.getNombre();
+                double precioProducto = producto.getPrecioVentaPublico();
+                int idProducto = producto.getId();
+                int cantidadProducto = cantidad(productos, producto);
+                double totalProducto = cantidadProducto * precioProducto;
+                totalSinIva = totalSinIva + totalProducto;
+                System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", nombreProducto, precioProducto,
+                        cantidadProducto, totalProducto);
+            }
+        }
         return true;
     }
+    }
 
-    // No está hecho tampoco
+    // indicar CIF y retornar distribuidor en ixe cif
     public Distribuidor devolverProveedor(){
         return new Distribuidor();
     }
 
-    // No está hecho, preguntar al usuario cual es el almacen que quiere para su
-    // supermercado
+    // reguntar al usuario cual es el almacen que quiere para su supermercado (demanant cif)
     public Almacen devolverAlmacen(){
         return new Almacen(this);
     }
-
-    // no hecho
+        
+    //crea tantos vehiculos como te pidan los añades a tu arraylist y me los devuelves en un arraylist
     public ArrayList<Vehiculo> darVehiculosASupermercados(int cantidad){
-        //crea tantos vehiculos como te pidan los añades a tu arraylist y me los devuelves en un arraylist
         return new ArrayList<>(null);
     }
 

@@ -15,18 +15,16 @@ public class Factura {
     private Descuento descuento = null;
     private double costoTransporte;
 
-    public Factura(ArrayList<Producto> productos, Cliente cliente, LocalDate fecha, Establecimiento emisor,
+    public Factura( Cliente cliente, LocalDate fecha, Establecimiento emisor,
             double precioTransporte, double costoTransporte) {
-        this.productos = productos;
         this.cliente = cliente;
         this.fecha = fecha;
         this.emisor = emisor;
         this.id = generateID();
     }
 
-    public Factura(ArrayList<Producto> productos, Cliente cliente, LocalDate fecha, Establecimiento emisor,
+    public Factura(Cliente cliente, LocalDate fecha, Establecimiento emisor,
             double precioTransporte, Descuento descuento, double costoTransporte) {
-        this.productos = productos;
         this.cliente = cliente;
         this.fecha = fecha;
         this.emisor = emisor;
@@ -69,8 +67,7 @@ public class Factura {
         double totalConDescuento;
         if (descuento != null) {
             if (descuento instanceof DescuentoPorcentual) {
-                totalConDescuento = totalConTransporte
-                        - (totalConTransporte * ((DescuentoPorcentual) descuento).getPorcentajeDescuento());
+                totalConDescuento = totalConTransporte - (totalConTransporte * (((DescuentoPorcentual) descuento).getPorcentajeDescuento() / 100));
             } else {
                 totalConDescuento = totalConTransporte - ((DescuentoCantidad) descuento).getCantidadDescuento();
             }
@@ -82,23 +79,19 @@ public class Factura {
         System.out.println("*********************************************************************");
     }
 
-    public int cantidad(ArrayList productos, Producto producto) {
+
+    public int cantidad(ArrayList<Producto> productos, Producto producto) {
         return Collections.frequency(productos, producto);
     }
 
     public boolean anyadirProducto(Producto producto) {
-        if (!productos.contains(producto)) {
             if (productos.add(producto)) {
                 return true;
-            }
-            return false;
-        } else {
-            return false;
-        }
+            } else return false;
     }
 
     public boolean eliminarProducto(Producto producto) {
-        if (!productos.contains(producto)) {
+        if (productos.contains(producto)) {
             if (productos.remove(producto)) {
                 return true;
             }

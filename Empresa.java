@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Empresa extends EstablecimientoPropio {
     // Necesito un método que me muestre los proveedores y productos que
@@ -8,7 +9,8 @@ public class Empresa extends EstablecimientoPropio {
     // algun error o no existen proveedores o lo que sea devolver null;
 
     // METODOS
-    // Metodos comprobar si existe cliente y trabajador (dato clau igual (ex. DNI)) PASSANT UN CLIENT O TREBALLADOR COM A PARAMETRE
+    // Metodos comprobar si existe cliente y trabajador (dato clau igual (ex. DNI))
+    // PASSANT UN CLIENT O TREBALLADOR COM A PARAMETRE
     // AGREGAR supermecado i almacen mentres no coincidixa la ubicacio.
     // AGREGAR distribuidor sempre q no existixca amb el mateix cif
     // AGREGAR descuento
@@ -73,22 +75,22 @@ public class Empresa extends EstablecimientoPropio {
         }
     }
 
-    public boolean anyadirEstablecimiento(Almacen almacen){
+    public boolean anyadirEstablecimiento(Almacen almacen) {
         int contador = 0;
         for (Almacen a : almacenes) {
             if (a.getUbicacion().equals(almacen.getUbicacion())) {
                 contador++;
             }
         }
-        if(contador!=0){
-        return false;
-         }else{
-        almacenes.add(almacen);
-        return true;
+        if (contador != 0) {
+            return false;
+        } else {
+            almacenes.add(almacen);
+            return true;
         }
     }
 
-    public boolean agregarDistribuidor(Distribuidor distribuidor){
+    public boolean agregarDistribuidor(Distribuidor distribuidor) {
         int contador = 0;
         for (Distribuidor d : distribuidores) {
             if (d.getCIF().equals(distribuidor.getCIF())) {
@@ -97,13 +99,13 @@ public class Empresa extends EstablecimientoPropio {
         }
         if (contador != 0) {
             return false;
-        } else{
+        } else {
             distribuidores.add(distribuidor);
             return true;
         }
     }
 
-    public boolean agregarDescuento(Descuento descuento){
+    public boolean agregarDescuento(Descuento descuento) {
         int contador = 0;
         for (Descuento descuento2 : descuentos) {
             if (descuento2.equals(descuento)) {
@@ -118,53 +120,72 @@ public class Empresa extends EstablecimientoPropio {
         }
     }
 
-    
-    // llistat proveedors i tots els productes q distribuix cada proveedor
-    public boolean mostrarProveedoresYProductoQueDistribuye(){
-        for (Distribuidor d : distribuidores) {
-        System.out.println("*********************************************************************");
-        System.out.println("                            PROVEEDOR");
-        System.out.println("*********************************************************************");
-        System.out.println("NOMBRE PROVEEDOR: " + d.getNombre());
-        System.out.println("\nCIF: " + d.getCIF());
+    // TALLAR NOMS LLARGS D PRODUCTES
+    public boolean mostrarProveedoresYProductoQueDistribuye() {
+        ArrayList<String> nombresVistos = new ArrayList<>(); // Para evitar mostrar duplicados
 
-        System.out.println("\n*********************************************************************");
-        System.out.println("                            PRODUCTOS");
-        System.out.println("*********************************************************************");
-        System.out.println("*********************************************************************");
-        System.out.printf("| %-24s | %-14s | %-10s | %-8s |%n", "PRODUCTO", "PRECIO", "CANTIDAD", "TOTAL");
-        System.out.printf("| %-24s | %-14s | %-10s | %-8s |%n", " ", " ", " ", " ");
-        ArrayList<Producto> productos = d.getProductosQueDistribuye();
-        for (Producto producto : productos) {
-            if (!nombresVistos.contains(producto.getNombre())) {
-                nombresVistos.add(producto.getNombre());
-                String nombreProducto = producto.getNombre();
-                double precioProducto = producto.getPrecioVentaPublico();
-                int idProducto = producto.getId();
-                int cantidadProducto = cantidad(productos, producto);
-                double totalProducto = cantidadProducto * precioProducto;
-                totalSinIva = totalSinIva + totalProducto;
-                System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", nombreProducto, precioProducto,
-                        cantidadProducto, totalProducto);
+        for (Distribuidor d : distribuidores) {
+            if (d.getProductosQueDistribuye().size() > 0) {
+
+                System.out.println("*****************************************************************************");
+                System.out.println("                            PROVEEDOR");
+                System.out.println("*****************************************************************************");
+                System.out.println("NOMBRE PROVEEDOR: " + d.getNombre());
+                System.out.println("CIF: " + d.getCIF());
+
+                System.out.println("\n*****************************************************************************");
+                System.out.println("                            PRODUCTOS");
+                System.out.println("*****************************************************************************");
+                System.out.printf("| %-24s | %-14s | %-10s | %-16s |%n", "ID", "NOMBRE", "PRECIO", "PERECEDERO");
+                System.out.printf("| %-24s | %-14s | %-10s | %-16s |%n", " ", " ", " ", " ");
+                ArrayList<Producto> productos = d.getProductosQueDistribuye();
+                for (Producto producto : productos) {
+                    if (!nombresVistos.contains(producto.getNombre())) {
+                        nombresVistos.add(producto.getNombre());
+                        String nombreProducto = producto.getNombre();
+                        double precioProducto = producto.getPrecioVentaPublico();
+                        int idProducto = producto.getId();
+                        boolean perecedero = producto.isPerecedero();
+                        String perecederoS = perecedero ? "Es perecedero" : "No es perecedero";
+                        System.out.printf("| %-24s | %-14s | %-10f | %-16s |%n", idProducto, nombreProducto,
+                                precioProducto, perecederoS);
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public Distribuidor devolverProveedor(String cifDistribuidor) {
+        for (Distribuidor distribuidor : distribuidores) {
+            if (distribuidor.getCIF().equals(cifDistribuidor)) {
+                return distribuidor;
             }
         }
-        return true;
-    }
-    }
-
-    // indicar CIF y retornar distribuidor en ixe cif
-    public Distribuidor devolverProveedor(){
-        return new Distribuidor();
+        System.out.println("ERROR: No existe un distribuidor con ese CIF...");
+        return null;
     }
 
-    // reguntar al usuario cual es el almacen que quiere para su supermercado (demanant cif)
-    public Almacen devolverAlmacen(){
-        return new Almacen(this);
+    public Almacen devolverAlmacen(String cifAlmacen) {
+        for (Almacen almacen : almacenes) {
+            if (almacen.getCIF().equals(cifAlmacen)) {
+                return almacen;
+            }
+        }
+        System.out.println("ERROR: No existe un almacen con ese CIF...");
+        return null;
     }
-        
-    //crea tantos vehiculos como te pidan los añades a tu arraylist y me los devuelves en un arraylist
-    public ArrayList<Vehiculo> darVehiculosASupermercados(int cantidad){
-        return new ArrayList<>(null);
+
+    public ArrayList<Vehiculo> darVehiculosASupermercados(int cantidad) {
+        ArrayList<Vehiculo> vehiculosSupermercado = new ArrayList<>();
+        String matricula = " ";
+        for (int i = 0; i < cantidad; i++) {
+            System.out.println("Dime la matricula del vehiculo " + i + ": ");
+            matricula = Herramientas.pedirString();
+            vehiculosSupermercado.add(new Vehiculo(matricula));
+        }
+        return vehiculosSupermercado;
     }
 
     // fin

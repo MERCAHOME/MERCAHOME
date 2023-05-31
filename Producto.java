@@ -67,7 +67,6 @@ public class Producto {
         System.out.println("***************************************************************************");
         System.out.println("                                PRODUCTO");
         System.out.println("***************************************************************************");
-        // System.out.println("PRODUCTO PRECIO ID CANTIDAD");
         System.out.printf("| %-4s | %-24s | %-10s | %-10s | %-11s |%n", "ID", "NOMBRE", "PRECIO", "PERECEDERO",
                 "REFRIGERADO");
         System.out.printf("| %-4s | %-24s | %-10s | %-10s | %-11s |%n", id, nombre, precioDistribuidor, perecedero,

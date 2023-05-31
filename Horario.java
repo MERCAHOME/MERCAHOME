@@ -13,7 +13,7 @@ public class Horario {
     //que no pase de 24 
 
 
-    public Horario(LocalD) {
+    public Horario() {
         horarioSemana = new boolean[7][24 * 4]; // 7 días de la semana y 24 horas * 4 intervalos de 15 minutos
     }
 

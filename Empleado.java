@@ -86,9 +86,9 @@ public class Empleado extends Persona {
                     } else {
                         if (supermercado.vehiculosDisponibles()) {
                             Vehiculo vehiculoDisponible = supermercado.devolverVehiculoDisponible();
-                            if(vehiculoDisponible.asignarHorario() == 0){
+                            if(vehiculoDisponible.asignarHorario(this) == 0){
                                 //Implementar Horario mañanas
-                            }else if (vehiculoDisponible.asignarHorario() == 1) {
+                            }else if (vehiculoDisponible.asignarHorario(this) == 1) {
                                 //implementar Horario tardes
                             }else{
                                 System.out.println("Se ha producido un error al asignar el vehiculo a "+super.getNombre() + " " + super.getApellidos()+" intentelo de nuevo, si sigue teniendo problemas asigne otro cargo al empleado y contacte con el administrador para que lo solucione cuanto antes.");

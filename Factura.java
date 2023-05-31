@@ -34,7 +34,7 @@ public class Factura {
         this.descuento = descuento;
     }
 
-    public static void mostrar() {
+    public void mostrar() {
         ArrayList<String> nombresVistos = new ArrayList<>(); // Para evitar mostrar duplicados
 
         System.out.println("*********************************************************************");
@@ -44,7 +44,6 @@ public class Factura {
         System.out.println("\nFECHA: " + getFecha());
 
         System.out.println("*********************************************************************");
-        // System.out.println("PRODUCTO PRECIO ID CANTIDAD");
         System.out.printf("| %-24s | %-14s | %-10s | %-8s |%n", "PRODUCTO", "PRECIO", "CANTIDAD", "TOTAL");
         System.out.printf("| %-24s | %-14s | %-10s | %-8s |%n", " ", " ", " ", " ");
         for (Producto producto : productos) {
@@ -83,7 +82,7 @@ public class Factura {
         System.out.println("*********************************************************************");
     }
 
-    public static int cantidad(ArrayList productos, Producto producto) {
+    public int cantidad(ArrayList productos, Producto producto) {
         return Collections.frequency(productos, producto);
     }
 
@@ -149,7 +148,7 @@ public class Factura {
         return cliente;
     }
 
-    public static LocalDate getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
@@ -157,7 +156,7 @@ public class Factura {
         this.fecha = fecha;
     }
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 

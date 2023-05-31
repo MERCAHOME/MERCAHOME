@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Vehiculo {
     private final String matricula;
     private boolean repartiendo;

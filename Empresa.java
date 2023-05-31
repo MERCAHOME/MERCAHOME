@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Empresa extends EstablecimientoPropio {
     // Necesito un método que me muestre los proveedores y productos que

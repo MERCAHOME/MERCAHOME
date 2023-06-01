@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class HorarioPedido {
+public class HorarioPedido implements Serializable{
     private boolean[][][] horarioSemana;
     private LocalDate diaInicioSemana;
     private double horaEmpezar;
@@ -15,6 +16,8 @@ public class HorarioPedido {
 
     //assesguear que decimal DOUBLE no passa de 60
     //que no pase de 24
+
+    // CADA UNO DELS VEHICULS OBTENS ELS CONDUCTORS. TINRAN MINIM 1 CONDUCTOR. AGARRAR HORARI DE CADA CONDUCTOR. 
 
     public HorarioPedido(LocalDate diaInicioSemana, ArrayList<Empleado> trabajadores) {
         ArrayList<Vehiculo> vehiculos = new ArrayList<>();

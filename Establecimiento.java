@@ -1,4 +1,6 @@
-public class Establecimiento implements Herramientas{
+import java.io.Serializable;
+
+public class Establecimiento implements Herramientas, Serializable{
     private final String CIF;
     private int numeroDeTelefono;
     private Ubicacion ubicacion;

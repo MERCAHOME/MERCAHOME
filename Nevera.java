@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Nevera {
+public class Nevera implements Serializable {
     // Cuando se agrega o elimina un producto se modifica su cantidad de espacio disponible
     private int capacidad;
     private double temperatura;

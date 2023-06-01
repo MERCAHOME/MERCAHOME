@@ -1,4 +1,6 @@
-public class Vehiculo {
+import java.io.Serializable;
+
+public class Vehiculo implements Serializable {
     private final String matricula;
     private boolean repartiendo;
     private boolean tieneConductorManyana = false;

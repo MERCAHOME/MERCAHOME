@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Producto {
+public class Producto implements Serializable {
     private static int IDgenerator = 0; 
     private int id;
     private Distribuidor proveedor;

@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 //Crear una interface para estanteria y nevera
-public class Estanteria implements Herramientas{
+public class Estanteria implements Herramientas, Serializable{
     private int numeroEstanteria;
     private int capacidad;
     private ArrayList<Producto> productos;

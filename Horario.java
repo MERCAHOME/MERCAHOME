@@ -1,4 +1,6 @@
-public class Horario {
+import java.io.Serializable;
+
+public class Horario implements Serializable {
     private boolean[][] horarioSemana;
     private double horaEmpezar;
     private double horaTerminar;

@@ -62,4 +62,8 @@ public class Ubicacion {
     public void setMasInformacion(String masInformacion) {
         this.masInformacion = masInformacion;
     }
+
+    public String toStringBasic() {
+        return "Pais -> " + pais + ", provincia -> " + provincia + ", localidad -> " + localidad;
+    }
 }

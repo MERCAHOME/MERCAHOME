@@ -16,7 +16,8 @@ public class Supermercado extends EstablecimientoPropio {
     private final Empresa empresa;
     private final Almacen almacen;
     private Horario horarioPublico;
-    
+    //Asegurarse de crear un almacen al arrancar la app minimo, no se puede crear un supermercado si no existe almenos un almacen
+    //Asegurarse que existe siempre almenos un conductor, un encargado, un repartidor, y un trabajador randomX
     public Supermercado(Empresa empresa) {
         this.empresa = empresa;
         this.pedidos = new ArrayList<>();

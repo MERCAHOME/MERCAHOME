@@ -1,9 +1,9 @@
 public class Horario {
     private boolean[][] horarioSemana;
-    double horaEmpezar;
-    double horaTerminar;
-    double inicioDescanso = -1;
-    double finDescanso = -1;
+    private double horaEmpezar;
+    private double horaTerminar;
+    private double inicioDescanso;
+    private double finDescanso;
 
     // SUPERMERCASDO, EMPLEADO.... GENERAL
     // Metodos
@@ -17,133 +17,103 @@ public class Horario {
 
     public Horario(double horaEmpezar, double horaTerminar) {
         horarioSemana = new boolean[7][24 * 60]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minuto
-        for (boolean[] bs : horarioSemana) {
-            for (boolean b : bs) {
-                b = false;
-            }
-        }
-        this.horaEmpezar = horaEmpezar;
-        this.horaTerminar = horaTerminar;
+        this.horaEmpezar = comprobacionHorasYMinutos(horaEmpezar);
+        this.horaTerminar = comprobacionHorasYMinutos(horaTerminar);
     }
 
     public Horario(double horaEmpezar, double horaTerminar, double inicioDescanso, double finDescanso) {
         horarioSemana = new boolean[7][24 * 60]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minuto
-        for (boolean[] bs : horarioSemana) {
-            for (boolean b : bs) {
-                b = false;
-            }
-        }
-        this.horaEmpezar = horaEmpezar;
-        this.horaTerminar = horaTerminar;
-        this.inicioDescanso = inicioDescanso;
-        this.finDescanso = finDescanso;
+        this.horaEmpezar = comprobacionHorasYMinutos(horaEmpezar);
+        this.horaTerminar = comprobacionHorasYMinutos(horaTerminar);
+        this.inicioDescanso = comprobacionHorasYMinutos(inicioDescanso);
+        this.finDescanso = comprobacionHorasYMinutos(finDescanso);
     }
 
     public boolean[][] getHorarioSemana() {
         return horarioSemana;
     }
 
-    public void setHorarioSemana(boolean[][] horarioSemana) {
-        this.horarioSemana = horarioSemana;
-    }
 
-    public boolean isDisponible(int diaSemana, int hora, int minuto) {
+    /*public boolean isDisponible(int diaSemana, int hora, int minuto) {
         comprobacionInts(diaSemana, hora, minuto);
         if (!horarioSemana[diaSemana][hora * 60 + minuto]) {
             return true;
         }
         return false;
-    }
+    }*/
 
-    public void setHorario(int diaSemana, int horaEmpezar, int minutoEmpezar, int horaTerminar, int minutoTerminar) {
-        System.out.println("Comprobando hora empezar...");
-        comprobacionInts(diaSemana, horaEmpezar, minutoEmpezar);
-        System.out.println("Hora empezar valida.");
-        System.out.println("Comprobando hora terminar...");
-        comprobacionInts(diaSemana, horaTerminar, minutoTerminar);
-        System.out.println("Hora termianar valida.\n");
-        int posicionEmpezar = horaEmpezar * 60 + minutoEmpezar;
-        int posicionTerminar = horaTerminar * 60 + minutoTerminar;
-        int comprobador = 0;
-        for (int i = posicionEmpezar; i < posicionTerminar; i++) {
-            if (horarioSemana[diaSemana][i]) {
-                comprobador++;
-            }
-        }
-
-        if (comprobador != 0) {
-            System.out.println("No se ha podido asignar ese horario... Ya esta ocupado.");
-        } else {
-            for (int i = posicionEmpezar; i < posicionTerminar; i++) {
-                horarioSemana[diaSemana][i] = true;
+    private void limpiarHorario() {
+        for (boolean[] bs : horarioSemana) {
+            for (boolean b : bs) {
+                b = false;
             }
         }
     }
 
-    public void setHorario(int diaSemana, int horaEmpezar, int minutoEmpezar, int horaTerminar, int minutoTerminar,
-            int horaInicioDescanso, int minutoInicioDescanso, int horaFinDecanso, int minutoFinDescanso) {
-        System.out.println("Comprobando hora empezar...");
-        comprobacionInts(diaSemana, horaEmpezar, minutoEmpezar);
-        System.out.println("Hora empezar valida.");
-        System.out.println("Comprobando hora terminar...");
-        comprobacionInts(diaSemana, horaTerminar, minutoTerminar);
-        System.out.println("Hora terminar valida.\n");
-        int posicionEmpezar = horaEmpezar * 60 + minutoEmpezar;
-        int posicionTerminar = horaTerminar * 60 + minutoTerminar;
-        int comprobador = 0;
-        for (int i = posicionEmpezar; i < posicionTerminar; i++) {
-            if (horarioSemana[diaSemana][i]) {
-                comprobador++;
+    public void setHorario(double horaEmpezar, double horaTerminar) {
+        limpiarHorario();
+        int horaEmpezarEntero = (int) horaEmpezar;
+        int minutosHoraEmpezar = (int) ((horaEmpezar - horaEmpezarEntero) * 100);
+        int horaEmpezarTotal = (horaEmpezarEntero * 60) + minutosHoraEmpezar;
+
+        int horaTerminarEntero = (int) horaTerminar;
+        int minutosHoraTerminar = (int) ((horaTerminar - horaTerminarEntero) * 100);
+        int horaTerminarTotal = (horaTerminarEntero * 60) + minutosHoraTerminar;
+
+        for (int i = 0; i < 7; i++) {
+            for (int j = horaEmpezarTotal; j < horaTerminarTotal; j++) {
+                horarioSemana[i][j] = true;
             }
         }
-
-        if (comprobador != 0) {
-            System.out.println("No se ha podido asignar ese horario... Ya esta ocupado.");
-        } else {
-            for (int i = posicionEmpezar; i < posicionTerminar; i++) {
-                horarioSemana[diaSemana][i] = true;
-            }
-        }
-
-        System.out.println("Comprobando hora empezar descanso...");
-        comprobacionInts(diaSemana, horaInicioDescanso, minutoInicioDescanso);
-        System.out.println("Hora inicio descanso valida.");
-        System.out.println("Comprobando hora terminar...");
-        comprobacionInts(diaSemana, horaFinDecanso, minutoFinDescanso);
-        System.out.println("Hora terminar descanso valida.\n");
-
-        int posicionInicioDescanso = horaInicioDescanso * 60 + minutoInicioDescanso;
-        int posicionFinDescanso = horaFinDecanso * 60 + minutoFinDescanso;
-        int comprobadorD = 0;
-
-        for (int i = posicionInicioDescanso; i < posicionFinDescanso; i++) {
-            if (!horarioSemana[diaSemana][i]) {
-                comprobadorD++;
-            }
-        }
-
-        if (comprobadorD != 0) {
-            System.out.println("No se ha podido asignar un descanso esas horas... No estan ocupadas...");
-        } else {
-            for (int i = posicionInicioDescanso; i < posicionFinDescanso; i++) {
-                horarioSemana[diaSemana][i] = false;
-            }
-        }
-
     }
 
-    public void comprobacionInts(int diaSemana, int hora, int minuto) {
-        while (diaSemana < 0 || diaSemana > 7) {
-            System.out.println("Dia de la semana entre 1 y 7: ");
-            diaSemana = Herramientas.pedirEnteroPositivo();
+    public void setHorario(double horaEmpezar, double horaTerminar, double inicioDescanso, double finDescanso) {
+        limpiarHorario();
+        int horaEmpezarEntero = (int) horaEmpezar;
+        int minutosHoraEmpezar = (int) ((horaEmpezar - horaEmpezarEntero) * 100);
+        int horaEmpezarTotal = (horaEmpezarEntero * 60) + minutosHoraEmpezar;
+
+        int horaTerminarEntero = (int) horaTerminar;
+        int minutosHoraTerminar = (int) ((horaTerminar - horaTerminarEntero) * 100);
+        int horaTerminarTotal = (horaTerminarEntero * 60) + minutosHoraTerminar;
+
+        for (int i = 0; i < 7; i++) {
+            for (int j = horaEmpezarTotal; j < horaTerminarTotal; j++) {
+                horarioSemana[i][j] = true;
+            }
         }
-        while (hora < 0 || hora > 23) {
-            System.out.println("Hora entre 0 y 23: ");
-            hora = Herramientas.pedirEnteroPositivo();
+
+        int horaEmpezarDescansoEntero = (int) inicioDescanso;
+        int minutosHoraEmpezarDescanso = (int) ((inicioDescanso - horaEmpezarDescansoEntero) * 100);
+        int horaEmpezarDescansoTotal = (horaEmpezarDescansoEntero * 60) + minutosHoraEmpezarDescanso;
+
+        int horaTerminarDescansoEntero = (int) finDescanso;
+        int minutosHoraTerminarDescanso = (int) ((finDescanso - horaTerminarDescansoEntero) * 100);
+        int horaTerminarDescansoTotal = (horaTerminarDescansoEntero * 60) + minutosHoraTerminarDescanso;
+
+        for (int i = 0; i < 7; i++) {
+            for (int j = horaEmpezarDescansoTotal; j < horaTerminarDescansoTotal; j++) {
+                horarioSemana[i][j] = false;
+            }
         }
-        while (minuto < 0 || minuto > 59) {
-            System.out.println("Minuto entre 0 y 59: ");
-            minuto = Herramientas.pedirEnteroPositivo();
+    }
+
+    public double comprobacionHorasYMinutos(double hora) {
+        int horaEntero = (int) hora;
+        if (horaEntero > 23 || horaEntero < 0) {
+            System.out.println("La hora" + hora + " introducida no es correcta");
+            System.out.print("Introduzca una hora válida: ");
+            double nuevaHora = Herramientas.pedirDoublePositivo();
+            return comprobacionHorasYMinutos(nuevaHora);
         }
+
+        if (hora - horaEntero > 59 || hora - horaEntero < 0) {
+            System.out.println("La hora" + hora + " introducida no es correcta");
+            System.out.print("Introduzca una hora válida: ");
+            double nuevaHora = Herramientas.pedirDoublePositivo();
+            return comprobacionHorasYMinutos(nuevaHora);
+        }
+
+        return hora;
     }
 }

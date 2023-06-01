@@ -14,6 +14,7 @@ public class Empresa extends EstablecimientoPropio {
     // AGREGAR distribuidor sempre q no existixca amb el mateix cif
     // AGREGAR descuento
     //
+    // NO PUEDEN HABER DOS ALMACENES EN LA MISMA LOCALIDAD
 
     private final String nombre;
     private ArrayList<Supermercado> supermercados;
@@ -123,8 +124,11 @@ public class Empresa extends EstablecimientoPropio {
     public boolean mostrarProveedoresYProductoQueDistribuye() {
         ArrayList<String> nombresVistos = new ArrayList<>(); // Para evitar mostrar duplicados
 
+        boolean existeAlmenosProductoEnUnProveedor = false;
+
         for (Distribuidor d : distribuidores) {
             if (d.getProductosQueDistribuye().size() > 0) {
+                existeAlmenosProductoEnUnProveedor = true;
 
                 System.out.println("*****************************************************************************");
                 System.out.println("                            PROVEEDOR");
@@ -151,9 +155,13 @@ public class Empresa extends EstablecimientoPropio {
                     }
                 }
             }
-            return true;
+
         }
-        return false;
+        if (existeAlmenosProductoEnUnProveedor) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Distribuidor devolverProveedor(String cifDistribuidor) {
@@ -166,14 +174,54 @@ public class Empresa extends EstablecimientoPropio {
         return null;
     }
 
-    public Almacen devolverAlmacen(String cifAlmacen) {
-        for (Almacen almacen : almacenes) {
-            if (almacen.getCIF().equals(cifAlmacen)) {
-                return almacen;
+    public boolean existeProveedorConCifQueContieneAlmenos1Producto(String cif) {
+
+        for (Distribuidor distribuidor : distribuidores) {
+            if (distribuidor.getCIF().equalsIgnoreCase(cif) && distribuidor.getProductosQueDistribuye().size() > 0) {
+                return true;
             }
         }
-        System.out.println("ERROR: No existe un almacen con ese CIF...");
-        return null;
+        return false;
+
+    }
+
+    public Almacen devolverAlmacen() {
+        // mostrar almacens i fer q trien un cif ASSEGURNANT Q EXISTIXQUEN ALMACENS
+        // ANTES
+        if (almacenes.size() > 0) {
+            
+            String cifAlmacen = "";
+            do {
+                mostrarAlmacenes();
+                System.out.println("Indique el CIF del almacén a operar");
+                System.out.print("CIF: ");
+                cifAlmacen = Herramientas.pedirString();
+                for (Almacen almacen : almacenes) {
+                    if (almacen.getCIF().equalsIgnoreCase(cifAlmacen)) {
+                        return almacen;
+                    }
+                }
+                System.out.println("No existe ningún almacén con el CIF indicado... Indica un CIF válido.");
+            } while (true);
+        } else {
+            System.out.println("No existen almacenes. Contacte con el administrador porfavor.");
+            return null;
+        }
+    }
+
+    private void mostrarAlmacenes() {
+        if (almacenes.size() > 0) {
+            System.out.println("*****************************");
+            System.out.println("           ALMACENES");
+            System.out.println("*****************************");
+            for (Almacen almacen : almacenes) {
+                System.out.println("Ubicacion: " + almacen.getUbicacion().toStringBasic());
+                System.out.println("CIF: " + almacen.getCIF());
+                System.out.println("*****************************");
+            }
+        } else {
+            System.out.println("No existe ningun almacen...");
+        }
     }
 
     public ArrayList<Vehiculo> darVehiculosASupermercados(int cantidad) {

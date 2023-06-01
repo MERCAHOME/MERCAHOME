@@ -78,7 +78,20 @@ public class Almacen extends EstablecimientoPropio implements Stock {
     //Falta persistencia
     public boolean agregarProducto(){
         if (empresa.mostrarProveedoresYProductoQueDistribuye()) {
-            Distribuidor distribuidor = empresa.devolverProveedor();
+            boolean NoRepetir = false;
+            String cif = "";
+            do {
+                System.out.println("Indique el CIF de uno de los proveedores mostrados previamente.");
+                System.out.print("CIF: ");
+                cif = Herramientas.pedirString();
+                NoRepetir = empresa.existeProveedorConCifQueContieneAlmenos1Producto(cif);
+                if (!NoRepetir) {
+                    System.out.println("Parece que no existe ningún distribuidor con este CIF o este proveedor no tiene ningún producto");
+                    System.out.println("Introduzca un CIF válido porfavor");
+                }
+            } while (!NoRepetir);
+
+            Distribuidor distribuidor = empresa.devolverProveedor(cif);
             if (distribuidor!=null) {
                 distribuidor.mostrarProductosQueDistribuye();
                 System.out.println("De el producto que va a agregar cuantos va a necesitar?");
@@ -128,7 +141,7 @@ public class Almacen extends EstablecimientoPropio implements Stock {
                 return false;
             }
         }else{
-            System.out.println("Parece que la empresa no tiene ningún distribuidor o no se ha podido acceder a ellos");
+            System.out.println("Parece que la empresa no tiene ningún distribuidor o ninguno de ellos contiene ningún producto.");
             System.out.println("No se va a poder agregar ningún producto, contacte con el administrador");
             return false;
         }

@@ -235,7 +235,7 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         return false;
     }
       //Hacer método persistente
-    //Método no hecho
+      
     public boolean eliminarProductoAquíYEnEmpresa(Producto producto){
         
         try {
@@ -254,7 +254,9 @@ public class Almacen extends EstablecimientoPropio implements Stock {
             return false;
         }
         return true;
+
     }
+
     public ArrayList<Producto> getStock() {
         return stock;
     }

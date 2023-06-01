@@ -27,7 +27,6 @@ public class HorarioPedido {
         }
 
         //per a cada vehicul, la disponibilitat del seu/s conductor
-        //
 
         this.diaInicioSemana = diaInicioSemana;
         horarioSemana = new boolean[7][24 * 60][vehiculos.size()]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minuto

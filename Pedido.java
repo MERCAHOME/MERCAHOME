@@ -9,7 +9,8 @@ public class Pedido implements Herramientas {
     private ArrayList<Producto> productos = new ArrayList<>();
     private double total;
     private double totalConTransporte;
-    private double totalConTransporteEIVA;
+    private double totalConTransporteYDescuento;
+    private double totalConTransporteDescuentoEIVA;
     private double precioTransporte;
     private Factura factura;
     private static int IDgenerator = 0;
@@ -28,8 +29,10 @@ public class Pedido implements Herramientas {
         this.distanciaEnKmHastaSupermercado = Herramientas.pedirEnteroPositivo();
         if (realizarPedido(supermercado)) {
             System.out.println("Pedido realizado con éxito");
+            this.estadoDePedido = EstadoDePedido.ACEPTADO;
         } else {
             System.out.println("No se ha podido realizar el pedido, contacte con soporte");
+            this.estadoDePedido = EstadoDePedido.RECHAZADO;
         }
     }
 
@@ -239,18 +242,60 @@ public class Pedido implements Herramientas {
     private void mostrarProductosPedidoConTotal(){
         String stringVacio = " ";
         mostrarProductosPedido();
-        System.out.println("                                                  TOTAL");
-        System.out.println(Herramientas.ajustarTamanioString(stringVacio, 50)+sumaTotalProductosPedido());
+        total = carcularTotal();
+        totalConTransporte = carcularTotal()+calcularPrecioTransporte();
+        totalConTransporteYDescuento = calcularTotalConDescuento();
+        double iva = totalConTransporteYDescuento/100*21;
+        totalConTransporteDescuentoEIVA = totalConTransporteYDescuento+iva;
+        System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", "TOTAL", " ", " ", total);
+        System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", "TOTAL CON TRANSPORTE", " ", " ",totalConTransporte );
+        System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", "TOTAL CON DESCUENTO", " ", " ", totalConTransporteYDescuento);
+        System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", "IVA", " ", " ",iva );
+        System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", "TOTAL CON IVA", " ", " ",totalConTransporteDescuentoEIVA );
         System.out.println("*********************************************************************");
 
     }
-    private double sumaTotalProductosPedido(){
+
+    private double calcularTotalConDescuento(){
+        if (this.descuento!=null) {
+            if (descuento instanceof DescuentoCantidad) {
+                DescuentoCantidad descuentoCant = (DescuentoCantidad)descuento;
+                double importeMinimo =  descuentoCant.getImporteMinimo();
+                double cantidadDescuento = descuentoCant.getCantidadDescuento();
+                if (carcularTotal()>=importeMinimo) {
+                    return (carcularTotal()+calcularPrecioTransporte()) - cantidadDescuento;
+                } else {
+                    return (carcularTotal()+calcularPrecioTransporte());
+                }
+            }
+            if (descuento instanceof DescuentoPorcentual) {
+                DescuentoPorcentual descuentoPorc = (DescuentoPorcentual)descuento;
+                double cantidadMaxima = descuentoPorc.getCantidadMaximaDescuento();
+                int porcentaje = descuentoPorc.getPorcentajeDescuento();
+                double cantidadDescuento = (carcularTotal()+calcularPrecioTransporte())/100*porcentaje;
+                if (cantidadDescuento > cantidadMaxima) {
+                    return (carcularTotal()+calcularPrecioTransporte())- cantidadMaxima;
+                } else {
+                    return (carcularTotal()+calcularPrecioTransporte()) - cantidadDescuento;
+                }
+
+            }
+        }
+        return (carcularTotal()+calcularPrecioTransporte()); 
+    }
+
+    private double calcularPrecioTransporte(){
+        precioTransporte = (double)(distanciaEnKmHastaSupermercado)*0.8;
+        return precioTransporte;
+    }
+    private double carcularTotal(){
         double total = 0;
         for (Producto producto : productos) {
-            total = total+producto.getPrecioVentaPublico();
+            total = total+ producto.getPrecioVentaPublico();
         }
         return total;
     }
+ 
 
     private int obtenerCantidadProducto(Producto producto, ArrayList<Producto> stock) {
         int cantidad = 0;
@@ -337,13 +382,11 @@ public class Pedido implements Herramientas {
         this.totalConTransporte = totalConTransporte;
     }
 
-    public double getTotalConTransporteEIVA() {
-        return totalConTransporteEIVA;
+    public double getTotalConTransporteDescuentoEIVA() {
+        return totalConTransporteDescuentoEIVA;
     }
 
-    public void setTotalConTransporteEIVA(double totalConTransporteEIVA) {
-        this.totalConTransporteEIVA = totalConTransporteEIVA;
-    }
+ 
 
     public Factura getFactura() {
         return factura;

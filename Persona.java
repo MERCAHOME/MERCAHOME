@@ -1,4 +1,6 @@
-public class Persona implements Herramientas {
+import java.io.Serializable;
+
+public class Persona implements Herramientas, Serializable {
     private final String DNI;
     private int numeroDeTelefono;
     private String nombre;

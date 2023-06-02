@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Empresa extends EstablecimientoPropio {
@@ -136,13 +137,13 @@ public class Empresa extends EstablecimientoPropio {
                 existeAlmenosProductoEnUnProveedor = true;
 
                 System.out.println("*****************************************************************************");
-                System.out.println("                            PROVEEDOR");
+                System.out.println("                                PROVEEDOR");
                 System.out.println("*****************************************************************************");
                 System.out.println("NOMBRE PROVEEDOR: " + d.getNombre());
                 System.out.println("CIF: " + d.getCIF());
 
                 System.out.println("\n*****************************************************************************");
-                System.out.println("                            PRODUCTOS");
+                System.out.println("                                PRODUCTOS");
                 System.out.println("*****************************************************************************");
                 System.out.printf("| %-24s | %-14s | %-10s | %-16s |%n", "ID", "NOMBRE", "PRECIO", "PERECEDERO");
                 System.out.printf("| %-24s | %-14s | %-10s | %-16s |%n", " ", " ", " ", " ");

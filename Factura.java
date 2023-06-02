@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Factura {
+public class Factura implements Serializable {
     private ArrayList<Producto> productos = new ArrayList<>();
     private double totalSinIva;
     private double totalConIva;

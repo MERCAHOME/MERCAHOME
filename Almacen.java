@@ -3,17 +3,16 @@ import java.util.Iterator;
 
 public class Almacen extends EstablecimientoPropio implements Stock {
     //Se puede crear un método para eliminar estanterias y neveras teniendo en cuenta que etén vacias, cambiando los productos de sitio en caso de que no
-    private ArrayList<Producto> stock;
+    //La capacidad ha decambiar tanto al eliminarlo como al agregar el producto(debería estar ya)
+    private ArrayList<Producto> stock = new ArrayList<>();
     private final Empresa empresa;
-    private ArrayList<Estanteria> estanterias;
+    private ArrayList<Estanteria> estanterias = new ArrayList<>();
     private ArrayList<Nevera> neveras;
+    private ArrayList<Empleado> empleados = new ArrayList<>();
     public int capacidadAlmacen;
-    
+
     public Almacen(Empresa empresa) {
-        this.stock = new ArrayList<>();
         this.empresa = empresa;
-        this.estanterias = new ArrayList<>();
-        this.neveras = new ArrayList<>();
         System.out.println("La capacidad del almacen va a depender de sus estantenrias y neveras");
         System.out.println("Vamos a añadir estanterias y neveras a tu almacén");
         System.out.println("Cuantas estanterias quieres añadir a tu almacén?");
@@ -41,10 +40,10 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         } else {
             System.out.println("No se ha agregado ninguna nevera, contacte con el administrador si no era su intención");
         }
-
+        agregar4Trabajadores();
+        
     }
 
-    //Falta la persistencia
     public boolean agregarNeveras(int cantidad, int capacidad){
         try {
             for (int i = 0; i < cantidad; i++) {
@@ -59,7 +58,8 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         }
 
     }
-    //Falta la persistencia
+    
+    
     public boolean agregarEstanterias(int cantidad, int capacidad, int niveles){
 
         try {
@@ -75,7 +75,8 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         }
         
     }
-    //Falta persistencia
+    
+    
     public boolean agregarProducto(){
         if (empresa.mostrarProveedoresYProductoQueDistribuye()) {
             boolean NoRepetir = false;
@@ -147,6 +148,142 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         }
         
     }
+
+
+
+    public boolean agregar4Trabajadores(){
+
+        try {
+            
+            boolean gerente = false;
+            boolean mozo1 = false;
+            boolean mozo2 = false;
+            boolean encargado = false;
+            Empleado empleadoGerente = null;
+            Empleado empleadoMozo1 = null;
+            Empleado empleadoMozo2 = null;
+            Empleado empleadoEncargado = null;
+    
+            do {
+                if (!gerente) {
+                    System.out.println("Primero ha de dar de alta a un gerente");
+                    do {
+                        empleadoGerente = new Empleado(this,empresa);
+                        if (empleadoGerente.getTipoDeEmpleado() != TipoDeEmpleado.GERENTE) {
+                            empleadoGerente = null;
+                            System.out.println("El empleado generado no es válido");
+                            System.out.println("El empleado que se solicitaba era un gerente");
+                            System.out.println("Introduzca un empleado que si sea gerente");
+                        }
+                    } while (empleadoGerente == null);
+                    gerente = true;
+                }
+                if (!encargado) {
+                    System.out.println("Es necesario dar de alta a un encargado");  
+                    do {
+                        empleadoEncargado = new Empleado(this,empresa);
+                        if (empleadoEncargado.getTipoDeEmpleado() != TipoDeEmpleado.ENCARGADO) {
+                            empleadoEncargado = null;
+                            System.out.println("El empleado generado no es válido");
+                            System.out.println("El empleado que se solicitaba era un encargado");
+                            System.out.println("Introduzca un empleado que si sea encargado");
+                        }
+                    } while (empleadoEncargado == null);
+                    encargado = true;
+                }
+                if (!mozo1) {
+                    System.out.println("Es necesario también dar de alta a un mozo de almacén");
+                    do {
+                        empleadoMozo1 = new Empleado(this,empresa);
+                        if (empleadoMozo1.getTipoDeEmpleado() != TipoDeEmpleado.MOZODEALMACEN) {
+                            empleadoMozo1 = null;
+                            System.out.println("El empleado generado no es válido");
+                            System.out.println("El empleado que se solicitaba era un mozo de almacén");
+                            System.out.println("Introduzca un empleado que si sea mozo de almacén");
+                        }
+                    } while (empleadoMozo1 == null);
+                    mozo1 = true;
+                }
+                if (!mozo2) {
+                    System.out.println("Hay que dar de alta porlomenos otro mozo de almacén");
+                    do {
+                        empleadoMozo2 = new Empleado(this,empresa);
+                        if (empleadoMozo2.getTipoDeEmpleado() != TipoDeEmpleado.CAJERODESUPERMERCADO) {
+                            empleadoMozo2 = null;
+                            System.out.println("El empleado generado no es válido");
+                            System.out.println("El empleado que se solicitaba era un mozo de almacén");
+                            System.out.println("Introduzca un empleado que si sea mozo de almacén");
+                        }
+                    } while (empleadoMozo2 == null);
+                    mozo2 = true;
+                }
+                          
+            } while (!gerente&&!mozo1&&!encargado&&!mozo2);
+            empleadoMozo1.agregarEncargado();
+            empleadoMozo2.agregarEncargado();
+            empresa.getTrabajadores().add(empleadoEncargado);
+            empresa.getTrabajadores().add(empleadoMozo1);
+            empresa.getTrabajadores().add(empleadoMozo2);
+            empresa.getTrabajadores().add(empleadoGerente);
+            empleados.add(empleadoEncargado);
+            empleados.add(empleadoMozo1);
+            empleados.add(empleadoMozo2);
+            empleados.add(empleadoGerente);
+            this.setGerente(empleadoGerente);
+            this.agregarEncargado(empleadoEncargado);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    public void agregarTrabajador(){
+        int respuesta = 0;
+        do {
+            String[] titulos = {
+                "Trabajadores a agregar"
+            };
+            String[] opciones = {
+                "1- Encargado",
+                "2- Mozo de almacén"
+            };
+            respuesta= Herramientas.crearMenu(titulos, opciones);
+            if (respuesta<1||respuesta>2) {
+                System.out.println("Error: solo puede introducir 1 o 2");
+            }
+        } while (respuesta<1||respuesta>2);
+        if (respuesta == 1) {
+            Empleado empleadoEncargado = null;
+            do {
+                empleadoEncargado = new Empleado(this,empresa);
+                if (empleadoEncargado.getTipoDeEmpleado() != TipoDeEmpleado.ENCARGADO) {
+                    empleadoEncargado = null;
+                    System.out.println("El empleado generado no es válido");
+                    System.out.println("El empleado que se solicitaba era un encargado");
+                    System.out.println("Introduzca un empleado que si sea encargado");
+                }
+            } while (empleadoEncargado == null);
+            empresa.getTrabajadores().add(empleadoEncargado);
+            empleados.add(empleadoEncargado);
+        } else {
+            Empleado empleadoMozo = null;
+            do {
+                empleadoMozo = new Empleado(this,empresa);
+                if (empleadoMozo.getTipoDeEmpleado() != TipoDeEmpleado.MOZODEALMACEN) {
+                    empleadoMozo = null;
+                    System.out.println("El empleado generado no es válido");
+                    System.out.println("El empleado que se solicitaba era un mozo de almacén");
+                    System.out.println("Introduzca un empleado que si sea mozo de almacén");
+                }
+            } while (empleadoMozo == null);
+            empleadoMozo.agregarEncargado();
+            empresa.getTrabajadores().add(empleadoMozo);
+            empleados.add(empleadoMozo);
+        }
+    }
+
+
     //Hacer el método persistente
     public boolean agregarProducto(Producto producto){
         try {
@@ -156,6 +293,7 @@ public class Almacen extends EstablecimientoPropio implements Stock {
                 agregarProductoAEstanteria(producto);
             }
             agregarProductoAquíYEnEmpresa(producto);
+            capacidadAlmacen --;
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -215,6 +353,7 @@ public class Almacen extends EstablecimientoPropio implements Stock {
                 eliminarProductoAEstanteria(producto);
             }
             eliminarProductoAquíYEnEmpresa(producto);
+            capacidadAlmacen++;
             return true;
         } catch (Exception e) {
             e.printStackTrace();

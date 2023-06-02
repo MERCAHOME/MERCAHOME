@@ -8,17 +8,7 @@ public class HorarioPedido implements Serializable{
     private double horaEmpezar;
     private double horaTerminar;
 
-    // 
-//Metodos
-// 2 CONSTRUCTORS 
-    // 1 sin descansos (3 parametros comencar i acabar, localdate dia semana)
-    // 1 con descansos ( 4 parametros comencar acabar, inicio descanso, fin descanso)
-
-    //assesguear que decimal DOUBLE no passa de 60
-    //que no pase de 24
-
-    // CADA UNO DELS VEHICULS OBTENS ELS CONDUCTORS. TINRAN MINIM 1 CONDUCTOR. AGARRAR HORARI DE CADA CONDUCTOR. 
-
+    //Si al supermercado se le agrega o elimina un vehiculo se tiene que modificar esto
     public HorarioPedido(LocalDate diaInicioSemana, ArrayList<Empleado> trabajadores) {
         this.diaInicioSemana = diaInicioSemana;
         ArrayList<Vehiculo> vehiculos = new ArrayList<>();
@@ -30,9 +20,7 @@ public class HorarioPedido implements Serializable{
             }
         }
 
-        //per a cada vehicul, la disponibilitat del seu/s conductor
-
-        horarioSemana = new boolean[7][24 * 60][vehiculos.size()]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minuto
+        horarioSemana = new boolean[7][24 * 60][vehiculos.size()]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minuto por la cantidad de vehiculos que pueden realizar el reparto
         int primerTamanio = horarioSemana.length;
         int segundoTamanio = horarioSemana[0].length;
         int tercerTamanio = horarioSemana[0][0].length;

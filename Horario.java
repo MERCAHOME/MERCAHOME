@@ -7,15 +7,6 @@ public class Horario implements Serializable {
     private double inicioDescanso;
     private double finDescanso;
 
-    // SUPERMERCASDO, EMPLEADO.... GENERAL
-    // Metodos
-    // 2 COSNTRUCOTS
-    // 1 sin descansos (2 parametros comencar i acabar)
-    // 1 con descansos ( 4 parametros comencar acabar, inicio descanso, fin
-    // descanso)
-
-    // assesguear que decimal DOUBLE no passa de 60
-    // que no pase de 24
 
     public Horario(double horaEmpezar, double horaTerminar) {
         horarioSemana = new boolean[7][24 * 60]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minuto

@@ -2,14 +2,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Empleado extends Persona {
-    //Comprobar que no exista un trabajador con el mismo dni ya dado de alta en empresa
     //crear método mostrar
     //Se puede poner plus de salario por tiempo dado de alta
-    //Dar de alta vehiculos y gente a su cargo en el metodo establecerTipoDeEmpleado();
-    //ImplementarHorarios
-
-    // Metodo si existe cliene (dato clau igual (ex. DNI))
-
     //Un conductor no puede tener un horario antes o después de las horas del supermercado disponible
 
     private LocalDate fechaDeAlta;
@@ -30,7 +24,7 @@ public class Empleado extends Persona {
             System.out.println("No se ha podido dar de alta al cliente "+ super.getNombre() + " " + super.getApellidos()+".\nContacte con el administrador");
         }
     }
-    //para dar de alta a cualquier empleado ha de existir antes un Encargado y un gerente, al momento de crear al empleado hay que asignarselo
+    
     public boolean altaEmpleado(EstablecimientoPropio establecimiento) {
         try {
             this.fechaDeAlta = LocalDate.now();
@@ -92,8 +86,10 @@ public class Empleado extends Persona {
                             Vehiculo vehiculoDisponible = supermercado.devolverVehiculoDisponible();
                             if(vehiculoDisponible.asignarHorario(this) == 0){
                                 this.horariotrabajador = new Horario(8, 13.59);
+                                agregarEncargado();
                             }else if (vehiculoDisponible.asignarHorario(this) == 1) {
                                 this.horariotrabajador = new Horario(14, 20);
+                                agregarEncargado();
                             }else{
                                 System.out.println("Se ha producido un error al asignar el vehiculo a "+super.getNombre() + " " + super.getApellidos()+" intentelo de nuevo, si sigue teniendo problemas asigne otro cargo al empleado y contacte con el administrador para que lo solucione cuanto antes.");
                                 System.out.println("Establezca otro cargo para "+super.getNombre() + " " + super.getApellidos());
@@ -118,16 +114,19 @@ public class Empleado extends Persona {
                 this.tipoDeEmpleado = TipoDeEmpleado.MOZODEALMACEN;
                 this.salario = this.tipoDeEmpleado.salario;
                 this.horariotrabajador = crearHorario();
+                agregarEncargado();
                 break;
             case 5:
                 this.tipoDeEmpleado = TipoDeEmpleado.CAJERODESUPERMERCADO;
                 this.salario = this.tipoDeEmpleado.salario;
                 this.horariotrabajador = crearHorario();
+                agregarEncargado();
                 break;
             case 6:
                 this.tipoDeEmpleado = TipoDeEmpleado.REPONEDORSUPERMERCADO;
                 this.salario = this.tipoDeEmpleado.salario;
                 this.horariotrabajador = crearHorario();
+                agregarEncargado();
                 break;
             default:
                 break;
@@ -206,6 +205,30 @@ public class Empleado extends Persona {
             return false;
         }
         
+    }
+
+  
+
+    public void agregarEncargado(){
+        if (establecimientodeEmpleado.getEncargados().size()!=1) {
+            if (establecimientodeEmpleado.getEncargados().size()!=0) {
+                establecimientodeEmpleado.mostrarEncargados();
+                System.out.println("Indique el dni de el encargado que desea establecerle al trabajador");
+                System.out.print("DNI: ");
+                String dni = Herramientas.crearDNI();
+                for (Empleado encargado : establecimientodeEmpleado.getEncargados()) {
+                    if (encargado.getDNI().equalsIgnoreCase(dni)) {
+                        this.encargado = encargado;
+                    }
+                }
+                System.out.println("No se ha encontrado ningún encargado con este DNI");
+                System.out.println("Indiquelo de nuevo");
+                agregarEncargado();
+            }
+            
+        }else{
+            this.encargado = establecimientodeEmpleado.getEncargados().get(0);
+        }
     }
 
     public Horario getHorario() {

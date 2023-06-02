@@ -159,7 +159,7 @@ public class Supermercado extends EstablecimientoPropio {
                     gerente = true;
                 }
                 if (!encargado) {
-                    System.out.println("Por último ha de dar de alta a un encargado");  
+                    System.out.println("Es necesario dar de alta a un encargado");  
                     do {
                         empleadoEncargado = new Empleado(this,empresa);
                         if (empleadoEncargado.getTipoDeEmpleado() != TipoDeEmpleado.ENCARGADO) {
@@ -199,6 +199,8 @@ public class Supermercado extends EstablecimientoPropio {
                 }
                           
             } while (!gerente&&!conductor&&!encargado&&!cajero);
+            empleadoCajero.agregarEncargado();
+            empleadoConductor.agregarEncargado();
             empresa.getTrabajadores().add(empleadoEncargado);
             empresa.getTrabajadores().add(empleadoCajero);
             empresa.getTrabajadores().add(empleadoConductor);
@@ -215,6 +217,8 @@ public class Supermercado extends EstablecimientoPropio {
         }
 
     }
+
+    
 
     public boolean altaTrabajador(){
         Empleado empleado = new Empleado(this,empresa);

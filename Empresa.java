@@ -35,6 +35,7 @@ public class Empresa extends EstablecimientoPropio {
     private ArrayList<Pedido> pedidos;
     private ArrayList<Descuento> descuentos;
     private ArrayList<Producto> stock;
+    private ArrayList<Vehiculo> vehiculos;
     
     public Empresa() {
         this.supermercados = new ArrayList<>();
@@ -192,8 +193,7 @@ public class Empresa extends EstablecimientoPropio {
     }
 
     public Almacen devolverAlmacen() {
-        // mostrar almacens i fer q trien un cif ASSEGURNANT Q EXISTIXQUEN ALMACENS
-        // ANTES
+        
         if (almacenes.size() > 0) {
             
             String cifAlmacen = "";
@@ -234,14 +234,23 @@ public class Empresa extends EstablecimientoPropio {
         ArrayList<Vehiculo> vehiculosSupermercado = new ArrayList<>();
         String matricula = " ";
         for (int i = 0; i < cantidad; i++) {
-            System.out.println("Dime la matricula del vehiculo " + i + ": ");
-            matricula = Herramientas.pedirString();
-            vehiculosSupermercado.add(new Vehiculo(matricula));
+            boolean matriculaValida = true;
+            do {
+                matricula = Herramientas.crearMatricula();
+                for (Vehiculo cochVehiculo : vehiculos) {
+                    if (cochVehiculo.getMatricula().equalsIgnoreCase(matricula)) {
+                        matriculaValida = false;
+                        System.out.println("Ya existe un vehiculo con esta matricula dado de alta");
+                        System.out.println("Introduzca la matrícula de nuevo");
+                    }
+                }
+            } while (!matriculaValida);
+            Vehiculo vehiculo = new Vehiculo(matricula);
+            vehiculosSupermercado.add(vehiculo);
+            vehiculos.add(vehiculo);
         }
         return vehiculosSupermercado;
     }
-
-    // fin
 
     public String getNombre() {
         return nombre;

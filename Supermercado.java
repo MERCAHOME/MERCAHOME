@@ -7,40 +7,32 @@ import java.util.Iterator;
 
 public class Supermercado extends EstablecimientoPropio {
     //creaerMétodo que al mostrarPedidos los actualize, si la fecha de entrega ya ha sido que lo modifique
-    private ArrayList<Pedido> pedidos;
-    private ArrayList<Vehiculo> vehiculos;
-    private ArrayList<Producto> stock;
+    private ArrayList<Pedido> pedidos = new ArrayList<>();
+    private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+    private ArrayList<Producto> stock = new ArrayList<>();
     private ArrayList<Factura> facturas = new ArrayList<>();
     private ArrayList<Empleado> empleados = new ArrayList<>();
-    private ArrayList<HorarioPedido> horasDisParaPedidos;
+    private ArrayList<HorarioPedido> horasDisParaPedidos = new ArrayList<>();
     private final Empresa empresa;
     private final Almacen almacen;
-    private Horario horarioPublico;
     //Asegurarse de crear un almacen al arrancar la app minimo, no se puede crear un supermercado si no existe almenos un almacen
     //Asegurarse que existe siempre almenos un conductor, un encargado, un repartidor, y un trabajador randomX
     public Supermercado(Empresa empresa) {
         this.empresa = empresa;
-        this.pedidos = new ArrayList<>();
-        this.vehiculos = new ArrayList<>();
+
         if (agregarVehiculos()) {
             System.out.println("Vehículos agregados con éxito!");
         }else{
             System.out.println("No se han podido agregar los vehículos, contacte con el administrador");
         }
-        this.stock = new ArrayList<>();
+
         this.almacen = empresa.devolverAlmacen();
-        int cantidadTrabajadores = 0;
-        do {
-            System.out.println("Cuantos empleados desea dar de alta al Supermercado?");
-            System.out.print("Cantidad: ");
-            cantidadTrabajadores = Herramientas.pedirEnteroPositivo();
-            if (cantidadTrabajadores<4) {
-                System.out.println("Tienes que dar de alta un mínimo de 4 trabajadores por supermercado");
-            }
-        } while (cantidadTrabajadores<4);
-        darDeAltaVariosTrabajadores(cantidadTrabajadores);
-        //a ver como hace esto jack
-        this.horarioPublico = horarioPublico;
+
+        if (agregar4Trabajadores()) {
+            System.out.println("Se han agregado los trabajadores con éxito");
+        }else{
+            System.out.println("Se ha producido un error agregando los trabajadores contacte con el administrador");
+        }
         //a ver como hace esto jack
         this.horasDisParaPedidos = new ArrayList<>();
     }
@@ -149,6 +141,91 @@ public class Supermercado extends EstablecimientoPropio {
         }
     }
 
+    public boolean agregar4Trabajadores(){
+
+        try {
+            
+            boolean gerente = false;
+            boolean conductor = false;
+            boolean cajero = false;
+            boolean encargado = false;
+            Empleado empleadoGerente = null;
+            Empleado empleadoConductor = null;
+            Empleado empleadoCajero = null;
+            Empleado empleadoEncargado = null;
+    
+            do {
+                if (!gerente) {
+                    System.out.println("Primero ha de dar de alta a un gerente");
+                    do {
+                        empleadoGerente = new Empleado(this);
+                        if (empleadoGerente.getTipoDeEmpleado() != TipoDeEmpleado.GERENTE) {
+                            empleadoGerente = null;
+                            System.out.println("El empleado generado no es válido");
+                            System.out.println("El empleado que se solicitaba era un gerente");
+                            System.out.println("Introduzca un empleado que si sea gerente");
+                        }
+                    } while (empleadoGerente == null);
+                    gerente = true;
+                }
+                if (!conductor) {
+                    System.out.println("Es necesariotambién dar de alta a un conductor");
+                    do {
+                        empleadoConductor = new Empleado(this);
+                        if (empleadoConductor.getTipoDeEmpleado() != TipoDeEmpleado.CONDUCTOR) {
+                            empleadoConductor = null;
+                            System.out.println("El empleado generado no es válido");
+                            System.out.println("El empleado que se solicitaba era un conductor");
+                            System.out.println("Introduzca un empleado que si sea conductor");
+                        }
+                    } while (empleadoConductor == null);
+                    conductor = true;
+                }
+                if (!cajero) {
+                    System.out.println("También necesitarás un cajero");
+                    do {
+                        empleadoCajero = new Empleado(this);
+                        if (empleadoCajero.getTipoDeEmpleado() != TipoDeEmpleado.CAJERODESUPERMERCADO) {
+                            empleadoCajero = null;
+                            System.out.println("El empleado generado no es válido");
+                            System.out.println("El empleado que se solicitaba era un cajero");
+                            System.out.println("Introduzca un empleado que si sea cajero");
+                        }
+                    } while (empleadoCajero == null);
+                    cajero = true;
+                }
+                if (!encargado) {
+                    System.out.println("Por último ha de dar de alta a un encargado");  
+                    do {
+                        empleadoEncargado = new Empleado(this);
+                        if (empleadoEncargado.getTipoDeEmpleado() != TipoDeEmpleado.ENCARGADO) {
+                            empleadoEncargado = null;
+                            System.out.println("El empleado generado no es válido");
+                            System.out.println("El empleado que se solicitaba era un encargado");
+                            System.out.println("Introduzca un empleado que si sea encargado");
+                        }
+                    } while (empleadoEncargado == null);
+                    encargado = true;
+                }
+                          
+            } while (!gerente&&!conductor&&!encargado&&!cajero);
+            empresa.getTrabajadores().add(empleadoEncargado);
+            empresa.getTrabajadores().add(empleadoCajero);
+            empresa.getTrabajadores().add(empleadoConductor);
+            empresa.getTrabajadores().add(empleadoGerente);
+            empleados.add(empleadoEncargado);
+            empleados.add(empleadoCajero);
+            empleados.add(empleadoConductor);
+            empleados.add(empleadoGerente);
+            this.setGerente(empleadoGerente);
+            this.agregarEncargado(empleadoEncargado);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
     public boolean altaTrabajador(){
         Empleado empleado = new Empleado(this);
         try {
@@ -159,7 +236,7 @@ public class Supermercado extends EstablecimientoPropio {
             return false;
         }
     }
-    //Hacer persistente
+   //actualizar horariopedido aqui
     public boolean agregarVehiculos(){
         try {
             System.out.println("Cuantos vehiculos desea agregar a este supermercado?");
@@ -223,14 +300,6 @@ public class Supermercado extends EstablecimientoPropio {
     
     public Almacen getAlmacen() {
         return almacen;
-    }
-    
-    public Horario getHorarioPublico() {
-        return horarioPublico;
-    }
-    
-    public void setHorarioPublico(Horario horarioPublico) {
-        this.horarioPublico = horarioPublico;
     }
     
     public ArrayList<HorarioPedido> getHorasDisParaPedidos() {

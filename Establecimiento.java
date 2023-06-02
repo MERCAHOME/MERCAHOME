@@ -5,17 +5,20 @@ public class Establecimiento implements Herramientas, Serializable{
     private int numeroDeTelefono;
     private Ubicacion ubicacion;
     private Horario horarioPublico;
+    private static int cifGnerator = 12345670;
     
     public Establecimiento() {
-       
-        System.out.println("Indica el CIF del Establecimiento");
-        System.out.print("CIF: ");
-        this.CIF = Herramientas.pedirString();
+        cifGnerator++;
+        this.CIF ="A"+cifGnerator;
         this.numeroDeTelefono = Herramientas.crearNumeroDeTelefono();
         this.ubicacion = Herramientas.crearUbicacion();
-        //Cuando Jack haga el horario publico
-        this.horarioPublico = horarioPublico;
-    
+        System.out.println("A que hora abre este establecimiento?");
+        System.out.print("Hora: ");
+        double horaApertura = Herramientas.pedirDoublePositivo();
+        System.out.println("A que hora cierra este establecimiento?");
+        System.out.print("Hora: ");
+        double horaCierre = Herramientas.pedirDoublePositivo();
+        this.horarioPublico = new Horario(horaApertura,horaCierre);
     }
     
     public String getCIF() {

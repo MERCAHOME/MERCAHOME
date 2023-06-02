@@ -19,6 +19,7 @@ public class Horario {
         horarioSemana = new boolean[7][24 * 60]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minuto
         this.horaEmpezar = comprobacionHorasYMinutos(horaEmpezar);
         this.horaTerminar = comprobacionHorasYMinutos(horaTerminar);
+        setHorario(horaEmpezar, horaTerminar);
     }
 
     public Horario(double horaEmpezar, double horaTerminar, double inicioDescanso, double finDescanso) {
@@ -27,6 +28,12 @@ public class Horario {
         this.horaTerminar = comprobacionHorasYMinutos(horaTerminar);
         this.inicioDescanso = comprobacionHorasYMinutos(inicioDescanso);
         this.finDescanso = comprobacionHorasYMinutos(finDescanso);
+        setHorario(horaEmpezar, horaTerminar, inicioDescanso, finDescanso);
+    }
+
+    public Horario(){
+        horarioSemana = new boolean[7][24 * 60];
+        limpiarHorario();
     }
 
     public boolean[][] getHorarioSemana() {
@@ -43,11 +50,14 @@ public class Horario {
     }*/
 
     private void limpiarHorario() {
-        for (boolean[] bs : horarioSemana) {
-            for (boolean b : bs) {
-                b = false;
+        for (int i = 0; i < horarioSemana.length; i++) {
+            for (int j = 0; j < horarioSemana[0].length; j++) {
+                horarioSemana[i][j]=false;
             }
         }
+    }
+    public void setHorarioSemana(boolean[][] horarioSemana) {
+        this.horarioSemana = horarioSemana;
     }
 
     public void setHorario(double horaEmpezar, double horaTerminar) {

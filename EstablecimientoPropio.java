@@ -3,12 +3,10 @@ import java.util.ArrayList;
 public class EstablecimientoPropio extends Establecimiento {
     private Empleado gerente;
     private ArrayList<Empleado> encargados;
-    private ArrayList<Empleado> trabajadores;
     
     public EstablecimientoPropio() {
         this.gerente = new Empleado(null);
         this.encargados = null;
-        this.trabajadores = null;
     }
     
     public Empleado getGerente() {
@@ -27,11 +25,5 @@ public class EstablecimientoPropio extends Establecimiento {
         this.encargados = encargados;
     }
     
-    public ArrayList<Empleado> getTrabajadores() {
-        return trabajadores;
-    }
-    
-    public void setTrabajadores(ArrayList<Empleado> trabajadores) {
-        this.trabajadores = trabajadores;
-    }
+ 
 }

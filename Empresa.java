@@ -4,49 +4,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Empresa extends EstablecimientoPropio {
-    //Necesito un método que me muestre los proveedores y productos que distribuyen(Almacén)boolean, si hay almenos uno true, si se da error o no hay false;
-    //Necesito un método Proveedor que me retorne un proveedor(Almacén),si se da algun error o no existen proveedores o lo que sea devolver null;
-    
-    // Necesito un método que me muestre los proveedores y productos que
-    // distribuyen(Almacén)boolean, si hay almenos uno true, si se da error o no hay
-    // false;
-    // Necesito un método Proveedor que me retorne un proveedor(Almacén),si se da
-    // algun error o no existen proveedores o lo que sea devolver null;
 
-    // METODOS
-    // Metodos comprobar si existe cliente y trabajador (dato clau igual (ex. DNI))
-    // PASSANT UN CLIENT O TREBALLADOR COM A PARAMETRE
-    // AGREGAR supermecado i almacen mentres no coincidixa la ubicacio.
-    // AGREGAR distribuidor sempre q no existixca amb el mateix cif
-    // AGREGAR descuento
-    //
-    // NO PUEDEN HABER DOS ALMACENES EN LA MISMA LOCALIDAD
     private final String nombre = "MERCAHOME";
-    private ArrayList<Supermercado> supermercados;
-    private ArrayList<Empleado> trabajadores;
-    private ArrayList<Distribuidor> distribuidores;
-    private ArrayList<Cliente> clientes;
-    private ArrayList<Almacen> almacenes;
-    private ArrayList<Factura> facturas;
-    private ArrayList<Pedido> pedidos;
-    private ArrayList<Descuento> descuentos;
-    private ArrayList<Producto> stock;
-    private ArrayList<Vehiculo> vehiculos;
+    private ArrayList<Supermercado> supermercados = new ArrayList<>();
+    private ArrayList<Empleado> trabajadores = new ArrayList<>();
+    private ArrayList<Distribuidor> distribuidores = new ArrayList<>();
+    private ArrayList<Cliente> clientes = new ArrayList<>();
+    private ArrayList<Almacen> almacenes = new ArrayList<>();
+    private ArrayList<Factura> facturas = new ArrayList<>();
+    private ArrayList<Pedido> pedidos = new ArrayList<>();
+    private ArrayList<Descuento> descuentos = new ArrayList<>();
+    private ArrayList<Producto> stock = new ArrayList<>();
+    private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
     
     public Empresa() {
-        this.supermercados = new ArrayList<>();
-        this.trabajadores = new ArrayList<>();
-        this.distribuidores = new ArrayList<>();
-        this.clientes = new ArrayList<>();
-        this.almacenes = new ArrayList<>();
-        this.facturas = new ArrayList<>();
-        this.pedidos = new ArrayList<>();
-        this.descuentos = new ArrayList<>();
-        this.stock = new ArrayList<>();
     }
 
     public boolean existe(Cliente cliente) {

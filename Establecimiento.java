@@ -15,9 +15,15 @@ public class Establecimiento implements Herramientas, Serializable{
         System.out.println("A que hora abre este establecimiento?");
         System.out.print("Hora: ");
         double horaApertura = Herramientas.pedirDoublePositivo();
-        System.out.println("A que hora cierra este establecimiento?");
-        System.out.print("Hora: ");
-        double horaCierre = Herramientas.pedirDoublePositivo();
+        double horaCierre = 0;
+        do {
+            System.out.println("A que hora cierra este establecimiento?");
+            System.out.print("Hora: ");
+            horaCierre = Herramientas.pedirDoublePositivo();
+            if (horaCierre<horaApertura) {
+                System.out.println("Este establecimiento no puede cerrar antes de abrir, indique una nueva hora de cierre");
+            }
+        } while (horaCierre<horaApertura);
         this.horarioPublico = new Horario(horaApertura,horaCierre);
     }
     

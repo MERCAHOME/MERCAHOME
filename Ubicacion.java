@@ -1,4 +1,6 @@
-public class Ubicacion {
+import java.io.Serializable;
+
+public class Ubicacion implements Serializable {
     private String pais;
     private String provincia;
     private String localidad;

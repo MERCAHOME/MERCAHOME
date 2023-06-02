@@ -71,6 +71,27 @@ public interface Herramientas {
 
     }
 
+    public static String crearMatricula(){
+        try {
+            System.out.println("Indique la matricula del vehículo");
+            System.out.print("Matrícula: ");
+            String matricula = pedirString();
+            if (!matricula.matches("^[0-9]{4}[A-Za-z]{3}$")) {
+                throw new MatriculaInvalidaException("La matricula introducida no cumple el patrón");
+            }
+            return matricula;
+        } catch (MatriculaInvalidaException e) {
+            System.err.println("Error: "+e.getMessage());
+            System.out.println("Introduzca una matrícula válida");
+            return crearMatricula();
+        }catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error inesperado");
+            System.out.println("Introduzca una matrícula válida");
+            return crearMatricula();
+        }
+    }
+
     public static  String crearEmail(){
         try {
             System.out.println("Indique el correo electrónico");

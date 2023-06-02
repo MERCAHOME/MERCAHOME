@@ -22,14 +22,14 @@ public class Empleado extends Persona {
     private Empleado encargado;
     private Empleado gerente;
 
-    public Empleado(EstablecimientoPropio establecimiento) {
+    public Empleado(EstablecimientoPropio establecimiento, Empresa empresaMercahome) {
+        super(empresaMercahome);
         if (altaEmpleado(establecimiento)) {
             System.out.println("El empleado "+ super.getNombre() + " " + super.getApellidos()+" ha sido dado de alta correctamente.");
         } else {
             System.out.println("No se ha podido dar de alta al cliente "+ super.getNombre() + " " + super.getApellidos()+".\nContacte con el administrador");
         }
     }
-    //crear un horario para cada empleado
     //para dar de alta a cualquier empleado ha de existir antes un Encargado y un gerente, al momento de crear al empleado hay que asignarselo
     public boolean altaEmpleado(EstablecimientoPropio establecimiento) {
         try {
@@ -68,10 +68,12 @@ public class Empleado extends Persona {
             case 1:
                 this.tipoDeEmpleado = TipoDeEmpleado.GERENTE;
                 this.salario = this.tipoDeEmpleado.salario;
+                this.horariotrabajador = crearHorario();
                 break;
             case 2:
                 this.tipoDeEmpleado = TipoDeEmpleado.ENCARGADO;
                 this.salario = this.tipoDeEmpleado.salario;
+                this.horariotrabajador = crearHorario();
                 //poner empleados a su cargo
                 break;
             case 3:
@@ -89,9 +91,9 @@ public class Empleado extends Persona {
                         if (supermercado.vehiculosDisponibles()) {
                             Vehiculo vehiculoDisponible = supermercado.devolverVehiculoDisponible();
                             if(vehiculoDisponible.asignarHorario(this) == 0){
-                                //Implementar Horario mañanas
+                                this.horariotrabajador = new Horario(8, 13.59);
                             }else if (vehiculoDisponible.asignarHorario(this) == 1) {
-                                //implementar Horario tardes
+                                this.horariotrabajador = new Horario(14, 20);
                             }else{
                                 System.out.println("Se ha producido un error al asignar el vehiculo a "+super.getNombre() + " " + super.getApellidos()+" intentelo de nuevo, si sigue teniendo problemas asigne otro cargo al empleado y contacte con el administrador para que lo solucione cuanto antes.");
                                 System.out.println("Establezca otro cargo para "+super.getNombre() + " " + super.getApellidos());
@@ -115,18 +117,72 @@ public class Empleado extends Persona {
             case 4:
                 this.tipoDeEmpleado = TipoDeEmpleado.MOZODEALMACEN;
                 this.salario = this.tipoDeEmpleado.salario;
+                this.horariotrabajador = crearHorario();
                 break;
             case 5:
                 this.tipoDeEmpleado = TipoDeEmpleado.CAJERODESUPERMERCADO;
                 this.salario = this.tipoDeEmpleado.salario;
+                this.horariotrabajador = crearHorario();
                 break;
             case 6:
                 this.tipoDeEmpleado = TipoDeEmpleado.REPONEDORSUPERMERCADO;
                 this.salario = this.tipoDeEmpleado.salario;
+                this.horariotrabajador = crearHorario();
                 break;
             default:
                 break;
         }
+    }
+
+    public Horario crearHorario(){
+        System.out.println("Vamos a establecer el horario de este trabajador");
+        int respuesta = 0;
+        do {
+            System.out.println("Va a tener descanso este trabajador?");
+            System.out.println("1- Si");
+            System.out.println("2- No");
+            System.out.print("Respuesta: ");
+            respuesta = Herramientas.pedirEnteroPositivo();
+            if (respuesta<1||respuesta>2) {
+                System.out.println("Error, solo puede introducir 1 o 2");
+            }
+        } while (respuesta<1||respuesta>2);
+        System.out.println("A que hora iniciará su jornada laboral "+this.getNombre()+" "+this.getApellidos()+"?");
+        System.out.print("Hora: ");
+        double horarInicio = Herramientas.pedirDoublePositivo();
+        double horaFinal = 0;
+        do {
+            System.out.println("A que hora terminará su jornada laboral "+this.getNombre()+" "+this.getApellidos()+"?");
+            System.out.print("Hora: ");
+            horaFinal = Herramientas.pedirDoublePositivo();
+            if (horaFinal<horarInicio) {
+                System.out.println("El trabajador no puede terminar antes de las "+horarInicio);
+                System.out.println("Introduzca otra hora");
+            }
+        } while (horaFinal<horarInicio);
+
+        if (respuesta == 1) {
+            double horaInicioDescanso = 0;
+            double horaFinDescanso = 0;
+            do {
+                System.out.println("A que hora iniciará su descanso "+this.getNombre()+" "+this.getApellidos()+"?");
+                horaInicioDescanso = Herramientas.pedirDoublePositivo();
+                if (horaInicioDescanso>horarInicio||horaInicioDescanso>horaFinal) {
+                    System.out.println("Error, el descanso no puede empezar antes o después de su jornada laboral");
+                }
+                
+            } while (horaInicioDescanso<horarInicio||horaInicioDescanso>horaFinal);
+            do {
+                System.out.println("A que hora terminará su descanso "+this.getNombre()+" "+this.getApellidos()+"?");
+                horaFinDescanso = Herramientas.pedirDoublePositivo();
+                if (horaFinDescanso>horaInicioDescanso||horaFinDescanso>horaFinal) {
+                    System.out.println("Error, el descanso no puede terminar antes de su descanso o después de su jornada laboral");
+                }
+                
+            } while (horaFinDescanso<horaInicioDescanso||horaFinDescanso>horaFinal);
+            return new Horario(horarInicio, horaFinal, horaInicioDescanso, horaFinDescanso);
+        }
+        return new Horario(horarInicio, horaFinal);
     }
 
     public void mostrarNombreYDNI(){

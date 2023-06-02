@@ -34,7 +34,74 @@ public class Supermercado extends EstablecimientoPropio {
             System.out.println("Se ha producido un error agregando los trabajadores contacte con el administrador");
         }
         //a ver como hace esto jack
-        this.horasDisParaPedidos = new ArrayList<>();
+        if (crearHorarioPedido()) {
+            System.out.println("Los horarios de pedidos han sido añadidos correctamente");
+        }else{
+            System.out.println("No se han podido crear los horarios para los pedidos, contacte con el administrador");
+        }
+    }
+
+    public boolean crearHorarioPedido(){
+
+        try {
+            int anios = 0;
+            do {
+                System.out.println("Para cuantos años desea crear la posibilidad de hacer pedidos?");
+                System.out.print("Años: ");
+                anios = Herramientas.pedirEnteroPositivo();
+                if (anios<2) {
+                    System.out.println("Error: el mínimo son 2 años");
+                    System.out.println("Introduzca de nuevo la cantidad de años a dar de alta");
+                }
+            } while (anios<2);
+    
+            for (int i = 0; i < anios; i++) {
+                if (i == 0) {
+                    int cantidadDeSemanas = cantidadDeSemanasDeAnioPrimeraVez(LocalDate.now().getYear());
+                    LocalDate primerLunes = retornarLunesPriveraVez();
+                    for (int j = 0; j < cantidadDeSemanas; j++) {
+                        horasDisParaPedidos.add(new HorarioPedido(primerLunes, empleados));
+                        primerLunes = primerLunes.plusDays(7);
+                    }
+    
+                }else{
+                    int cantidadDeSemanas = cantidadDeSemanasDeAnioSegundaVez(LocalDate.now().getYear()+i);
+                    LocalDate primerLunes = retornarLunesSegundaVez(i);
+                    for (int j = 0; j < cantidadDeSemanas; j++) {
+                        horasDisParaPedidos.add(new HorarioPedido(primerLunes, empleados));
+                        primerLunes = primerLunes.plusDays(7);
+                    }
+                }
+            }
+    
+            return true;
+            
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    public LocalDate retornarLunesPriveraVez(){
+        LocalDate dia1 = LocalDate.of(LocalDate.now().getYear(), 1, 1);
+
+        while (dia1.getDayOfWeek()!= DayOfWeek.MONDAY) {
+            dia1 = dia1.plusDays(-1);
+        }
+        
+        return dia1;
+
+
+
+    }
+
+    public LocalDate retornarLunesSegundaVez(int i){
+        LocalDate dia1 = LocalDate.of(LocalDate.now().getYear()+i, 1, 1);
+
+        while (dia1.getDayOfWeek()!= DayOfWeek.MONDAY) {
+            dia1 = dia1.plusDays(1);
+        }
+        
+        return dia1;
+
     }
 
     //Este método solo se puede utilizar la primera vez, ya que la segunda, a menos que empieze en lunes, ya tendrá esa semana añadida
@@ -59,6 +126,7 @@ public class Supermercado extends EstablecimientoPropio {
         if (semanas == 53 && fin.getDayOfWeek() != DayOfWeek.SUNDAY) {
             semanas--;
         }
+        //berywam
         
         return semanas;
     }

@@ -130,16 +130,6 @@ public class Supermercado extends EstablecimientoPropio {
         return trabajadorARetornar;
     }
 
-    public boolean darDeAltaVariosTrabajadores(int cantidad){
-        try {
-            for (int i = 0; i < cantidad; i++) {
-                altaTrabajador();
-            }
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
     public boolean agregar4Trabajadores(){
 
@@ -158,7 +148,7 @@ public class Supermercado extends EstablecimientoPropio {
                 if (!gerente) {
                     System.out.println("Primero ha de dar de alta a un gerente");
                     do {
-                        empleadoGerente = new Empleado(this);
+                        empleadoGerente = new Empleado(this,empresa);
                         if (empleadoGerente.getTipoDeEmpleado() != TipoDeEmpleado.GERENTE) {
                             empleadoGerente = null;
                             System.out.println("El empleado generado no es válido");
@@ -168,10 +158,23 @@ public class Supermercado extends EstablecimientoPropio {
                     } while (empleadoGerente == null);
                     gerente = true;
                 }
+                if (!encargado) {
+                    System.out.println("Por último ha de dar de alta a un encargado");  
+                    do {
+                        empleadoEncargado = new Empleado(this,empresa);
+                        if (empleadoEncargado.getTipoDeEmpleado() != TipoDeEmpleado.ENCARGADO) {
+                            empleadoEncargado = null;
+                            System.out.println("El empleado generado no es válido");
+                            System.out.println("El empleado que se solicitaba era un encargado");
+                            System.out.println("Introduzca un empleado que si sea encargado");
+                        }
+                    } while (empleadoEncargado == null);
+                    encargado = true;
+                }
                 if (!conductor) {
                     System.out.println("Es necesariotambién dar de alta a un conductor");
                     do {
-                        empleadoConductor = new Empleado(this);
+                        empleadoConductor = new Empleado(this,empresa);
                         if (empleadoConductor.getTipoDeEmpleado() != TipoDeEmpleado.CONDUCTOR) {
                             empleadoConductor = null;
                             System.out.println("El empleado generado no es válido");
@@ -184,7 +187,7 @@ public class Supermercado extends EstablecimientoPropio {
                 if (!cajero) {
                     System.out.println("También necesitarás un cajero");
                     do {
-                        empleadoCajero = new Empleado(this);
+                        empleadoCajero = new Empleado(this,empresa);
                         if (empleadoCajero.getTipoDeEmpleado() != TipoDeEmpleado.CAJERODESUPERMERCADO) {
                             empleadoCajero = null;
                             System.out.println("El empleado generado no es válido");
@@ -193,19 +196,6 @@ public class Supermercado extends EstablecimientoPropio {
                         }
                     } while (empleadoCajero == null);
                     cajero = true;
-                }
-                if (!encargado) {
-                    System.out.println("Por último ha de dar de alta a un encargado");  
-                    do {
-                        empleadoEncargado = new Empleado(this);
-                        if (empleadoEncargado.getTipoDeEmpleado() != TipoDeEmpleado.ENCARGADO) {
-                            empleadoEncargado = null;
-                            System.out.println("El empleado generado no es válido");
-                            System.out.println("El empleado que se solicitaba era un encargado");
-                            System.out.println("Introduzca un empleado que si sea encargado");
-                        }
-                    } while (empleadoEncargado == null);
-                    encargado = true;
                 }
                           
             } while (!gerente&&!conductor&&!encargado&&!cajero);
@@ -227,9 +217,9 @@ public class Supermercado extends EstablecimientoPropio {
     }
 
     public boolean altaTrabajador(){
-        Empleado empleado = new Empleado(this);
+        Empleado empleado = new Empleado(this,empresa);
         try {
-            empresa.getTrabajadores();
+            empresa.getTrabajadores().add(empleado);;
             empleados.add(empleado);
             return true;
         } catch (Exception e) {

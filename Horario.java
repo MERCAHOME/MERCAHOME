@@ -2,28 +2,28 @@ import java.io.Serializable;
 
 public class Horario implements Serializable {
     private boolean[][] horarioSemana;
-    private double horaEmpezar;
-    private double horaTerminar;
-    private double inicioDescanso;
-    private double finDescanso;
+    private String horaEmpezar;
+    private String horaTerminar;
+    private String inicioDescanso;
+    private String finDescanso;
 
 
-    public Horario(double horaEmpezar, double horaTerminar) {
+    public Horario(String horaEmpezar, String horaTerminar) {
         horarioSemana = new boolean[7][24 * 60]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minuto
-        this.horaEmpezar = comprobacionHorasYMinutos(horaEmpezar);
-        this.horaTerminar = comprobacionHorasYMinutos(horaTerminar);
+        this.horaEmpezar =horaEmpezar;
+        this.horaTerminar =horaTerminar;
         setHorario(horaEmpezar, horaTerminar);
     }
 
-    public Horario(double horaEmpezar, double horaTerminar, double inicioDescanso, double finDescanso) {
+    public Horario(String horaEmpezar, String horaTerminar, String inicioDescanso, String finDescanso) {
         horarioSemana = new boolean[7][24 * 60]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minuto
-        this.horaEmpezar = comprobacionHorasYMinutos(horaEmpezar);
-        this.horaTerminar = comprobacionHorasYMinutos(horaTerminar);
-        this.inicioDescanso = comprobacionHorasYMinutos(inicioDescanso);
-        this.finDescanso = comprobacionHorasYMinutos(finDescanso);
+        this.horaEmpezar = horaEmpezar;
+        this.horaTerminar = horaTerminar;
+        this.inicioDescanso = inicioDescanso;
+        this.finDescanso = finDescanso;
         setHorario(horaEmpezar, horaTerminar, inicioDescanso, finDescanso);
     }
-
+    
     public Horario(){
         horarioSemana = new boolean[7][24 * 60];
         limpiarHorario();
@@ -34,13 +34,6 @@ public class Horario implements Serializable {
     }
 
 
-    /*public boolean isDisponible(int diaSemana, int hora, int minuto) {
-        comprobacionInts(diaSemana, hora, minuto);
-        if (!horarioSemana[diaSemana][hora * 60 + minuto]) {
-            return true;
-        }
-        return false;
-    }*/
 
     private void limpiarHorario() {
         for (int i = 0; i < horarioSemana.length; i++) {
@@ -53,15 +46,18 @@ public class Horario implements Serializable {
         this.horarioSemana = horarioSemana;
     }
 
-    public void setHorario(double horaEmpezar, double horaTerminar) {
+    public void setHorario(String horaEmpezar, String horaTerminar) {
         limpiarHorario();
-        int horaEmpezarEntero = (int) horaEmpezar;
-        int minutosHoraEmpezar = (int) ((horaEmpezar - horaEmpezarEntero) * 100);
-        int horaEmpezarTotal = (horaEmpezarEntero * 60) + minutosHoraEmpezar;
+        String[] partes1 = horaEmpezar.split(":");
+        int hora1Dividida = Integer.parseInt(partes1[0]);
+        int min1Divididos = Integer.parseInt(partes1[1]); 
+        String[] partes2 = horaTerminar.split(":");
+        int hora2Dividida = Integer.parseInt(partes2[0]);
+        int min2Divididos = Integer.parseInt(partes2[1]); 
+        
+        int horaEmpezarTotal = (hora1Dividida * 60) + min1Divididos;
 
-        int horaTerminarEntero = (int) horaTerminar;
-        int minutosHoraTerminar = (int) ((horaTerminar - horaTerminarEntero) * 100);
-        int horaTerminarTotal = (horaTerminarEntero * 60) + minutosHoraTerminar;
+        int horaTerminarTotal = (hora2Dividida * 60) + min2Divididos;
 
         for (int i = 0; i < 7; i++) {
             for (int j = horaEmpezarTotal; j < horaTerminarTotal; j++) {
@@ -70,15 +66,28 @@ public class Horario implements Serializable {
         }
     }
 
-    public void setHorario(double horaEmpezar, double horaTerminar, double inicioDescanso, double finDescanso) {
+    public void setHorario(String horaEmpezar, String horaTerminar, String inicioDescanso, String finDescanso) {
         limpiarHorario();
-        int horaEmpezarEntero = (int) horaEmpezar;
-        int minutosHoraEmpezar = (int) ((horaEmpezar - horaEmpezarEntero) * 100);
-        int horaEmpezarTotal = (horaEmpezarEntero * 60) + minutosHoraEmpezar;
+        String[] partes1 = horaEmpezar.split(":");
+        int hora1Dividida = Integer.parseInt(partes1[0]);
+        int min1Divididos = Integer.parseInt(partes1[1]); 
+        String[] partes2 = horaTerminar.split(":");
+        int hora2Dividida = Integer.parseInt(partes2[0]);
+        int min2Divididos = Integer.parseInt(partes2[1]); 
+        String[] descanso1 = inicioDescanso.split(":");
+        int horadescanso1Dividida = Integer.parseInt(descanso1[0]);
+        int mindescanso1Divididos = Integer.parseInt(descanso1[1]); 
+        String[] descanso2 = finDescanso.split(":");
+        int horadescanso2Dividida = Integer.parseInt(descanso2[0]);
+        int min2descansoDivididos = Integer.parseInt(descanso2[1]); 
+        
+        int horaEmpezarTotal = (hora1Dividida * 60) + min1Divididos;
 
-        int horaTerminarEntero = (int) horaTerminar;
-        int minutosHoraTerminar = (int) ((horaTerminar - horaTerminarEntero) * 100);
-        int horaTerminarTotal = (horaTerminarEntero * 60) + minutosHoraTerminar;
+        int horaTerminarTotal = (hora2Dividida * 60) + min2Divididos;
+
+        int horaIniciarDescansoTotal = (horadescanso1Dividida * 60) + mindescanso1Divididos;
+
+        int horaTerminarDescansoTotal = (horadescanso2Dividida * 60) + min2descansoDivididos;
 
         for (int i = 0; i < 7; i++) {
             for (int j = horaEmpezarTotal; j < horaTerminarTotal; j++) {
@@ -86,40 +95,13 @@ public class Horario implements Serializable {
             }
         }
 
-        int horaEmpezarDescansoEntero = (int) inicioDescanso;
-        int minutosHoraEmpezarDescanso = (int) ((inicioDescanso - horaEmpezarDescansoEntero) * 100);
-        int horaEmpezarDescansoTotal = (horaEmpezarDescansoEntero * 60) + minutosHoraEmpezarDescanso;
-
-        int horaTerminarDescansoEntero = (int) finDescanso;
-        int minutosHoraTerminarDescanso = (int) ((finDescanso - horaTerminarDescansoEntero) * 100);
-        int horaTerminarDescansoTotal = (horaTerminarDescansoEntero * 60) + minutosHoraTerminarDescanso;
 
         for (int i = 0; i < 7; i++) {
-            for (int j = horaEmpezarDescansoTotal; j < horaTerminarDescansoTotal; j++) {
+            for (int j = horaIniciarDescansoTotal; j < horaTerminarDescansoTotal; j++) {
                 horarioSemana[i][j] = false;
             }
         }
     }
 
-    public double comprobacionHorasYMinutos(double hora) {
-        int horaEntero = (int) Math.floor(hora);
-        int minutosEntero = (int)((hora-horaEntero)*100);
-        if (horaEntero > 23 || horaEntero < 0) {
-            System.out.println("La hora " + (int)hora + " introducida no es correcta");
-            System.out.print("Introduzca una hora válida: ");
-            System.out.print("Nueva hora: ");
-            double nuevaHora = Herramientas.pedirDoublePositivo();
-            return comprobacionHorasYMinutos(nuevaHora);
-        }
 
-        if (minutosEntero > 59 || minutosEntero < 0) {
-            System.out.println("Los minutos " + minutosEntero + " introducidos no son correctos");
-            System.out.print("Introduzca una hora válida: ");
-            System.out.print("Nueva hora: ");
-            double nuevaHora = Herramientas.pedirDoublePositivo();
-            return comprobacionHorasYMinutos(nuevaHora);
-        }
-
-        return hora;
-    }
 }

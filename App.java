@@ -90,7 +90,7 @@ public class App implements Herramientas {
                     break;
 
                 default:
-                    System.out.println("Error, solo puedes introducir un número del 0 al 2");
+                    System.out.println("Error, solo puedes introducir un número del 0 al 3");
                     break;
             }
 
@@ -102,7 +102,7 @@ public class App implements Herramientas {
         int respuesta = 0;
         do {
             String[] titulo = {
-                    "     GESTION DE EMPRESA"
+                    "     GESTION DE CLIENTE"
                          
             };
             String[] opciones = {

@@ -170,6 +170,7 @@ public interface Herramientas {
         for (int i = 0; i < opciones.length; i++) {
             System.out.println(opciones[i]);
         }
+        System.out.println();
         System.out.print("Respuesta: ");
         int respuesta = pedirEnteroPositivo();
         System.out.println("*****************************");

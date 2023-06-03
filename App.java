@@ -38,14 +38,89 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
+                    menuEmpresa();
+                    break;
+                case 2:
+                    menuCliente();
+                    break;
+                case 0:
+                    empresa.guardarCambios();
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("Error, solo puedes introducir un número del 0 al 2");
+                    break;
+            }
+
+        } while (respuesta != 0);
+
+    }
+
+    private static void menuEmpresa() {
+        int respuesta = 0;
+        do {
+            String[] titulo = {
+                    "     GESTION DE EMPRESA"
+                         
+            };
+            String[] opciones = {
+                    "1- Gestiones de empresa.",
+                    "2- Gestiones de almacenes",
+                    "3- Gestiones de supermercados",
+                    "0- Volver al menú principal"
+            };
+            respuesta = Herramientas.crearMenu(titulo, opciones);
+
+            switch (respuesta) {
+                case 1:
 
                     break;
                 case 2:
 
                     break;
+                    case 3:
+
+                    break;
                 case 0:
                     empresa.guardarCambios();
-                    System.exit(0);
+                    System.out.println("volviendo...");
+                    break;
+
+                default:
+                    System.out.println("Error, solo puedes introducir un número del 0 al 2");
+                    break;
+            }
+
+        } while (respuesta != 0);
+
+    }
+
+    private static void menuCliente() {
+        int respuesta = 0;
+        do {
+            String[] titulo = {
+                    "     GESTION DE EMPRESA"
+                         
+            };
+            String[] opciones = {
+                    "1- Alta nueva.",
+                    "2- Identificarse como cliente",
+                    "0- Volver al menú principal"
+            };
+            respuesta = Herramientas.crearMenu(titulo, opciones);
+
+            switch (respuesta) {
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                    
+                case 0:
+                    empresa.guardarCambios();
+                    System.out.println("volviendo...");
                     break;
 
                 default:

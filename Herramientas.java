@@ -271,6 +271,14 @@ public interface Herramientas {
         }
     }
 
+    private static String pedirHora(){
+
+    }
+
+    private static int compararHora(String hora1, String hora2){
+        
+    }
+
     public static Ubicacion crearUbicacion() {
 
         System.out.println("Indicame el país");

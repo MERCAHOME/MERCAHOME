@@ -60,7 +60,6 @@ public class App implements Herramientas {
     private static void guardarDatosEmpresa() {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ficheroEmpresa))) {
             empresa = new Empresa();
-            empresa.puestaEnMarcha();
             out.writeObject(empresa);
         } catch (IOException e) {
             e.printStackTrace();

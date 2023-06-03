@@ -21,10 +21,13 @@ public class Empresa extends EstablecimientoPropio {
     private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
     
     public Empresa() {
+        Herramientas.limpiarPantalla();
         System.out.println("Vamos a dar de alta el primer almacén");
         almacenes.add(new Almacen(this));
+        Herramientas.limpiarPantalla();
         System.out.println("Vamos a dar de alta el primer supermercado");
         supermercados.add(new Supermercado(this));
+        Herramientas.limpiarPantalla();
     }
 
     public boolean existe(Cliente cliente) {

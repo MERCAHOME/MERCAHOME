@@ -14,17 +14,15 @@ public class Establecimiento implements Herramientas, Serializable{
         this.ubicacion = Herramientas.crearUbicacion();
         Herramientas.limpiarPantalla();
         System.out.println("A que hora abre este establecimiento?");
-        System.out.print("Hora: ");
-        double horaApertura = Herramientas.pedirDoublePositivo();
-        double horaCierre = 0;
+        String horaApertura = Herramientas.pedirHora();
+        String horaCierre = "";
         do {
             System.out.println("A que hora cierra este establecimiento?");
-            System.out.print("Hora: ");
-            horaCierre = Herramientas.pedirDoublePositivo();
-            if (horaCierre<horaApertura) {
+            horaCierre = Herramientas.pedirHora();
+            if (Herramientas.compararHora(horaApertura, horaCierre)!=-1) {
                 System.out.println("Este establecimiento no puede cerrar antes de abrir, indique una nueva hora de cierre");
             }
-        } while (horaCierre<horaApertura);
+        } while (Herramientas.compararHora(horaApertura, horaCierre)!=-1);
         this.horarioPublico = new Horario(horaApertura,horaCierre);
     }
     

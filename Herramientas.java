@@ -272,11 +272,54 @@ public interface Herramientas {
     }
 
     private static String pedirHora(){
+        try {
+            System.out.print("Hora: ");
+            String hora = pedirString();
+            if (!hora.matches("^[0-9]{1,2}:[0-9]{1,2}$")) {
+                throw new HoraInvalidaException("La hora indicada no cumple el patrón, ajustesé al patrón '15:08'");
+            }
+            String[] partes = hora.split(":");
+            int horaDividida = Integer.parseInt(partes[0]);
+            int minDivididos = Integer.parseInt(partes[1]); 
+            if (horaDividida<0||horaDividida>23) {
+                throw new HoraInvalidaException("No puede introducir una hora menor que 0 o mayor que 23");
+            }
+            if (minDivididos<0||minDivididos>59) {
+                throw new HoraInvalidaException("Los mínutos no pueden ser mas de 59 o menos de 0");
+            }
+            return hora;
+
+        } catch (HoraInvalidaException e) {
+            System.err.println("Error: " + e.getMessage());
+            System.out.println("Introduzca la hora de nuevo");
+            return pedirHora();
+        }catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error inesperado");
+            System.out.println("Introduzca la hora de nuevo");
+            return pedirHora();
+        }
 
     }
 
     private static int compararHora(String hora1, String hora2){
-        
+        String[] partes1 = hora1.split(":");
+        int hora1Dividida = Integer.parseInt(partes1[0]);
+        int min1Divididos = Integer.parseInt(partes1[1]); 
+        String[] partes2 = hora2.split(":");
+        int hora2Dividida = Integer.parseInt(partes2[0]);
+        int min2Divididos = Integer.parseInt(partes2[1]); 
+        if (hora1Dividida>hora2Dividida) {
+            return 1;
+        } else if (hora1Dividida<hora2Dividida) {
+            return -1;
+        }else if(min1Divididos>min2Divididos){
+            return 1;
+        }else if(min1Divididos<min2Divididos){
+            return -1;
+        }else{
+            return 0;
+        }
     }
 
     public static Ubicacion crearUbicacion() {

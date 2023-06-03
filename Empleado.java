@@ -85,10 +85,10 @@ public class Empleado extends Persona {
                         if (supermercado.vehiculosDisponibles()) {
                             Vehiculo vehiculoDisponible = supermercado.devolverVehiculoDisponible();
                             if(vehiculoDisponible.asignarHorario(this) == 0){
-                                this.horariotrabajador = new Horario(8, 13.59);
+                                this.horariotrabajador = new Horario("08:00", "13:59");
                                 agregarEncargado();
                             }else if (vehiculoDisponible.asignarHorario(this) == 1) {
-                                this.horariotrabajador = new Horario(14, 20);
+                                this.horariotrabajador = new Horario(":00", "20:00");
                                 agregarEncargado();
                             }else{
                                 System.out.println("Se ha producido un error al asignar el vehiculo a "+super.getNombre() + " " + super.getApellidos()+" intentelo de nuevo, si sigue teniendo problemas asigne otro cargo al empleado y contacte con el administrador para que lo solucione cuanto antes.");
@@ -147,9 +147,9 @@ public class Empleado extends Persona {
             }
         } while (respuesta<1||respuesta>2);
         System.out.println("A que hora iniciará su jornada laboral "+this.getNombre()+" "+this.getApellidos()+"?");
-        System.out.print("Hora: ");
-        double horarInicio = Herramientas.pedirDoublePositivo();
-        double horaFinal = 0;
+        
+        String horarInicio = Herramientas.pedir;
+        String horaFinal = 0;
         do {
             System.out.println("A que hora terminará su jornada laboral "+this.getNombre()+" "+this.getApellidos()+"?");
             System.out.print("Hora: ");

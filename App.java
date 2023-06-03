@@ -73,6 +73,7 @@ public class App implements Herramientas {
                 empresa = empresaTemporal;
             }else{
                 empresa = new Empresa();
+                
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

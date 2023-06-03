@@ -9,7 +9,7 @@ public class Persona implements Herramientas, Serializable {
     private Empresa empresa;
 
     public Persona(Empresa empresaMercahome) {
-        this.empresa = empresa;
+        this.empresa = empresaMercahome;
         System.out.println("Indique su nombre.");
         System.out.print("Nombre: ");
         this.nombre = Herramientas.pedirString();

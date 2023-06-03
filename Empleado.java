@@ -84,10 +84,11 @@ public class Empleado extends Persona {
                     } else {
                         if (supermercado.vehiculosDisponibles()) {
                             Vehiculo vehiculoDisponible = supermercado.devolverVehiculoDisponible();
-                            if(vehiculoDisponible.asignarHorario(this) == 0){
+                            int tipoDeHorario = vehiculoDisponible.asignarHorario(this);
+                            if( tipoDeHorario == 0){
                                 this.horariotrabajador = new Horario("08:00", "13:59");
                                 agregarEncargado();
-                            }else if (vehiculoDisponible.asignarHorario(this) == 1) {
+                            }else if ( tipoDeHorario == 1) {
                                 this.horariotrabajador = new Horario(":00", "20:00");
                                 agregarEncargado();
                             }else{
@@ -147,8 +148,8 @@ public class Empleado extends Persona {
             }
         } while (respuesta<1||respuesta>2);
         
-        String horarInicio = Herramientas.pedirHora();
-        String horaFinal = Herramientas.pedirHora();
+        String horarInicio = "";
+        String horaFinal = "";
         int comparador = 0;
         do {
             System.out.println("A que hora iniciará su jornada laboral "+this.getNombre()+" "+this.getApellidos()+"?");

@@ -5,8 +5,7 @@ import java.util.ArrayList;
 public class HorarioPedido implements Serializable{
     private boolean[][][] horarioSemana;
     private LocalDate diaInicioSemana;
-    private double horaEmpezar;
-    private double horaTerminar;
+    
 
     //Si al supermercado se le agrega o elimina un vehiculo se tiene que modificar esto
     public HorarioPedido(LocalDate diaInicioSemana, ArrayList<Empleado> trabajadores) {
@@ -20,7 +19,7 @@ public class HorarioPedido implements Serializable{
             }
         }
 
-        horarioSemana = new boolean[7][24 * 60][vehiculos.size()]; // 7 días de la semana y 24 horas * 60 intervalos de 1 minuto por la cantidad de vehiculos que pueden realizar el reparto
+        horarioSemana = new boolean[7][24 * 60][vehiculos.size()]; 
         int primerTamanio = horarioSemana.length;
         int segundoTamanio = horarioSemana[0].length;
         int tercerTamanio = horarioSemana[0][0].length;
@@ -45,8 +44,7 @@ public class HorarioPedido implements Serializable{
                 }
             }
         }
-        this.horaEmpezar = horaEmpezar;
-        this.horaTerminar = horaTerminar;
+        
     }
 
     private Horario crearHorarioSegunVehiculo(Vehiculo vehiculo){

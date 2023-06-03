@@ -88,7 +88,7 @@ public class Vehiculo implements Serializable {
                         conductorTarde = empleado;
                         return 1;
                     }
-                } while (opcion != 1 || opcion != 2);                
+                } while (opcion != 1 && opcion != 2);                
             } else {
                 if (!tieneConductorManyana) {
                     tieneConductorManyana = true;

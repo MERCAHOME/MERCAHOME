@@ -84,11 +84,12 @@ public class Empleado extends Persona {
                     } else {
                         if (supermercado.vehiculosDisponibles()) {
                             Vehiculo vehiculoDisponible = supermercado.devolverVehiculoDisponible();
-                            if(vehiculoDisponible.asignarHorario(this) == 0){
-                                this.horariotrabajador = new Horario(8, 13.59);
+                            int tipoDeHorario = vehiculoDisponible.asignarHorario(this);
+                            if( tipoDeHorario == 0){
+                                this.horariotrabajador = new Horario("08:00", "13:59");
                                 agregarEncargado();
-                            }else if (vehiculoDisponible.asignarHorario(this) == 1) {
-                                this.horariotrabajador = new Horario(14, 20);
+                            }else if ( tipoDeHorario == 1) {
+                                this.horariotrabajador = new Horario(":00", "20:00");
                                 agregarEncargado();
                             }else{
                                 System.out.println("Se ha producido un error al asignar el vehiculo a "+super.getNombre() + " " + super.getApellidos()+" intentelo de nuevo, si sigue teniendo problemas asigne otro cargo al empleado y contacte con el administrador para que lo solucione cuanto antes.");
@@ -146,39 +147,42 @@ public class Empleado extends Persona {
                 System.out.println("Error, solo puede introducir 1 o 2");
             }
         } while (respuesta<1||respuesta>2);
-        System.out.println("A que hora iniciará su jornada laboral "+this.getNombre()+" "+this.getApellidos()+"?");
-        System.out.print("Hora: ");
-        double horarInicio = Herramientas.pedirDoublePositivo();
-        double horaFinal = 0;
+        
+        String horarInicio = "";
+        String horaFinal = "";
+        int comparador = 0;
         do {
+            System.out.println("A que hora iniciará su jornada laboral "+this.getNombre()+" "+this.getApellidos()+"?");
+            horarInicio = Herramientas.pedirHora();
             System.out.println("A que hora terminará su jornada laboral "+this.getNombre()+" "+this.getApellidos()+"?");
-            System.out.print("Hora: ");
-            horaFinal = Herramientas.pedirDoublePositivo();
-            if (horaFinal<horarInicio) {
-                System.out.println("El trabajador no puede terminar antes de las "+horarInicio);
-                System.out.println("Introduzca otra hora");
+            horaFinal = Herramientas.pedirHora();
+            comparador=Herramientas.compararHora(horarInicio, horaFinal);
+            if (comparador!=-1) {
+                System.out.println("Error, la hora de fin ha de ser mas tarde que la hora de inicio");
+                System.out.println("Introduzca las horas de nuevo");
             }
-        } while (horaFinal<horarInicio);
+        } while (comparador!=-1);
+        
 
         if (respuesta == 1) {
-            double horaInicioDescanso = 0;
-            double horaFinDescanso = 0;
+            String horaInicioDescanso = "";
+            String horaFinDescanso = "";
             do {
                 System.out.println("A que hora iniciará su descanso "+this.getNombre()+" "+this.getApellidos()+"?");
-                horaInicioDescanso = Herramientas.pedirDoublePositivo();
-                if (horaInicioDescanso>horarInicio||horaInicioDescanso>horaFinal) {
+                horaInicioDescanso = Herramientas.pedirHora();
+                if (Herramientas.compararHora(horarInicio,horaInicioDescanso)!=-1||Herramientas.compararHora(horaInicioDescanso, horaFinal)!=-1) {
                     System.out.println("Error, el descanso no puede empezar antes o después de su jornada laboral");
                 }
                 
-            } while (horaInicioDescanso<horarInicio||horaInicioDescanso>horaFinal);
+            } while (Herramientas.compararHora(horarInicio,horaInicioDescanso)!=-1||Herramientas.compararHora(horaInicioDescanso, horaFinal)!=-1);
             do {
                 System.out.println("A que hora terminará su descanso "+this.getNombre()+" "+this.getApellidos()+"?");
-                horaFinDescanso = Herramientas.pedirDoublePositivo();
-                if (horaFinDescanso>horaInicioDescanso||horaFinDescanso>horaFinal) {
+                horaFinDescanso = Herramientas.pedirHora();
+                if (Herramientas.compararHora(horaFinDescanso,horaInicioDescanso)!=1||Herramientas.compararHora(horaFinal, horaFinDescanso)!=1) {
                     System.out.println("Error, el descanso no puede terminar antes de su descanso o después de su jornada laboral");
                 }
                 
-            } while (horaFinDescanso<horaInicioDescanso||horaFinDescanso>horaFinal);
+            } while (Herramientas.compararHora(horaFinDescanso,horaInicioDescanso)!=1||Herramientas.compararHora(horaFinal, horaFinDescanso)!=1);
             return new Horario(horarInicio, horaFinal, horaInicioDescanso, horaFinDescanso);
         }
         return new Horario(horarInicio, horaFinal);

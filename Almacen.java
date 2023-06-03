@@ -28,9 +28,12 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         System.out.print("Capacidad: ");
         int capacidad = Herramientas.pedirEnteroPositivo();
         if (agregarEstanterias(estanterias, capacidad, niveles)) {
+            Herramientas.limpiarPantalla();
             System.out.println("Estantería(s) agregada(s) con éxito!");
         } else {
+            Herramientas.limpiarPantalla();
             System.out.println(
+                
                     "No se ha agregado ninguna estantería, contacte con el administrador si no era su intención");
         }
         System.out.println("Cuantas neveras quieres añadir a tu almacén?");
@@ -40,12 +43,14 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         System.out.print("Capacidad: ");
         capacidad = Herramientas.pedirEnteroPositivo();
         if (agregarNeveras(neveras, capacidad)) {
+            Herramientas.limpiarPantalla();
             System.out.println("Nevera(s) agregada(s) con éxito!");
         } else {
+            Herramientas.limpiarPantalla();
             System.out
                     .println("No se ha agregado ninguna nevera, contacte con el administrador si no era su intención");
         }
-        Herramientas.limpiarPantalla();
+        //Herramientas.limpiarPantalla();
         System.out.println("Antes de finalizar, tiene que dar de alta algun trabajador");
         System.out.println("Vamos allá!");
         agregar4Trabajadores();

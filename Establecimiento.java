@@ -12,6 +12,7 @@ public class Establecimiento implements Herramientas, Serializable{
         this.CIF ="A"+cifGnerator;
         this.numeroDeTelefono = Herramientas.crearNumeroDeTelefono();
         this.ubicacion = Herramientas.crearUbicacion();
+        Herramientas.limpiarPantalla();
         System.out.println("A que hora abre este establecimiento?");
         System.out.print("Hora: ");
         double horaApertura = Herramientas.pedirDoublePositivo();

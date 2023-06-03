@@ -19,24 +19,30 @@ public class Supermercado extends EstablecimientoPropio {
     //Asegurarse que existe siempre almenos un conductor, un encargado, un repartidor, y un trabajador randomX
     public Supermercado(Empresa empresa) {
         this.empresa = empresa;
-
+        Herramientas.limpiarPantalla();
         if (agregarVehiculos()) {
+            Herramientas.limpiarPantalla();
             System.out.println("Vehículos agregados con éxito!");
         }else{
+            Herramientas.limpiarPantalla();
             System.out.println("No se han podido agregar los vehículos, contacte con el administrador");
         }
 
         this.almacen = empresa.devolverAlmacen();
 
         if (agregar4Trabajadores()) {
+            Herramientas.limpiarPantalla();
             System.out.println("Se han agregado los trabajadores con éxito");
         }else{
+            Herramientas.limpiarPantalla();
             System.out.println("Se ha producido un error agregando los trabajadores contacte con el administrador");
         }
         //a ver como hace esto jack
         if (crearHorarioPedido()) {
+            Herramientas.limpiarPantalla();
             System.out.println("Los horarios de pedidos han sido añadidos correctamente");
         }else{
+            Herramientas.limpiarPantalla();
             System.out.println("No se han podido crear los horarios para los pedidos, contacte con el administrador");
         }
     }
@@ -227,6 +233,7 @@ public class Supermercado extends EstablecimientoPropio {
                     gerente = true;
                 }
                 if (!encargado) {
+                    Herramientas.limpiarPantalla();
                     System.out.println("Es necesario dar de alta a un encargado");  
                     do {
                         empleadoEncargado = new Empleado(this,empresa);
@@ -240,6 +247,7 @@ public class Supermercado extends EstablecimientoPropio {
                     encargado = true;
                 }
                 if (!conductor) {
+                    Herramientas.limpiarPantalla();
                     System.out.println("Es necesariotambién dar de alta a un conductor");
                     do {
                         empleadoConductor = new Empleado(this,empresa);
@@ -253,6 +261,7 @@ public class Supermercado extends EstablecimientoPropio {
                     conductor = true;
                 }
                 if (!cajero) {
+                    Herramientas.limpiarPantalla();
                     System.out.println("También necesitarás un cajero");
                     do {
                         empleadoCajero = new Empleado(this,empresa);

@@ -15,6 +15,7 @@ public class Almacen extends EstablecimientoPropio implements Stock {
 
     public Almacen(Empresa empresa) {
         this.empresa = empresa;
+        Herramientas.limpiarPantalla();
         System.out.println("La capacidad del almacen va a depender de sus estantenrias y neveras");
         System.out.println("Vamos a añadir estanterias y neveras a tu almacén");
         System.out.println("Cuantas estanterias quieres añadir a tu almacén?");
@@ -44,6 +45,7 @@ public class Almacen extends EstablecimientoPropio implements Stock {
             System.out
                     .println("No se ha agregado ninguna nevera, contacte con el administrador si no era su intención");
         }
+        Herramientas.limpiarPantalla();
         System.out.println("Antes de finalizar, tiene que dar de alta algun trabajador");
         System.out.println("Vamos allá!");
         agregar4Trabajadores();

@@ -27,7 +27,7 @@ public class App implements Herramientas {
         int respuesta = 0;
         do {
             String[] titulo = {
-                    "MENU PRINCIPAL"
+                    "       MENU PRINCIPAL"
             };
             String[] opciones = {
                     "1- Gestiones de empresa.",

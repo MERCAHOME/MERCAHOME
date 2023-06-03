@@ -271,7 +271,7 @@ public interface Herramientas {
         }
     }
 
-    private static String pedirHora(){
+    public static String pedirHora(){
         try {
             System.out.print("Hora: ");
             String hora = pedirString();
@@ -302,7 +302,7 @@ public interface Herramientas {
 
     }
 
-    private static int compararHora(String hora1, String hora2){
+    public static int compararHora(String hora1, String hora2){
         String[] partes1 = hora1.split(":");
         int hora1Dividida = Integer.parseInt(partes1[0]);
         int min1Divididos = Integer.parseInt(partes1[1]); 

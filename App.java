@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class App {
+public class App implements Herramientas {
     // crear empresa.dat, on es guardaran els datos de empresa la primera vegada.
     // LEs altres vegades traura els datos guardats del fitxer
     static Empresa empresa;
@@ -13,12 +13,16 @@ public class App {
 
     public static void main(String[] args) {
         definirDatosEmpresa();
-        empresa.IniciarApp();        
+        empresa.IniciarApp();       /*  
         Distribuidor d1 = new Distribuidor();
         empresa.agregarDistribuidor(d1);
         d1.agregarProducto(new Producto(d1, "Oklahomo", false, false, 4.16));
         empresa.mostrarProveedoresYProductoQueDistribuye();
-        empresa.guardarCambios();
+        empresa.guardarCambios(); */
+    }
+
+    private static void menuPrincipal(){
+        
     }
 
 

@@ -13,18 +13,49 @@ public class App implements Herramientas {
 
     public static void main(String[] args) {
         definirDatosEmpresa();
-        empresa.IniciarApp();       /*  
-        Distribuidor d1 = new Distribuidor();
-        empresa.agregarDistribuidor(d1);
-        d1.agregarProducto(new Producto(d1, "Oklahomo", false, false, 4.16));
-        empresa.mostrarProveedoresYProductoQueDistribuye();
-        empresa.guardarCambios(); */
+       /* empresa.IniciarApp(); 
+                               * Distribuidor d1 = new Distribuidor();
+                               * empresa.agregarDistribuidor(d1);
+                               * d1.agregarProducto(new Producto(d1, "Oklahomo", false, false, 4.16));
+                               * empresa.mostrarProveedoresYProductoQueDistribuye();
+                               * empresa.guardarCambios();
+                               */
+        menuPrincipal();
     }
 
-    private static void menuPrincipal(){
-        
-    }
+    private static void menuPrincipal() {
+        int respuesta = 0;
+        do {
+            String[] titulo = {
+                    "MENU PRINCIPAL"
+            };
+            String[] opciones = {
+                    "1- Gestiones de empresa.",
+                    "2- Gestiones de cliente",
+                    "0- Salir"
+            };
+            respuesta = Herramientas.crearMenu(titulo, opciones);
 
+            switch (respuesta) {
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 0:
+                    empresa.guardarCambios();
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("Error, solo puedes introducir un número del 0 al 2");
+                    break;
+            }
+
+        } while (respuesta != 0);
+
+    }
 
     private static void guardarDatosEmpresa() {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ficheroEmpresa))) {
@@ -37,7 +68,12 @@ public class App implements Herramientas {
 
     private static void leerDatosEmpresa() {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ficheroEmpresa))) {
-            empresa = (Empresa) in.readObject();
+            Empresa empresaTemporal = (Empresa) in.readObject();
+            if (empresaTemporal!=null) {
+                empresa = empresaTemporal;
+            }else{
+                empresa = new Empresa();
+            }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -56,5 +92,4 @@ public class App implements Herramientas {
         return true;
     }
 
-    
 }

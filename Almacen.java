@@ -7,7 +7,7 @@ public class Almacen extends EstablecimientoPropio implements Stock {
     private ArrayList<Producto> stock = new ArrayList<>();
     private final Empresa empresa;
     private ArrayList<Estanteria> estanterias = new ArrayList<>();
-    private ArrayList<Nevera> neveras;
+    private ArrayList<Nevera> neveras = new ArrayList<>();
     private ArrayList<Empleado> empleados = new ArrayList<>();
     public int capacidadAlmacen;
 

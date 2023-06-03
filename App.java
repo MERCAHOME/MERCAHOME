@@ -87,6 +87,10 @@ public class App implements Herramientas {
                 e.printStackTrace();
             }
         } else {
+            Herramientas.limpiarPantalla();
+            System.out.println("Ya que es la primera vez que se inicia la aplicación es necesario que de de alta la empresa");
+            System.out.println("Vamos allá!");
+            System.out.println("");
             guardarDatosEmpresa();
         }
         return true;

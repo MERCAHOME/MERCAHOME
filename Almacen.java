@@ -40,6 +40,8 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         } else {
             System.out.println("No se ha agregado ninguna nevera, contacte con el administrador si no era su intención");
         }
+        System.out.println("Antes de finalizar, tiene que dar de alta algun trabajador");
+        System.out.println("Vamos allá!");
         agregar4Trabajadores();
         
     }

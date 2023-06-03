@@ -74,29 +74,30 @@ public class Vehiculo implements Serializable {
     public int asignarHorario(Empleado empleado) {
         if (estaDisponible()) {
             if (estaTodoDisponible()) {
-                System.out.println("Quieres por la mañana (1) o por la tarde (2)?");
                 int opcion = 0;
                 do {                
+                    System.out.println("Quieres asignarle un horario de mañanas (1) o de tardes (2)?");
+                    System.out.print("Respuesta: ");
                     opcion = Herramientas.pedirEnteroPositivo();
                     if (opcion == 1) {
                         tieneConductorManyana = true;
                         conductorManyana = empleado;
-                        return 1;
+                        return 0;
                     } else if(opcion == 2){
                         tieneConductorTarde = true;
                         conductorTarde = empleado;
-                        return 2;
+                        return 1;
                     }
                 } while (opcion != 1 || opcion != 2);                
             } else {
                 if (!tieneConductorManyana) {
                     tieneConductorManyana = true;
                     conductorManyana = empleado;
-                    return 1;
+                    return 0;
                 } else {
                     tieneConductorTarde = true;
                     conductorTarde = empleado;
-                    return 2;
+                    return 1;
                 }
             }
         }

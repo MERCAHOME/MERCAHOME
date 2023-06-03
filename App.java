@@ -45,6 +45,8 @@ public class App implements Herramientas {
                     break;
                 case 0:
                     empresa.guardarCambios();
+                    System.out.println("Gracias por confiar en MERCAHOME.\n");
+                    System.out.println("¡Hasta pronto!\n\n");
                     System.exit(0);
                     break;
 
@@ -115,7 +117,12 @@ public class App implements Herramientas {
 
                     break;
                 case 2:
-
+                    if (empresa.getClientes().size()>0) {
+                        
+                    } else {
+                        System.out.println("No se puede identificar como cliente porque no hay clientes dados de alta");
+                        System.out.println("Volviendo...");
+                    }
                     break;
                     
                 case 0:

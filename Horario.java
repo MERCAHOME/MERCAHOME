@@ -102,17 +102,20 @@ public class Horario implements Serializable {
     }
 
     public double comprobacionHorasYMinutos(double hora) {
-        int horaEntero = (int) hora;
+        int horaEntero = (int) Math.floor(hora);
+        int minutosEntero = (int)((hora-horaEntero)*100);
         if (horaEntero > 23 || horaEntero < 0) {
-            System.out.println("La hora" + hora + " introducida no es correcta");
+            System.out.println("La hora " + (int)hora + " introducida no es correcta");
             System.out.print("Introduzca una hora válida: ");
+            System.out.print("Nueva hora: ");
             double nuevaHora = Herramientas.pedirDoublePositivo();
             return comprobacionHorasYMinutos(nuevaHora);
         }
 
-        if (hora - horaEntero > 59 || hora - horaEntero < 0) {
-            System.out.println("La hora" + hora + " introducida no es correcta");
+        if (minutosEntero > 59 || minutosEntero < 0) {
+            System.out.println("Los minutos " + minutosEntero + " introducidos no son correctos");
             System.out.print("Introduzca una hora válida: ");
+            System.out.print("Nueva hora: ");
             double nuevaHora = Herramientas.pedirDoublePositivo();
             return comprobacionHorasYMinutos(nuevaHora);
         }

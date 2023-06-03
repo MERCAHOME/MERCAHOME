@@ -229,6 +229,7 @@ public class Empresa extends EstablecimientoPropio {
             Vehiculo vehiculo = new Vehiculo(matricula);
             vehiculosSupermercado.add(vehiculo);
             vehiculos.add(vehiculo);
+            System.out.println("Se ha dado de alta el "+(i+1)+"º vehiculo");
         }
         return vehiculosSupermercado;
     }

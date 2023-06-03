@@ -44,7 +44,8 @@ public class App implements Herramientas {
 
                     break;
                 case 0:
-
+                    empresa.guardarCambios();
+                    System.exit(0);
                     break;
 
                 default:

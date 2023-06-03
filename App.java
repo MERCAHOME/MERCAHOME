@@ -59,7 +59,7 @@ public class App implements Herramientas {
 
     private static void guardarDatosEmpresa() {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ficheroEmpresa))) {
-            empresa = new Empresa();
+            
             out.writeObject(empresa);
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,13 +69,13 @@ public class App implements Herramientas {
     private static void leerDatosEmpresa() {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ficheroEmpresa))) {
             Empresa empresaTemporal = (Empresa) in.readObject();
-            if (empresaTemporal!=null) {
+            if (empresaTemporal != null) {
                 empresa = empresaTemporal;
-            }else{
+            } else {
                 empresa = new Empresa();
-                
             }
         } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error al leer los datos de la empresa:");
             e.printStackTrace();
         }
     }
@@ -86,12 +86,16 @@ public class App implements Herramientas {
                 leerDatosEmpresa();
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("Como se ha producido un error al leer la empresa la vamos a crear de nuevo");
+                empresa = new Empresa();
+                guardarDatosEmpresa();
             }
         } else {
             Herramientas.limpiarPantalla();
-            System.out.println("Ya que es la primera vez que se inicia la aplicación es necesario que de de alta la empresa");
+            System.out.println("Ya que es la primera vez que se inicia la aplicación es necesario que de de alta la empresa.");
             System.out.println("Vamos allá!");
             System.out.println("");
+            empresa = new Empresa();
             guardarDatosEmpresa();
         }
         return true;

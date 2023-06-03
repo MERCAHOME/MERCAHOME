@@ -223,6 +223,9 @@ public class Empresa extends EstablecimientoPropio {
                         matriculaValida = false;
                         System.out.println("Ya existe un vehiculo con esta matricula dado de alta");
                         System.out.println("Introduzca la matrícula de nuevo");
+                        
+                    }else{
+                        matriculaValida=true;
                     }
                 }
             } while (!matriculaValida);

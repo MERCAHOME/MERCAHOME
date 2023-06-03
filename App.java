@@ -13,7 +13,7 @@ public class App implements Herramientas {
 
     public static void main(String[] args) {
         definirDatosEmpresa();
-        empresa.IniciarApp(); /*
+       /* empresa.IniciarApp(); 
                                * Distribuidor d1 = new Distribuidor();
                                * empresa.agregarDistribuidor(d1);
                                * d1.agregarProducto(new Producto(d1, "Oklahomo", false, false, 4.16));
@@ -68,7 +68,12 @@ public class App implements Herramientas {
 
     private static void leerDatosEmpresa() {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(ficheroEmpresa))) {
-            empresa = (Empresa) in.readObject();
+            Empresa empresaTemporal = (Empresa) in.readObject();
+            if (empresaTemporal!=null) {
+                empresa = empresaTemporal;
+            }else{
+                empresa = new Empresa();
+            }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

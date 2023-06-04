@@ -110,13 +110,14 @@ public class App implements Herramientas {
                     "5- Mostrar todos los pedidos",
                     "6- Mostrar todos los productos",
                     "7- Mostrar todos los descuentos",
+                    "8- Mostrar todos los distribuidores",
                     "",
-                    "8- Agregar descuento",
-                    "9- Modificar estado descuento",
+                    "9- Agregar descuento",
+                    "10- Modificar estado descuento",
                     "",
-                    "10- Agregar supermercado",
-                    "11- Agregar Almacén",
-                    "12- Agregar distribuidor",
+                    "11- Agregar supermercado",
+                    "12- Agregar Almacén",
+                    "13- Agregar distribuidor",
                     "",
                     "0- Volver al menú principal"
             };
@@ -125,7 +126,7 @@ public class App implements Herramientas {
             switch (respuesta) {
                 case 1:
                     if (empresa.getClientes().size()>0) {
-                        
+                        empresa.mos
                     }else{
                         System.out.println("No existen clientes en la empresa");
                         System.out.println("Volviendo...");
@@ -186,7 +187,13 @@ public class App implements Herramientas {
                 }
                     break;
                 case 8:
+                if (empresa.getDistribuidores().size()>0) {
+                        empresa.mostrarProveedores();
+                }else{
+                    System.out.println("No existen distribuidores en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 9:
 
@@ -200,13 +207,16 @@ public class App implements Herramientas {
                 case 12:
 
                     break;
+                case 13:
+
+                    break;
                 case 0:
                     guardarDatosEmpresa();
                     System.out.println("volviendo...");
                     break;
 
                 default:
-                    System.out.println("Error, solo puedes introducir un número del 0 al 12");
+                    System.out.println("Error, solo puedes introducir un número del 0 al 13");
                     break;
             }
 

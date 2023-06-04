@@ -152,6 +152,22 @@ public class Empresa extends EstablecimientoPropio {
             return false;
         }
     }
+    public void mostrarClientes(){
+        if (clientes.size()>0) {
+            System.out.println("*****************************");
+            System.out.println("          CLIENTES");
+            System.out.println("*****************************");
+
+            for (Cliente c : clientes) {
+                System.out.println("NOMBRE: " + c.getNombre()+" "+c.getApellidos());
+                System.out.println("DNI: " + c.getDNI());
+                System.out.println("*****************************");
+
+            }
+        }else{
+            System.out.println("Todavía no hay clientes dados de alta");
+        }
+    }
 
     public void mostrarProveedores(){
         if (distribuidores.size()>0) {

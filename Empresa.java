@@ -20,6 +20,7 @@ public class Empresa extends EstablecimientoPropio {
     private ArrayList<Producto> stock = new ArrayList<>();
     private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
 
+
     public Empresa() {
         Herramientas.limpiarPantalla();
         System.out.println("Vamos a dar de alta el primer almacén");
@@ -151,6 +152,166 @@ public class Empresa extends EstablecimientoPropio {
             return false;
         }
     }
+    public void mostrarClientes(){
+        if (clientes.size()>0) {
+            System.out.println("*****************************");
+            System.out.println("          CLIENTES");
+            System.out.println("*****************************");
+
+            for (Cliente c : clientes) {
+                System.out.println("NOMBRE: " + c.getNombre()+" "+c.getApellidos());
+                System.out.println("DNI: " + c.getDNI());
+                System.out.println("*****************************");
+
+            }
+        }else{
+            System.out.println("Todavía no hay clientes dados de alta");
+        }
+    }
+
+
+    public void mostrarTrabajadores(){
+        if (trabajadores.size()>0) {
+            System.out.println("*****************************");
+            System.out.println("         TRABAJADORES");
+            System.out.println("*****************************");
+
+            for (Empleado e : trabajadores) {
+                e.mostrarNombreYDNI();
+                System.out.println("*****************************");
+
+            }
+        }else{
+            System.out.println("Todavía no hay empleados dados de alta");
+        }
+    }
+
+    
+    public void mostrarFacturas(){
+        if (facturas.size()>0) {
+            System.out.println("*********************************************************************");  
+            System.out.println("                            FACTURAS");
+            System.out.println("*********************************************************************");
+            System.out.println();
+
+            for (Factura f : facturas) {
+                f.mostrar();
+
+            }
+        }else{
+            System.out.println("Todavía no hay facturas dadas de alta");
+        }
+    }
+
+    public void mostrarVehiculos(){
+        if (vehiculos.size()>0) {
+            
+            System.out.println("*****************************");
+            System.out.println("         VEHICULOS");
+            System.out.println("*****************************");
+            System.out.println();
+
+            for (Vehiculo v : vehiculos) {
+                System.out.println("Matrícula: "+v.getMatricula());
+                if (v.getConductorManyana()!=null) {
+                    System.out.println("Conductor mañanas:"+v.getConductorManyana().getNombre()+" "+v.getConductorManyana().getApellidos());
+                }
+                if (v.getConductorTarde()!=null) {
+                    System.out.println("Conductor tardes:"+v.getConductorTarde().getNombre()+" "+v.getConductorTarde().getApellidos());
+                }
+                System.out.println("*****************************");
+
+            }
+        }else{
+            System.out.println("Todavía no hay vehículos dadas de alta");
+        }
+    }
+
+    public void mostrarProveedores(){
+        if (distribuidores.size()>0) {
+            System.out.println("*****************************");
+            System.out.println("        PROVEEDORES");
+            System.out.println("*****************************");
+
+            for (Distribuidor d : distribuidores) {
+                System.out.println("NOMBRE PROVEEDOR: " + d.getNombre());
+                System.out.println("CIF: " + d.getCIF());
+                System.out.println("*****************************");
+
+            }
+        }else{
+            System.out.println("Todavía no hay distribuidores dados de alta");
+        }
+    }
+
+    public void mostrarPedidos(){
+        if (pedidos.size()>0) {
+            System.out.println("*********************************************************************");
+            System.out.println("                            PEDIDOS");
+            System.out.println("*********************************************************************");
+            System.out.println();
+            for (Pedido p : pedidos) {
+               p.mostrarProductosPedidoConTotal();
+
+            }
+        }else{
+            System.out.println("Todavía no hay pedidos dados de alta");
+        }
+    }
+
+    public void mostrarDescuentos(){
+        if (descuentos.size()>0) {
+            System.out.println("*****************************");
+            System.out.println("          DESCUENTOS");
+            System.out.println("*****************************");
+            for (Descuento desc : descuentos) {
+                if (desc instanceof DescuentoCantidad) {
+                    DescuentoCantidad descuen = (DescuentoCantidad)desc;
+                    System.out.println("Tipo: Descuento cantidad");
+                    System.out.println("Importe mínimo: "+descuen.getImporteMinimo());
+                    System.out.println("Cantidad de descuento: "+descuen.getCantidadDescuento());
+                    System.out.println("ID: "+descuen.getId());
+                    if (descuen.isActivo()) {
+                        System.out.println("Descuento aplicable");
+                    } else {
+                        System.out.println("Descuento no aplicable");
+                    }
+
+                }else if(desc instanceof DescuentoPorcentual){
+                    DescuentoPorcentual descuent = (DescuentoPorcentual) desc;
+                    System.out.println("Tipo: Descuento cantidad");
+                    System.out.println("Importe máximo: "+descuent.getCantidadMaximaDescuento());
+                    System.out.println("Porcentaje de descuento: "+descuent.getPorcentajeDescuento());
+                    System.out.println("ID: "+descuent.getId());
+                    if (descuent.isActivo()) {
+                        System.out.println("Descuento aplicable");
+                    } else {
+                        System.out.println("Descuento no aplicable");
+                    }
+                }
+                System.out.println("*****************************");
+            }
+        }else{
+            System.out.println("Todavía no hay descuentos dados de alta");
+        }
+    }
+
+/*     public voida mostrarPrductos(){
+        if (distribuidores.size()>0) {
+            System.out.println("*****************************");
+            System.out.println("        PROVEEDORES");
+            System.out.println("*****************************");
+
+            for (Distribuidor d : distribuidores) {
+                System.out.println("NOMBRE PROVEEDOR: " + d.getNombre());
+                System.out.println("CIF: " + d.getCIF());
+                System.out.println("*****************************");
+
+            }
+        }else{
+            System.out.println("Todavía no hay distribuidores dados de alta");
+        }
+    } */
 
     public Distribuidor devolverProveedor(String cifDistribuidor) {
         for (Distribuidor distribuidor : distribuidores) {
@@ -445,6 +606,9 @@ public class Empresa extends EstablecimientoPropio {
 
     public void setStock(ArrayList<Producto> stock) {
         this.stock = stock;
+    }
+    public ArrayList<Vehiculo> getVehiculos() {
+        return vehiculos;
     }
 
     public void IniciarApp() {

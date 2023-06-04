@@ -21,6 +21,7 @@ public class Pedido implements Herramientas {
     private int distanciaEnKmHastaSupermercado;
     private Descuento descuento;
 
+   
     public Pedido(Supermercado supermercado) {
         this.id = generateID();
         this.fechaRealizacion = LocalDateTime.now();
@@ -386,7 +387,9 @@ public class Pedido implements Herramientas {
         return totalConTransporteDescuentoEIVA;
     }
 
- 
+    public double getPrecioTransporte() {
+        return precioTransporte;
+    }
 
     public Factura getFactura() {
         return factura;
@@ -428,4 +431,8 @@ public class Pedido implements Herramientas {
         IDgenerator++;
         return IDgenerator;
     }
+    public Descuento getDescuento() {
+        return descuento;
+    }
+
 }

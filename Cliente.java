@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Cliente extends Persona {
@@ -45,8 +46,13 @@ public class Cliente extends Persona {
         Supermercado superm = this.getEmpresa().devolverSupermercado();
         if (superm!=null) {
             Pedido pedido = new Pedido(superm);
-            getEmpresa().getPedidos().add( pedido);
+            //Cuando se cambie factura habrá que cambiar esto
+            Factura factura = new Factura(this, LocalDate.now(), superm, pedido.getPrecioTransporte()  , pedido.getDescuento(), pedido.getPrecioTransporte());
+            pedido.setFactura(factura);
+            facturas.add( factura);
             pedidos.add( pedido);
+            getEmpresa().getFacturas().add( factura);
+            getEmpresa().getPedidos().add( pedido);
         } else {
             System.out.println("No se ha podido realizar el pedido, ya que se ha producido un error seleccionando el supermercado");
         }

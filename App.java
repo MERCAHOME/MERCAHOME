@@ -45,7 +45,6 @@ public class App implements Herramientas {
                     menuCliente();
                     break;
                 case 0:
-                    empresa.guardarCambios();
                     guardarDatosEmpresa();
                     System.out.println("Gracias por confiar en MERCAHOME.\n");
                     System.out.println("¡Hasta pronto!\n\n");

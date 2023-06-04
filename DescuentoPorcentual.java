@@ -2,12 +2,14 @@ public class DescuentoPorcentual extends Descuento {
     private double cantidadMaximaDescuento;
     private int porcentajeDescuento;
     
-    public DescuentoPorcentual(boolean activo, double cantidadMaximaDescuento, int porcentajeDescuento) {
-        super(activo);
-        this.cantidadMaximaDescuento = cantidadMaximaDescuento;
-        this.porcentajeDescuento = porcentajeDescuento;
-    }
+
     
+    public DescuentoPorcentual(boolean activo, int porcentaje, double cantidadMax) {
+        super(activo);
+        this.cantidadMaximaDescuento = cantidadMax;
+        this.porcentajeDescuento = porcentaje;
+    }
+
     public double getCantidadMaximaDescuento() {
         return cantidadMaximaDescuento;
     }

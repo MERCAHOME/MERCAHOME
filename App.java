@@ -254,13 +254,28 @@ public class App implements Herramientas {
                     
                     break;
                 case 11:
-
+                System.out.println("Vamos a agregar un supermercado");
+                System.out.println();
+                    empresa.getSupermercados().add(new Supermercado(empresa));
+                    
+                    System.out.println("¡Hecho!");
+                    System.out.println("Volviendo...");
                     break;
                 case 12:
-
+                
+                System.out.println("Vamos a agregar un almacén");
+                System.out.println();
+                    empresa.getAlmacenes().add(new Almacen(empresa));
+                    System.out.println("¡Hecho!");
+                    System.out.println("Volviendo...");
                     break;
                 case 13:
-
+                
+                System.out.println("Vamos a agregar un distribuidor");
+                System.out.println();
+                    empresa.getDistribuidores().add(new Distribuidor());
+                    System.out.println("¡Hecho!");
+                    System.out.println("Volviendo...");
                     break;
                 case 0:
                     guardarDatosEmpresa();

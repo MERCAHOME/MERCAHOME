@@ -244,6 +244,21 @@ public class Empresa extends EstablecimientoPropio {
         }
     }
 
+    public void mostrarPedidos(){
+        if (pedidos.size()>0) {
+            System.out.println("*********************************************************************");
+            System.out.println("                            PEDIDOS");
+            System.out.println("*********************************************************************");
+            System.out.println();
+            for (Pedido p : pedidos) {
+               p.mostrarProductosPedidoConTotal();
+
+            }
+        }else{
+            System.out.println("Todavía no hay pedidos dados de alta");
+        }
+    }
+
     public void mostrarDescuentos(){
         if (descuentos.size()>0) {
             System.out.println("*****************************");

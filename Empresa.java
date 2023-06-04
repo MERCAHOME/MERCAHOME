@@ -246,7 +246,7 @@ public class Empresa extends EstablecimientoPropio {
                 System.out.println("*****************************");
                 for (Cliente clienteNuevo : clientes) {
                     System.out.println("Nombre: "+clienteNuevo.getNombre()+" "+clienteNuevo.getApellidos());
-                    System.out.println("DNI: "+clienteNuevo.getDNI());
+                    System.out.print("DNI: "+clienteNuevo.getDNI());
                     System.out.println("*****************************");
 
                 }

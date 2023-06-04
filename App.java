@@ -46,6 +46,7 @@ public class App implements Herramientas {
                     break;
                 case 0:
                     empresa.guardarCambios();
+                    guardarDatosEmpresa();
                     System.out.println("Gracias por confiar en MERCAHOME.\n");
                     System.out.println("¡Hasta pronto!\n\n");
                     System.exit(0);
@@ -186,7 +187,7 @@ public class App implements Herramientas {
 
                     break;
                 case 4:
-                    System.out.println("La categoría del cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" es "+cliente.getTipoDeCliente().toString());
+                    System.out.println("La categoría del cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" es '"+cliente.getTipoDeCliente().toString()+"'");
                     break;
 
                 case 0:

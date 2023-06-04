@@ -72,6 +72,7 @@ public class App implements Herramientas {
                     "1- Gestiones de empresa.",
                     "2- Gestiones de almacenes",
                     "3- Gestiones de supermercados",
+                    "4- Gestiones de distribuidores",
                     "0- Volver al menú principal"
             };
             respuesta = Herramientas.crearMenu(titulo, opciones);
@@ -130,6 +131,7 @@ public class App implements Herramientas {
                 case 2:
                     if (empresa.getClientes().size() > 0) {
                         Cliente cliente2 = empresa.devolverCliente();
+                        Herramientas.limpiarPantalla();
                         menuClienteIdentificado(cliente2);
                     } else {
                         System.out.println("No se puede identificar como cliente porque no hay clientes dados de alta");
@@ -170,7 +172,7 @@ public class App implements Herramientas {
             switch (respuesta) {
                 case 1:
                     if (cliente.getPedidos().size()>0) {
-                        
+                        cliente.mostrarPedidos();
                     } else {
                         System.out.println("El cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" no tiene ningun pedido todavía");
                     }
@@ -178,13 +180,13 @@ public class App implements Herramientas {
                     break;
                 case 2:
                     if (cliente.getFacturas().size()>0) {
-                            
+                            cliente.mostrarFacturas();
                     } else {
                         System.out.println("El cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" no tiene ninguna factura todavía");
                     }
                     break;
                 case 3:
-
+                    cliente.realizarPedido();
                     break;
                 case 4:
                     System.out.println("La categoría del cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" es '"+cliente.getTipoDeCliente().toString()+"'");

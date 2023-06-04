@@ -175,8 +175,10 @@ public class App implements Herramientas {
                     break;
                 case 6:
                 if (empresa.getStock().size()>0) {
+                    System.out.println("Método no implementado todavía");
                     //no tinc ganes de ferlo
-                    empresa.mostrarProductos();
+                    /* 
+                    empresa.mostrarProductos(); */
                     System.out.println("Volviendo...");
                 }else{
                     System.out.println("No existen productos en la empresa");

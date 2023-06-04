@@ -124,24 +124,48 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
-                    
+
                     break;
                 case 2:
 
-                break;
+                    break;
                 case 3:
 
-                break;
+                    break;
                 case 4:
 
-                break;
+                    break;
+                case 5:
+
+                    break;
+                case 6:
+
+                    break;
+                case 7:
+
+                    break;
+                case 8:
+
+                    break;
+                case 9:
+
+                    break;
+                case 10:
+
+                    break;
+                case 11:
+
+                    break;
+                case 12:
+
+                    break;
                 case 0:
                     guardarDatosEmpresa();
                     System.out.println("volviendo...");
                     break;
 
                 default:
-                    System.out.println("Error, solo puedes introducir un número del 0 al 4");
+                    System.out.println("Error, solo puedes introducir un número del 0 al 12");
                     break;
             }
 
@@ -149,12 +173,183 @@ public class App implements Herramientas {
     };
 
     private static void menuGestionesAlmacenes() {
+        int respuesta = 0;
+        do {
+            String[] titulo = {
+                    "    GESTION DE ALMACENES"
+
+            };
+            String[] opciones = {
+                    "1- Agregar almacén",
+                    "2- Mostrar productos de un almacen",
+                    "3- Agregar producto a un almacen",
+                    "4- Eliminar producto de un almacen",
+                    "5- Agregar empleado a un almacén",
+                    "6- Eliminar empleado a un almacén",//Tiene que haber mínimo un encargado, un gerente, y dos mozos de almacén, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
+                    "7- Agregar estantería a un almacén",
+                    "8- Agregar nevera a un almacén",
+                    "9- Eliminar estanteria de un almacén",//Tiene que estar vacía o hay que reubicar productos
+                    "10- Eliminar nevera de un almacén",//Tiene que estar vacía o hay que reubicar productos
+                    "0- Volver al menú principal"
+            };
+            respuesta = Herramientas.crearMenu(titulo, opciones);
+
+            switch (respuesta) {
+                case 1:
+                    
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+                case 5:
+                    
+                    break;
+                case 6:
+                    
+                    break;
+                case 7:
+                    
+                    break;
+                case 8:
+                    
+                    break;
+                case 9:
+                    
+                    break;
+                case 10:
+                    
+                    break;
+                case 0:
+                    guardarDatosEmpresa();
+                    System.out.println("volviendo...");
+                    break;
+
+                default:
+                    System.out.println("Error, solo puedes introducir un número del 0 al 10");
+                    break;
+            }
+
+        } while (respuesta != 0);
     };
 
     private static void menuGestionesSupermercados() {
+        int respuesta = 0;
+        do {
+            String[] titulo = {
+                    "  GESTION DE SUPERMERCADOS"
+
+            };
+            String[] opciones = {
+                    "1- Agregar supermercado",
+                    "2- Mostrar productos de un supermercado",
+                    "3- Agregar producto a un supermercado",
+                    "4- Eliminar producto de un supermercado",
+                    "5- Agregar empleado a un supermercado",
+                    "6- Eliminar empleado a un supermercado",//Tiene que haber mínimo un encargado, un gerente, un conductor, y un cajero, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
+                    "7- Agregar estantería a un supermercado",
+                    "8- Agregar nevera a un supermercado",
+                    "9- Eliminar estanteria de un supermercado",//Tiene que estar vacía o hay que reubicar productos
+                    "10- Eliminar nevera de un supermercado",//Tiene que estar vacía o hay que reubicar productos
+                    "11- Mostrar pedidos de un supermercado",
+                    "12- Mostrar facturas de un supermercado",
+                    "13- Mostrar vehículos de un supermercado",
+                    "0- Volver al menú principal"
+            };
+            respuesta = Herramientas.crearMenu(titulo, opciones);
+
+            switch (respuesta) {
+                case 1:
+                    
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+                case 5:
+                    
+                    break;
+                case 6:
+                    
+                    break;
+                case 7:
+                    
+                    break;
+                case 8:
+                    
+                    break;
+                case 9:
+                    
+                    break;
+                case 10:
+                    
+                    break;
+                case 11:
+                    
+                    break;
+                case 12:
+                    
+                    break;
+                case 13:
+                    
+                    break;
+                case 0:
+                    guardarDatosEmpresa();
+                    System.out.println("volviendo...");
+                    break;
+
+                default:
+                    System.out.println("Error, solo puedes introducir un número del 0 al 13");
+                    break;
+            }
+
+        } while (respuesta != 0);
     };
 
     private static void menuGestionesDistribuidores() {
+        int respuesta = 0;
+        do {
+            String[] titulo = {
+                    "    MENU DISTRIBUIDORES"
+            };
+            String[] opciones = {
+                    "1- Mostrar productos que vende un distribuidor",
+                    "2- Agregar producto que vendre un distribuidor",
+                    "3- Eliminar producto que vendre un distribuidor",
+                    "0- Salir"
+            };
+            respuesta = Herramientas.crearMenu(titulo, opciones);
+
+            switch (respuesta) {
+                case 1:
+                    
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    
+                    break;
+                case 0:
+                    guardarDatosEmpresa();
+                    break;
+
+                default:
+                    System.out.println("Error, solo puedes introducir un número del 0 al 3");
+                    break;
+            }
+
+        } while (respuesta != 0);
     };
 
     private static void menuCliente() {

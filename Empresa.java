@@ -169,6 +169,23 @@ public class Empresa extends EstablecimientoPropio {
         }
     }
 
+
+    public void mostrarTrabajadores(){
+        if (trabajadores.size()>0) {
+            System.out.println("*****************************");
+            System.out.println("         TRABAJADORES");
+            System.out.println("*****************************");
+
+            for (Empleado e : trabajadores) {
+                e.mostrarNombreYDNI();
+                System.out.println("*****************************");
+
+            }
+        }else{
+            System.out.println("Todavía no hay empleados dados de alta");
+        }
+    }
+
     public void mostrarProveedores(){
         if (distribuidores.size()>0) {
             System.out.println("*****************************");

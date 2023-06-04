@@ -126,7 +126,8 @@ public class App implements Herramientas {
             switch (respuesta) {
                 case 1:
                     if (empresa.getClientes().size()>0) {
-                        empresa.mos
+                        empresa.mostrarClientes();
+                        System.out.println("Volviendo...");
                     }else{
                         System.out.println("No existen clientes en la empresa");
                         System.out.println("Volviendo...");
@@ -134,7 +135,8 @@ public class App implements Herramientas {
                     break;
                 case 2:
                 if (empresa.getTrabajadores().size()>0) {
-                        
+                        empresa.mostrarTrabajadores();
+                        System.out.println("Volviendo...");
                 }else{
                     System.out.println("No existen trabajadores en la empresa");
                     System.out.println("Volviendo...");

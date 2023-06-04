@@ -146,6 +146,7 @@ public class App implements Herramientas {
                 case 3:
                 if (empresa.getFacturas().size()>0) {
                         empresa.mostrarFacturas();
+                        System.out.println("Volviendo...");
                 }else{
                     System.out.println("No existen facturas en la empresa");
                     System.out.println("Volviendo...");
@@ -154,7 +155,8 @@ public class App implements Herramientas {
                     break;
                 case 4:
                 if (empresa.getVehiculos().size()>0) {
-                        
+                        empresa.mostrarVehiculos();
+                        System.out.println("Volviendo...");
                 }else{
                     System.out.println("No existen vehículos en la empresa");
                     System.out.println("Volviendo...");

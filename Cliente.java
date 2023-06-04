@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Cliente extends Persona {
@@ -19,17 +20,43 @@ public class Cliente extends Persona {
 
     public void mostrarFacturas(){
         if (facturas.size()>0) {
-            
+            System.out.println("*********************************************************************");
+            System.out.println("                       LISTADO DE FACTURAS");
+            for (Factura factura : facturas) {
+                factura.mostrar();
+            }
         }else{
             System.out.println(super.getNombre()+" "+super.getApellidos()+" no tiene ninguna factura asociada todavía");
         }
     }
     public void mostrarPedidos(){
         if (pedidos.size()>0) {
-            
+            System.out.println("*********************************************************************");
+            System.out.println("                            PEDIDOS");
+            for (Pedido pedidoN : pedidos) {
+                pedidoN.mostrarProductosPedidoConTotal();
+            }
         }else{
             System.out.println(super.getNombre()+" "+super.getApellidos()+" no tiene ningun pedido asociado todavía");
         }
+    }
+
+    public void realizarPedido(){
+        System.out.println("Seleccione un supermercado para realizar el pedido");
+        Supermercado superm = this.getEmpresa().devolverSupermercado();
+        if (superm!=null) {
+            Pedido pedido = new Pedido(superm);
+            //Cuando se cambie factura habrá que cambiar esto
+            Factura factura = new Factura(this, LocalDate.now(), superm, pedido.getPrecioTransporte()  , pedido.getDescuento(), pedido.getPrecioTransporte());
+            pedido.setFactura(factura);
+            facturas.add( factura);
+            pedidos.add( pedido);
+            getEmpresa().getFacturas().add( factura);
+            getEmpresa().getPedidos().add( pedido);
+        } else {
+            System.out.println("No se ha podido realizar el pedido, ya que se ha producido un error seleccionando el supermercado");
+        }
+        
     }
     
     public TipoDeCliente getTipoDeCliente() {

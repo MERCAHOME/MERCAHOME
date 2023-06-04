@@ -21,12 +21,28 @@ public class Pedido implements Herramientas {
     private int distanciaEnKmHastaSupermercado;
     private Descuento descuento;
 
+   
     public Pedido(Supermercado supermercado) {
         this.id = generateID();
         this.fechaRealizacion = LocalDateTime.now();
         System.out.println("Cuantos Km hay desde el supermercado hasta la ubicación de entrega de el pedido?");
         System.out.print("Km: ");
         this.distanciaEnKmHastaSupermercado = Herramientas.pedirEnteroPositivo();
+        int respuesta =0;
+        do {
+            System.out.println("Tiene algún código de descuento ?");
+            System.out.println("1- Si");
+            System.out.println("2- No");
+            respuesta = Herramientas.pedirEnteroPositivo();
+            if (respuesta<1||respuesta>2) {
+                System.out.println("Error, solo puede introducir 1 o 2");
+                System.out.println("Introduzca un valor válido");
+            }
+        } while (respuesta<1||respuesta>2);
+        if (respuesta==1) {
+            this.descuento = supermercado.getEmpresa().devolverDescuento();
+        }
+
         if (realizarPedido(supermercado)) {
             System.out.println("Pedido realizado con éxito");
             this.estadoDePedido = EstadoDePedido.ACEPTADO;
@@ -239,7 +255,7 @@ public class Pedido implements Herramientas {
 
         System.out.println("*********************************************************************");
     }
-    private void mostrarProductosPedidoConTotal(){
+    public void mostrarProductosPedidoConTotal(){
         String stringVacio = " ";
         mostrarProductosPedido();
         total = carcularTotal();
@@ -386,7 +402,9 @@ public class Pedido implements Herramientas {
         return totalConTransporteDescuentoEIVA;
     }
 
- 
+    public double getPrecioTransporte() {
+        return precioTransporte;
+    }
 
     public Factura getFactura() {
         return factura;
@@ -428,4 +446,8 @@ public class Pedido implements Herramientas {
         IDgenerator++;
         return IDgenerator;
     }
+    public Descuento getDescuento() {
+        return descuento;
+    }
+
 }

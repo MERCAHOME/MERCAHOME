@@ -237,6 +237,43 @@ public class Empresa extends EstablecimientoPropio {
         return vehiculosSupermercado;
     }
 
+    public Cliente devolverCliente(){
+        if (clientes.size()>0) {
+            boolean noEncontrado = false;
+            do {
+                System.out.println("*****************************");
+                System.out.println("          CLIENTES");
+                System.out.println("*****************************");
+                for (Cliente clienteNuevo : clientes) {
+                    System.out.println("Nombre: "+clienteNuevo.getNombre()+" "+clienteNuevo.getApellidos());
+                    System.out.println("DNI: "+clienteNuevo.getDNI());
+                    System.out.println("*****************************");
+
+                }
+                if(noEncontrado){
+                    System.out.println("No existe ningún cliente con el DNI indicado");
+                    System.out.println("Indiquelo de nuevo");
+                }
+                System.out.println("Selenccione uno de los clientes mostrados previamente");
+                System.out.println("Para seleccionarlo indique su DNI");
+                System.out.println("DNI: ");
+                String dni = Herramientas.pedirString();
+                for (Cliente clienteNuevo : clientes) {
+                    if (clienteNuevo.getDNI().equalsIgnoreCase(dni)) {
+                        return clienteNuevo;
+                    }
+
+                }
+               noEncontrado=true;
+                
+            } while (true);
+            
+        } else {
+            System.out.println("No hay clientes dados de alta");
+            return null;
+        }
+    }
+
     public String getNombre() {
         return nombre;
     }

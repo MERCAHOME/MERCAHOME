@@ -13,13 +13,14 @@ public class App implements Herramientas {
 
     public static void main(String[] args) {
         definirDatosEmpresa();
-       /* empresa.IniciarApp(); 
-                               * Distribuidor d1 = new Distribuidor();
-                               * empresa.agregarDistribuidor(d1);
-                               * d1.agregarProducto(new Producto(d1, "Oklahomo", false, false, 4.16));
-                               * empresa.mostrarProveedoresYProductoQueDistribuye();
-                               * empresa.guardarCambios();
-                               */
+        /*
+         * empresa.IniciarApp();
+         * Distribuidor d1 = new Distribuidor();
+         * empresa.agregarDistribuidor(d1);
+         * d1.agregarProducto(new Producto(d1, "Oklahomo", false, false, 4.16));
+         * empresa.mostrarProveedoresYProductoQueDistribuye();
+         * empresa.guardarCambios();
+         */
         menuPrincipal();
     }
 
@@ -45,6 +46,7 @@ public class App implements Herramientas {
                     break;
                 case 0:
                     empresa.guardarCambios();
+                    guardarDatosEmpresa();
                     System.out.println("Gracias por confiar en MERCAHOME.\n");
                     System.out.println("¡Hasta pronto!\n\n");
                     System.exit(0);
@@ -64,7 +66,7 @@ public class App implements Herramientas {
         do {
             String[] titulo = {
                     "     GESTION DE EMPRESA"
-                         
+
             };
             String[] opciones = {
                     "1- Gestiones de empresa.",
@@ -81,7 +83,7 @@ public class App implements Herramientas {
                 case 2:
 
                     break;
-                    case 3:
+                case 3:
 
                     break;
                 case 0:
@@ -103,7 +105,7 @@ public class App implements Herramientas {
         do {
             String[] titulo = {
                     "     GESTION DE CLIENTE"
-                         
+
             };
             String[] opciones = {
                     "1- Alta nueva.",
@@ -116,17 +118,17 @@ public class App implements Herramientas {
                 case 1:
                     Cliente cliente = new Cliente(empresa);
 
-                    if (cliente!=null) {
+                    if (cliente != null) {
                         empresa.getClientes().add(cliente);
                         System.out.println("Cliente añadido con éxito");
                         menuClienteIdentificado(cliente);
-                    }else{
+                    } else {
                         System.out.println("No se ha podido dar de alta el cliente");
                         System.out.println("Volviendo...");
                     }
                     break;
                 case 2:
-                    if (empresa.getClientes().size()>0) {
+                    if (empresa.getClientes().size() > 0) {
                         Cliente cliente2 = empresa.devolverCliente();
                         menuClienteIdentificado(cliente2);
                     } else {
@@ -134,7 +136,7 @@ public class App implements Herramientas {
                         System.out.println("Volviendo...");
                     }
                     break;
-                    
+
                 case 0:
                     empresa.guardarCambios();
                     System.out.println("volviendo...");
@@ -154,7 +156,7 @@ public class App implements Herramientas {
         do {
             String[] titulo = {
                     "     GESTION DE CLIENTE"
-                         
+
             };
             String[] opciones = {
                     "1- Consultar pedidos",
@@ -167,23 +169,27 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
+                    if (cliente.getPedidos().size()>0) {
+                        
+                    } else {
+                        System.out.println("El cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" no tiene ningun pedido todavía");
+                    }
 
                     break;
                 case 2:
-                    if (empresa.getClientes().size()>0) {
-                        
+                    if (cliente.getFacturas().size()>0) {
+                            
                     } else {
-                        System.out.println("No se puede identificar como cliente porque no hay clientes dados de alta");
-                        System.out.println("Volviendo...");
+                        System.out.println("El cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" no tiene ninguna factura todavía");
                     }
                     break;
-                    case 3:
+                case 3:
 
                     break;
-                    case 4:
-
+                case 4:
+                    System.out.println("La categoría del cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" es '"+cliente.getTipoDeCliente().toString()+"'");
                     break;
-                    
+
                 case 0:
                     empresa.guardarCambios();
                     System.out.println("volviendo...");
@@ -200,7 +206,7 @@ public class App implements Herramientas {
 
     private static void guardarDatosEmpresa() {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ficheroEmpresa))) {
-            
+
             out.writeObject(empresa);
         } catch (IOException e) {
             e.printStackTrace();
@@ -233,7 +239,8 @@ public class App implements Herramientas {
             }
         } else {
             Herramientas.limpiarPantalla();
-            System.out.println("Ya que es la primera vez que se inicia la aplicación es necesario que de de alta la empresa.");
+            System.out.println(
+                    "Ya que es la primera vez que se inicia la aplicación es necesario que de de alta la empresa.");
             System.out.println("Vamos allá!");
             System.out.println("");
             empresa = new Empresa();

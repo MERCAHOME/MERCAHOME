@@ -114,11 +114,21 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
+                    Cliente cliente = new Cliente(empresa);
 
+                    if (cliente!=null) {
+                        empresa.getClientes().add(cliente);
+                        System.out.println("Cliente añadido con éxito");
+                        menuClienteIdentificado(cliente);
+                    }else{
+                        System.out.println("No se ha podido dar de alta el cliente");
+                        System.out.println("Volviendo...");
+                    }
                     break;
                 case 2:
                     if (empresa.getClientes().size()>0) {
-                        
+                        Cliente cliente2 = empresa.devolverCliente();
+                        menuClienteIdentificado(cliente2);
                     } else {
                         System.out.println("No se puede identificar como cliente porque no hay clientes dados de alta");
                         System.out.println("Volviendo...");
@@ -132,6 +142,55 @@ public class App implements Herramientas {
 
                 default:
                     System.out.println("Error, solo puedes introducir un número del 0 al 2");
+                    break;
+            }
+
+        } while (respuesta != 0);
+
+    }
+
+    private static void menuClienteIdentificado(Cliente cliente) {
+        int respuesta = 0;
+        do {
+            String[] titulo = {
+                    "     GESTION DE CLIENTE"
+                         
+            };
+            String[] opciones = {
+                    "1- Consultar pedidos",
+                    "2- Consultar facturas",
+                    "3- Realizar pedido",
+                    "4- Consultar categoria de cliente",
+                    "0- Volver al menú principal"
+            };
+            respuesta = Herramientas.crearMenu(titulo, opciones);
+
+            switch (respuesta) {
+                case 1:
+
+                    break;
+                case 2:
+                    if (empresa.getClientes().size()>0) {
+                        
+                    } else {
+                        System.out.println("No se puede identificar como cliente porque no hay clientes dados de alta");
+                        System.out.println("Volviendo...");
+                    }
+                    break;
+                    case 3:
+
+                    break;
+                    case 4:
+
+                    break;
+                    
+                case 0:
+                    empresa.guardarCambios();
+                    System.out.println("volviendo...");
+                    break;
+
+                default:
+                    System.out.println("Error, solo puedes introducir un número del 0 al 4");
                     break;
             }
 

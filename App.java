@@ -315,13 +315,23 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
-                    
+                if (empresa.getAlmacenes().size() > 0) {
+                    Almacen almacenes = empresa.devolverAlmacen();
+                    Almacen.mostrarProductos();
+                }else{
+                    System.out.println("Todavia no hay almacenes dados de alta");
+                    System.out.println("Volviendo...");
+                }                    
                     break;
                 case 2:
                     
                     break;
                 case 3:
-                    
+                    if () {
+                        
+                    } else {
+                        
+                    }
                     break;
                 case 4:
                     

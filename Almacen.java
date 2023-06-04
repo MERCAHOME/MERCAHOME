@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -248,7 +249,17 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         //}
 
     }
-
+    public static void mostrarProductos() {
+        if (stock.size() > 0) {
+            System.out.println("Productos en el almacén:");
+            for (Producto producto : stock) {
+                System.out.println(producto.toString());
+            }
+        } else {
+            System.out.println("Todavía no hay productos dados de alta en este almacén");
+        }
+    }
+    
     public void agregarTrabajador() {
         int respuesta = 0;
         do {

@@ -204,7 +204,7 @@ public class Empresa extends EstablecimientoPropio {
     }
 
     public void mostrarVehiculos(){
-        if (facturas.size()>0) {
+        if (vehiculos.size()>0) {
             
             System.out.println("*****************************");
             System.out.println("         VEHICULOS");
@@ -243,6 +243,60 @@ public class Empresa extends EstablecimientoPropio {
             System.out.println("Todavía no hay distribuidores dados de alta");
         }
     }
+
+    public void mostrarDescuentos(){
+        if (descuentos.size()>0) {
+            System.out.println("*****************************");
+            System.out.println("          DESCUENTOS");
+            System.out.println("*****************************");
+            for (Descuento desc : descuentos) {
+                if (desc instanceof DescuentoCantidad) {
+                    DescuentoCantidad descuen = (DescuentoCantidad)desc;
+                    System.out.println("Tipo: Descuento cantidad");
+                    System.out.println("Importe mínimo: "+descuen.getImporteMinimo());
+                    System.out.println("Cantidad de descuento: "+descuen.getCantidadDescuento());
+                    System.out.println("ID: "+descuen.getId());
+                    if (descuen.isActivo()) {
+                        System.out.println("Descuento aplicable");
+                    } else {
+                        System.out.println("Descuento no aplicable");
+                    }
+
+                }else if(desc instanceof DescuentoPorcentual){
+                    DescuentoPorcentual descuent = (DescuentoPorcentual) desc;
+                    System.out.println("Tipo: Descuento cantidad");
+                    System.out.println("Importe máximo: "+descuent.getCantidadMaximaDescuento());
+                    System.out.println("Porcentaje de descuento: "+descuent.getPorcentajeDescuento());
+                    System.out.println("ID: "+descuent.getId());
+                    if (descuent.isActivo()) {
+                        System.out.println("Descuento aplicable");
+                    } else {
+                        System.out.println("Descuento no aplicable");
+                    }
+                }
+                System.out.println("*****************************");
+            }
+        }else{
+            System.out.println("Todavía no hay descuentos dados de alta");
+        }
+    }
+
+/*     public voida mostrarPrductos(){
+        if (distribuidores.size()>0) {
+            System.out.println("*****************************");
+            System.out.println("        PROVEEDORES");
+            System.out.println("*****************************");
+
+            for (Distribuidor d : distribuidores) {
+                System.out.println("NOMBRE PROVEEDOR: " + d.getNombre());
+                System.out.println("CIF: " + d.getCIF());
+                System.out.println("*****************************");
+
+            }
+        }else{
+            System.out.println("Todavía no hay distribuidores dados de alta");
+        }
+    } */
 
     public Distribuidor devolverProveedor(String cifDistribuidor) {
         for (Distribuidor distribuidor : distribuidores) {

@@ -13,14 +13,6 @@ public class App implements Herramientas {
 
     public static void main(String[] args) {
         definirDatosEmpresa();
-        /*
-         * empresa.IniciarApp();
-         * Distribuidor d1 = new Distribuidor();
-         * empresa.agregarDistribuidor(d1);
-         * d1.agregarProducto(new Producto(d1, "Oklahomo", false, false, 4.16));
-         * empresa.mostrarProveedoresYProductoQueDistribuye();
-         * empresa.guardarCambios();
-         */
         menuPrincipal();
     }
 
@@ -78,27 +70,92 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
-
+                    menuGestionesEmpresa();
                     break;
                 case 2:
-
+                    menuGestionesAlmacenes();
                     break;
                 case 3:
-
+                    menuGestionesSupermercados();
+                    break;
+                case 4:
+                    menuGestionesDistribuidores();
                     break;
                 case 0:
-                    empresa.guardarCambios();
+                    guardarDatosEmpresa();
                     System.out.println("volviendo...");
                     break;
 
                 default:
-                    System.out.println("Error, solo puedes introducir un número del 0 al 3");
+                    System.out.println("Error, solo puedes introducir un número del 0 al 4");
                     break;
             }
 
         } while (respuesta != 0);
 
     }
+
+    private static void menuGestionesEmpresa() {
+        int respuesta = 0;
+        do {
+            String[] titulo = {
+                    "    GESTIONES DE EMPRESA"
+
+            };
+            String[] opciones = {
+                    "1- Mostrar todos los clientes",
+                    "2- Mostrar todos los trabajadores",
+                    "3- Mostrar todas las facturas",
+                    "4- Mostrar todos los vehiculos",
+                    "5- Mostrar todos los pedidos",
+                    "6- Mostrar todos los productos",
+                    "7- Mostrar todos los descuentos",
+                    "",
+                    "8- Agregar descuento",
+                    "9- Modificar estado descuento",
+                    "",
+                    "10- Agregar supermercado",
+                    "11- Agregar Almacén",
+                    "12- Agregar distribuidor",
+                    "",
+                    "0- Volver al menú principal"
+            };
+            respuesta = Herramientas.crearMenu(titulo, opciones);
+
+            switch (respuesta) {
+                case 1:
+                    
+                    break;
+                case 2:
+
+                break;
+                case 3:
+
+                break;
+                case 4:
+
+                break;
+                case 0:
+                    guardarDatosEmpresa();
+                    System.out.println("volviendo...");
+                    break;
+
+                default:
+                    System.out.println("Error, solo puedes introducir un número del 0 al 4");
+                    break;
+            }
+
+        } while (respuesta != 0);
+    };
+
+    private static void menuGestionesAlmacenes() {
+    };
+
+    private static void menuGestionesSupermercados() {
+    };
+
+    private static void menuGestionesDistribuidores() {
+    };
 
     private static void menuCliente() {
         int respuesta = 0;
@@ -139,7 +196,7 @@ public class App implements Herramientas {
                     break;
 
                 case 0:
-                    empresa.guardarCambios();
+                    guardarDatosEmpresa();
                     System.out.println("volviendo...");
                     break;
 
@@ -170,29 +227,36 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
-                    if (cliente.getPedidos().size()>0) {
+                    if (cliente.getPedidos().size() > 0) {
+
                         cliente.mostrarPedidos();
                     } else {
-                        System.out.println("El cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" no tiene ningun pedido todavía");
+                        System.out.println("El cliente " + cliente.getNombre() + " " + cliente.getApellidos()
+                                + " no tiene ningun pedido todavía");
                     }
 
-                    break;
                 case 2:
-                    if (cliente.getFacturas().size()>0) {
-                            cliente.mostrarFacturas();
+
+                    if (cliente.getFacturas().size() > 0) {
+
+                        cliente.mostrarFacturas();
                     } else {
-                        System.out.println("El cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" no tiene ninguna factura todavía");
+                        System.out.println("El cliente " + cliente.getNombre() + " " + cliente.getApellidos()
+                                + " no tiene ninguna factura todavía");
                     }
                     break;
+
                 case 3:
                     cliente.realizarPedido();
+
                     break;
                 case 4:
-                    System.out.println("La categoría del cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" es '"+cliente.getTipoDeCliente().toString()+"'");
+                    System.out.println("La categoría del cliente " + cliente.getNombre() + " " + cliente.getApellidos()
+                            + " es '" + cliente.getTipoDeCliente().toString() + "'");
                     break;
 
                 case 0:
-                    empresa.guardarCambios();
+                    guardarDatosEmpresa();
                     System.out.println("volviendo...");
                     break;
 

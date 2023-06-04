@@ -152,6 +152,12 @@ public class Empresa extends EstablecimientoPropio {
         }
     }
 
+    public void mostrarProveedores(){
+        if () {
+            
+        }
+    }
+
     public Distribuidor devolverProveedor(String cifDistribuidor) {
         for (Distribuidor distribuidor : distribuidores) {
             if (distribuidor.getCIF().equals(cifDistribuidor)) {

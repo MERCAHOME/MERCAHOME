@@ -223,6 +223,7 @@ public class App implements Herramientas {
                         System.out.print("Cantidad: ");
                         double cantidad = Herramientas.pedirDoublePositivo();
                         empresa.getDescuentos().add( new DescuentoCantidad(true, minimo, cantidad));
+                        System.out.println("¡Hecho!");
                     } else {
                         System.out.println("Cuál va a ser la cantidad porcentual a descontar?");
                         System.out.print("Porcentaje: ");
@@ -231,11 +232,26 @@ public class App implements Herramientas {
                         System.out.print("Cantidad máxima: ");
                         double cantidadMax = Herramientas.pedirDoublePositivo();
                         empresa.getDescuentos().add(new DescuentoPorcentual(true, porcentaje, cantidadMax));
+                        System.out.println("¡Hecho!");
                     }
+                    System.out.println("Volviendo...");
 
                     break;
                 case 10:
-
+                    if (empresa.getDescuentos().size()>0) {
+                        Descuento desc = empresa.devolverDescuento();
+                        if (desc.isActivo()) {
+                            desc.setActivo(false);
+                        } else {
+                            desc.setActivo(true);
+                        }
+                        empresa.mostrarDescuentos();
+                        System.out.println("¡Hecho!");
+                        System.out.println("Volviendo...");
+                    } else {
+                        System.out.println("Todavía no hay descuentos dados de alta");
+                    }
+                    
                     break;
                 case 11:
 

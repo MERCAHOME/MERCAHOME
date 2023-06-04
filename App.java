@@ -13,14 +13,6 @@ public class App implements Herramientas {
 
     public static void main(String[] args) {
         definirDatosEmpresa();
-        /*
-         * empresa.IniciarApp();
-         * Distribuidor d1 = new Distribuidor();
-         * empresa.agregarDistribuidor(d1);
-         * d1.agregarProducto(new Producto(d1, "Oklahomo", false, false, 4.16));
-         * empresa.mostrarProveedoresYProductoQueDistribuye();
-         * empresa.guardarCambios();
-         */
         menuPrincipal();
     }
 
@@ -78,6 +70,60 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
+                    menuGestionesEmpresa();
+                    break;
+                case 2:
+                    menuGestionesAlmacenes();
+                    break;
+                case 3:
+                    menuGestionesSupermercados();
+                    break;
+                case 4:
+                    menuGestionesDistribuidores();
+                    break;
+                case 0:
+                    guardarDatosEmpresa();
+                    System.out.println("volviendo...");
+                    break;
+
+                default:
+                    System.out.println("Error, solo puedes introducir un número del 0 al 4");
+                    break;
+            }
+
+        } while (respuesta != 0);
+
+    }
+
+    private static void menuGestionesEmpresa() {
+        int respuesta = 0;
+        do {
+            String[] titulo = {
+                    "    GESTIONES DE EMPRESA"
+
+            };
+            String[] opciones = {
+                    "1- Mostrar todos los clientes",
+                    "2- Mostrar todos los trabajadores",
+                    "3- Mostrar todas las facturas",
+                    "4- Mostrar todos los vehiculos",
+                    "5- Mostrar todos los pedidos",
+                    "6- Mostrar todos los productos",
+                    "7- Mostrar todos los descuentos",
+                    "",
+                    "8- Agregar descuento",
+                    "9- Modificar estado descuento",
+                    "",
+                    "10- Agregar supermercado",
+                    "11- Agregar Almacén",
+                    "12- Agregar distribuidor",
+                    "",
+                    "0- Volver al menú principal"
+            };
+            respuesta = Herramientas.crearMenu(titulo, opciones);
+
+            switch (respuesta) {
+                case 1:
 
                     break;
                 case 2:
@@ -86,9 +132,216 @@ public class App implements Herramientas {
                 case 3:
 
                     break;
+                case 4:
+
+                    break;
+                case 5:
+
+                    break;
+                case 6:
+
+                    break;
+                case 7:
+
+                    break;
+                case 8:
+
+                    break;
+                case 9:
+
+                    break;
+                case 10:
+
+                    break;
+                case 11:
+
+                    break;
+                case 12:
+
+                    break;
                 case 0:
-                    empresa.guardarCambios();
+                    guardarDatosEmpresa();
                     System.out.println("volviendo...");
+                    break;
+
+                default:
+                    System.out.println("Error, solo puedes introducir un número del 0 al 12");
+                    break;
+            }
+
+        } while (respuesta != 0);
+    };
+
+    private static void menuGestionesAlmacenes() {
+        int respuesta = 0;
+        do {
+            String[] titulo = {
+                    "    GESTION DE ALMACENES"
+
+            };
+            String[] opciones = {
+                    "1- Agregar almacén",
+                    "2- Mostrar productos de un almacen",
+                    "3- Agregar producto a un almacen",
+                    "4- Eliminar producto de un almacen",
+                    "5- Agregar empleado a un almacén",
+                    "6- Eliminar empleado a un almacén",//Tiene que haber mínimo un encargado, un gerente, y dos mozos de almacén, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
+                    "7- Agregar estantería a un almacén",
+                    "8- Agregar nevera a un almacén",
+                    "9- Eliminar estanteria de un almacén",//Tiene que estar vacía o hay que reubicar productos
+                    "10- Eliminar nevera de un almacén",//Tiene que estar vacía o hay que reubicar productos
+                    "0- Volver al menú principal"
+            };
+            respuesta = Herramientas.crearMenu(titulo, opciones);
+
+            switch (respuesta) {
+                case 1:
+                    
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+                case 5:
+                    
+                    break;
+                case 6:
+                    
+                    break;
+                case 7:
+                    
+                    break;
+                case 8:
+                    
+                    break;
+                case 9:
+                    
+                    break;
+                case 10:
+                    
+                    break;
+                case 0:
+                    guardarDatosEmpresa();
+                    System.out.println("volviendo...");
+                    break;
+
+                default:
+                    System.out.println("Error, solo puedes introducir un número del 0 al 10");
+                    break;
+            }
+
+        } while (respuesta != 0);
+    };
+
+    private static void menuGestionesSupermercados() {
+        int respuesta = 0;
+        do {
+            String[] titulo = {
+                    "  GESTION DE SUPERMERCADOS"
+
+            };
+            String[] opciones = {
+                    "1- Agregar supermercado",
+                    "2- Mostrar productos de un supermercado",
+                    "3- Agregar producto a un supermercado",
+                    "4- Eliminar producto de un supermercado",
+                    "5- Agregar empleado a un supermercado",
+                    "6- Eliminar empleado a un supermercado",//Tiene que haber mínimo un encargado, un gerente, un conductor, y un cajero, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
+                    "7- Agregar estantería a un supermercado",
+                    "8- Agregar nevera a un supermercado",
+                    "9- Eliminar estanteria de un supermercado",//Tiene que estar vacía o hay que reubicar productos
+                    "10- Eliminar nevera de un supermercado",//Tiene que estar vacía o hay que reubicar productos
+                    "11- Mostrar pedidos de un supermercado",
+                    "12- Mostrar facturas de un supermercado",
+                    "13- Mostrar vehículos de un supermercado",
+                    "0- Volver al menú principal"
+            };
+            respuesta = Herramientas.crearMenu(titulo, opciones);
+
+            switch (respuesta) {
+                case 1:
+                    
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+                case 5:
+                    
+                    break;
+                case 6:
+                    
+                    break;
+                case 7:
+                    
+                    break;
+                case 8:
+                    
+                    break;
+                case 9:
+                    
+                    break;
+                case 10:
+                    
+                    break;
+                case 11:
+                    
+                    break;
+                case 12:
+                    
+                    break;
+                case 13:
+                    
+                    break;
+                case 0:
+                    guardarDatosEmpresa();
+                    System.out.println("volviendo...");
+                    break;
+
+                default:
+                    System.out.println("Error, solo puedes introducir un número del 0 al 13");
+                    break;
+            }
+
+        } while (respuesta != 0);
+    };
+
+    private static void menuGestionesDistribuidores() {
+        int respuesta = 0;
+        do {
+            String[] titulo = {
+                    "    MENU DISTRIBUIDORES"
+            };
+            String[] opciones = {
+                    "1- Mostrar productos que vende un distribuidor",
+                    "2- Agregar producto que vendre un distribuidor",
+                    "3- Eliminar producto que vendre un distribuidor",
+                    "0- Salir"
+            };
+            respuesta = Herramientas.crearMenu(titulo, opciones);
+
+            switch (respuesta) {
+                case 1:
+                    
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    
+                    break;
+                case 0:
+                    guardarDatosEmpresa();
                     break;
 
                 default:
@@ -97,8 +350,7 @@ public class App implements Herramientas {
             }
 
         } while (respuesta != 0);
-
-    }
+    };
 
     private static void menuCliente() {
         int respuesta = 0;
@@ -139,7 +391,7 @@ public class App implements Herramientas {
                     break;
 
                 case 0:
-                    empresa.guardarCambios();
+                    guardarDatosEmpresa();
                     System.out.println("volviendo...");
                     break;
 
@@ -170,29 +422,36 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
-                    if (cliente.getPedidos().size()>0) {
+                    if (cliente.getPedidos().size() > 0) {
+
                         cliente.mostrarPedidos();
                     } else {
-                        System.out.println("El cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" no tiene ningun pedido todavía");
+                        System.out.println("El cliente " + cliente.getNombre() + " " + cliente.getApellidos()
+                                + " no tiene ningun pedido todavía");
                     }
 
-                    break;
                 case 2:
-                    if (cliente.getFacturas().size()>0) {
-                            cliente.mostrarFacturas();
+
+                    if (cliente.getFacturas().size() > 0) {
+
+                        cliente.mostrarFacturas();
                     } else {
-                        System.out.println("El cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" no tiene ninguna factura todavía");
+                        System.out.println("El cliente " + cliente.getNombre() + " " + cliente.getApellidos()
+                                + " no tiene ninguna factura todavía");
                     }
                     break;
+
                 case 3:
                     cliente.realizarPedido();
+
                     break;
                 case 4:
-                    System.out.println("La categoría del cliente "+cliente.getNombre()+" "+cliente.getApellidos()+" es '"+cliente.getTipoDeCliente().toString()+"'");
+                    System.out.println("La categoría del cliente " + cliente.getNombre() + " " + cliente.getApellidos()
+                            + " es '" + cliente.getTipoDeCliente().toString() + "'");
                     break;
 
                 case 0:
-                    empresa.guardarCambios();
+                    guardarDatosEmpresa();
                     System.out.println("volviendo...");
                     break;
 

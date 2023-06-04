@@ -124,25 +124,66 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
-
+                    if (empresa.getClientes().size()>0) {
+                        
+                    }else{
+                        System.out.println("No existen clientes en la empresa");
+                        System.out.println("Volviendo...");
+                    }
                     break;
                 case 2:
+                if (empresa.getTrabajadores().size()>0) {
+                        
+                }else{
+                    System.out.println("No existen trabajadores en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 3:
+                if (empresa.getFacturas().size()>0) {
+                        
+                }else{
+                    System.out.println("No existen facturas en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 4:
+                if (empresa.getVehiculos().size()>0) {
+                        
+                }else{
+                    System.out.println("No existen vehículos en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 5:
+                if (empresa.getPedidos().size()>0) {
+                        
+                }else{
+                    System.out.println("No existen pedidos en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 6:
+                if (empresa.getStock().size()>0) {
+                        
+                }else{
+                    System.out.println("No existen productos en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 7:
+                if (empresa.getDescuentos().size()>0) {
+                        
+                }else{
+                    System.out.println("No existen descuentos en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 8:
 
@@ -180,16 +221,15 @@ public class App implements Herramientas {
 
             };
             String[] opciones = {
-                    "1- Agregar almacén",
-                    "2- Mostrar productos de un almacen",
-                    "3- Agregar producto a un almacen",
-                    "4- Eliminar producto de un almacen",
-                    "5- Agregar empleado a un almacén",
-                    "6- Eliminar empleado a un almacén",//Tiene que haber mínimo un encargado, un gerente, y dos mozos de almacén, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
-                    "7- Agregar estantería a un almacén",
-                    "8- Agregar nevera a un almacén",
-                    "9- Eliminar estanteria de un almacén",//Tiene que estar vacía o hay que reubicar productos
-                    "10- Eliminar nevera de un almacén",//Tiene que estar vacía o hay que reubicar productos
+                    "1- Mostrar productos de un almacen",
+                    "2- Agregar producto a un almacen",
+                    "3- Eliminar producto de un almacen",
+                    "4- Agregar empleado a un almacén",
+                    "5- Eliminar empleado a un almacén",//Tiene que haber mínimo un encargado, un gerente, y dos mozos de almacén, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
+                    "6- Agregar estantería a un almacén",
+                    "7- Agregar nevera a un almacén",
+                    "8- Eliminar estanteria de un almacén",//Tiene que estar vacía o hay que reubicar productos
+                    "9- Eliminar nevera de un almacén",//Tiene que estar vacía o hay que reubicar productos
                     "0- Volver al menú principal"
             };
             respuesta = Herramientas.crearMenu(titulo, opciones);
@@ -222,16 +262,13 @@ public class App implements Herramientas {
                 case 9:
                     
                     break;
-                case 10:
-                    
-                    break;
                 case 0:
                     guardarDatosEmpresa();
                     System.out.println("volviendo...");
                     break;
 
                 default:
-                    System.out.println("Error, solo puedes introducir un número del 0 al 10");
+                    System.out.println("Error, solo puedes introducir un número del 0 al 9");
                     break;
             }
 
@@ -246,19 +283,18 @@ public class App implements Herramientas {
 
             };
             String[] opciones = {
-                    "1- Agregar supermercado",
-                    "2- Mostrar productos de un supermercado",
-                    "3- Agregar producto a un supermercado",
-                    "4- Eliminar producto de un supermercado",
-                    "5- Agregar empleado a un supermercado",
-                    "6- Eliminar empleado a un supermercado",//Tiene que haber mínimo un encargado, un gerente, un conductor, y un cajero, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
-                    "7- Agregar estantería a un supermercado",
-                    "8- Agregar nevera a un supermercado",
-                    "9- Eliminar estanteria de un supermercado",//Tiene que estar vacía o hay que reubicar productos
-                    "10- Eliminar nevera de un supermercado",//Tiene que estar vacía o hay que reubicar productos
-                    "11- Mostrar pedidos de un supermercado",
-                    "12- Mostrar facturas de un supermercado",
-                    "13- Mostrar vehículos de un supermercado",
+                    "1- Mostrar productos de un supermercado",
+                    "2- Agregar producto a un supermercado",
+                    "3- Eliminar producto de un supermercado",
+                    "4- Agregar empleado a un supermercado",
+                    "5- Eliminar empleado a un supermercado",//Tiene que haber mínimo un encargado, un gerente, un conductor, y un cajero, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
+                    "6- Agregar estantería a un supermercado",
+                    "7- Agregar nevera a un supermercado",
+                    "8- Eliminar estanteria de un supermercado",//Tiene que estar vacía o hay que reubicar productos
+                    "9- Eliminar nevera de un supermercado",//Tiene que estar vacía o hay que reubicar productos
+                    "10- Mostrar pedidos de un supermercado",
+                    "11- Mostrar facturas de un supermercado",
+                    "12- Mostrar vehículos de un supermercado",
                     "0- Volver al menú principal"
             };
             respuesta = Herramientas.crearMenu(titulo, opciones);
@@ -309,7 +345,7 @@ public class App implements Herramientas {
                     break;
 
                 default:
-                    System.out.println("Error, solo puedes introducir un número del 0 al 13");
+                    System.out.println("Error, solo puedes introducir un número del 0 al 12");
                     break;
             }
 

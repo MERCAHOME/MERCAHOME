@@ -20,6 +20,7 @@ public class Empresa extends EstablecimientoPropio {
     private ArrayList<Producto> stock = new ArrayList<>();
     private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
 
+
     public Empresa() {
         Herramientas.limpiarPantalla();
         System.out.println("Vamos a dar de alta el primer almacén");
@@ -462,6 +463,9 @@ public class Empresa extends EstablecimientoPropio {
 
     public void setStock(ArrayList<Producto> stock) {
         this.stock = stock;
+    }
+    public ArrayList<Vehiculo> getVehiculos() {
+        return vehiculos;
     }
 
     public void IniciarApp() {

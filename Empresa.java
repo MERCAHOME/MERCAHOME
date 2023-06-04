@@ -152,6 +152,23 @@ public class Empresa extends EstablecimientoPropio {
         }
     }
 
+    public void mostrarProveedores(){
+        if (distribuidores.size()>0) {
+            System.out.println("*****************************");
+            System.out.println("        PROVEEDORES");
+            System.out.println("*****************************");
+
+            for (Distribuidor d : distribuidores) {
+                System.out.println("NOMBRE PROVEEDOR: " + d.getNombre());
+                System.out.println("CIF: " + d.getCIF());
+                System.out.println("*****************************");
+
+            }
+        }else{
+            System.out.println("Todavía no hay distribuidores dados de alta");
+        }
+    }
+
     public Distribuidor devolverProveedor(String cifDistribuidor) {
         for (Distribuidor distribuidor : distribuidores) {
             if (distribuidor.getCIF().equals(cifDistribuidor)) {

@@ -71,6 +71,48 @@ public interface Herramientas {
 
     }
 
+    public static String crearMatricula(){
+        try {
+            System.out.println("Indique la matricula del vehículo");
+            System.out.print("Matrícula: ");
+            String matricula = pedirString();
+            if (!matricula.matches("^[0-9]{4}[A-Za-z]{3}$")) {
+                throw new MatriculaInvalidaException("La matricula introducida no cumple el patrón");
+            }
+            return matricula;
+        } catch (MatriculaInvalidaException e) {
+            System.err.println("Error: "+e.getMessage());
+            System.out.println("Introduzca una matrícula válida");
+            return crearMatricula();
+        }catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error inesperado");
+            System.out.println("Introduzca una matrícula válida");
+            return crearMatricula();
+        }
+    }
+
+    public static  String crearEmail(){
+        try {
+            System.out.println("Indique el correo electrónico");
+            System.out.println("Email: ");
+            String email = pedirString();
+            if (!email.matches("^[A-Za-z0-9+_.-]+@[a-zA-Z]+\\.[a-zA-Z]+$")) {
+                throw new EmailInvalidoexception("El email introducido no cumple con el patrón de validación");
+            }
+            return email;
+        } catch (EmailInvalidoexception e) {
+            System.err.println("Error: "+e.getMessage());
+            System.out.println("Introduzca un email válido");
+            return crearEmail();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error inesperado");
+            System.out.println("Introduzca un email válido");
+            return crearEmail();
+        }
+    }
+
     public static int crearNumeroDeTelefono() {
         int numeroDeTelefono = 0;
         String telefonoString = "";
@@ -128,6 +170,7 @@ public interface Herramientas {
         for (int i = 0; i < opciones.length; i++) {
             System.out.println(opciones[i]);
         }
+        System.out.println();
         System.out.print("Respuesta: ");
         int respuesta = pedirEnteroPositivo();
         System.out.println("*****************************");
@@ -229,6 +272,57 @@ public interface Herramientas {
         }
     }
 
+    public static String pedirHora(){
+        try {
+            System.out.print("Hora: ");
+            String hora = pedirString();
+            if (!hora.matches("^[0-9]{1,2}:[0-9]{1,2}$")) {
+                throw new HoraInvalidaException("La hora indicada no cumple el patrón, ajustesé al patrón '15:08'");
+            }
+            String[] partes = hora.split(":");
+            int horaDividida = Integer.parseInt(partes[0]);
+            int minDivididos = Integer.parseInt(partes[1]); 
+            if (horaDividida<0||horaDividida>23) {
+                throw new HoraInvalidaException("No puede introducir una hora menor que 0 o mayor que 23");
+            }
+            if (minDivididos<0||minDivididos>59) {
+                throw new HoraInvalidaException("Los mínutos no pueden ser mas de 59 o menos de 0");
+            }
+            return hora;
+
+        } catch (HoraInvalidaException e) {
+            System.err.println("Error: " + e.getMessage());
+            System.out.println("Introduzca la hora de nuevo");
+            return pedirHora();
+        }catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error inesperado");
+            System.out.println("Introduzca la hora de nuevo");
+            return pedirHora();
+        }
+
+    }
+
+    public static int compararHora(String hora1, String hora2){
+        String[] partes1 = hora1.split(":");
+        int hora1Dividida = Integer.parseInt(partes1[0]);
+        int min1Divididos = Integer.parseInt(partes1[1]); 
+        String[] partes2 = hora2.split(":");
+        int hora2Dividida = Integer.parseInt(partes2[0]);
+        int min2Divididos = Integer.parseInt(partes2[1]); 
+        if (hora1Dividida>hora2Dividida) {
+            return 1;
+        } else if (hora1Dividida<hora2Dividida) {
+            return -1;
+        }else if(min1Divididos>min2Divididos){
+            return 1;
+        }else if(min1Divididos<min2Divididos){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
+
     public static Ubicacion crearUbicacion() {
 
         System.out.println("Indicame el país");
@@ -255,7 +349,20 @@ public interface Herramientas {
     public static void limpiarPantalla() {
         for (int i = 0; i < 50; i++) {
             System.out.println("");
+            if (i==48) {
+                logoMercahome();
+            }
         }
+    }
+
+    public static void logoMercahome(){
+        System.out.println("███╗░░░███╗███████╗██████╗░░█████╗░░█████╗░██╗░░██╗░█████╗░███╗░░░███╗███████╗");
+        System.out.println("████╗░████║██╔════╝██╔══██╗██╔══██╗██╔══██╗██║░░██║██╔══██╗████╗░████║██╔════╝");
+        System.out.println("██╔████╔██║█████╗░░██████╔╝██║░░╚═╝███████║███████║██║░░██║██╔████╔██║█████╗░░");
+        System.out.println("██║╚██╔╝██║██╔══╝░░██╔══██╗██║░░██╗██╔══██║██╔══██║██║░░██║██║╚██╔╝██║██╔══╝░░");
+        System.out.println("██║░╚═╝░██║███████╗██║░░██║╚█████╔╝██║░░██║██║░░██║╚█████╔╝██║░╚═╝░██║███████╗");
+        System.out.println("╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░░░░╚═╝╚══════╝");
+        
     }
 
 }

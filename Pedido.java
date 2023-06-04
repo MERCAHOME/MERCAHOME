@@ -2,11 +2,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 //metodo que talle el nom a maxim 24 caracters
+//agregar factura y pedido a el super empresa y cliente
+//agregar descuento
+//al consultar el estado de el pedido d¡se ha de modificar su estado dependiendo de la fecha actual
 public class Pedido implements Herramientas {
     private ArrayList<Producto> productos = new ArrayList<>();
     private double total;
     private double totalConTransporte;
-    private double totalConTransporteEIVA;
+    private double totalConTransporteYDescuento;
+    private double totalConTransporteDescuentoEIVA;
     private double precioTransporte;
     private Factura factura;
     private static int IDgenerator = 0;
@@ -15,17 +19,36 @@ public class Pedido implements Herramientas {
     private LocalDateTime horaDeEntrega;
     private EstadoDePedido estadoDePedido;
     private int distanciaEnKmHastaSupermercado;
+    private Descuento descuento;
 
+   
     public Pedido(Supermercado supermercado) {
         this.id = generateID();
         this.fechaRealizacion = LocalDateTime.now();
         System.out.println("Cuantos Km hay desde el supermercado hasta la ubicación de entrega de el pedido?");
         System.out.print("Km: ");
         this.distanciaEnKmHastaSupermercado = Herramientas.pedirEnteroPositivo();
+        int respuesta =0;
+        do {
+            System.out.println("Tiene algún código de descuento ?");
+            System.out.println("1- Si");
+            System.out.println("2- No");
+            respuesta = Herramientas.pedirEnteroPositivo();
+            if (respuesta<1||respuesta>2) {
+                System.out.println("Error, solo puede introducir 1 o 2");
+                System.out.println("Introduzca un valor válido");
+            }
+        } while (respuesta<1||respuesta>2);
+        if (respuesta==1) {
+            this.descuento = supermercado.getEmpresa().devolverDescuento();
+        }
+
         if (realizarPedido(supermercado)) {
             System.out.println("Pedido realizado con éxito");
+            this.estadoDePedido = EstadoDePedido.ACEPTADO;
         } else {
             System.out.println("No se ha podido realizar el pedido, contacte con soporte");
+            this.estadoDePedido = EstadoDePedido.RECHAZADO;
         }
     }
 
@@ -81,7 +104,7 @@ public class Pedido implements Herramientas {
 
                     break;
                 case 0:
-
+                    //preguntar por descuento
                     break;
                 default:
                     System.out.println("Error, no puede introducir un número menor que 0 o mayor que 3");
@@ -232,21 +255,63 @@ public class Pedido implements Herramientas {
 
         System.out.println("*********************************************************************");
     }
-    private void mostrarProductosPedidoConTotal(){
+    public void mostrarProductosPedidoConTotal(){
         String stringVacio = " ";
         mostrarProductosPedido();
-        System.out.println("                                                  TOTAL");
-        System.out.println(Herramientas.ajustarTamanioString(stringVacio, 50)+sumaTotalProductosPedido());
+        total = carcularTotal();
+        totalConTransporte = carcularTotal()+calcularPrecioTransporte();
+        totalConTransporteYDescuento = calcularTotalConDescuento();
+        double iva = totalConTransporteYDescuento/100*21;
+        totalConTransporteDescuentoEIVA = totalConTransporteYDescuento+iva;
+        System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", "TOTAL", " ", " ", total);
+        System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", "TOTAL CON TRANSPORTE", " ", " ",totalConTransporte );
+        System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", "TOTAL CON DESCUENTO", " ", " ", totalConTransporteYDescuento);
+        System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", "IVA", " ", " ",iva );
+        System.out.printf("| %-24s | %-14.2f | %-10d | %-8.2f |%n", "TOTAL CON IVA", " ", " ",totalConTransporteDescuentoEIVA );
         System.out.println("*********************************************************************");
 
     }
-    private double sumaTotalProductosPedido(){
+
+    private double calcularTotalConDescuento(){
+        if (this.descuento!=null) {
+            if (descuento instanceof DescuentoCantidad) {
+                DescuentoCantidad descuentoCant = (DescuentoCantidad)descuento;
+                double importeMinimo =  descuentoCant.getImporteMinimo();
+                double cantidadDescuento = descuentoCant.getCantidadDescuento();
+                if (carcularTotal()>=importeMinimo) {
+                    return (carcularTotal()+calcularPrecioTransporte()) - cantidadDescuento;
+                } else {
+                    return (carcularTotal()+calcularPrecioTransporte());
+                }
+            }
+            if (descuento instanceof DescuentoPorcentual) {
+                DescuentoPorcentual descuentoPorc = (DescuentoPorcentual)descuento;
+                double cantidadMaxima = descuentoPorc.getCantidadMaximaDescuento();
+                int porcentaje = descuentoPorc.getPorcentajeDescuento();
+                double cantidadDescuento = (carcularTotal()+calcularPrecioTransporte())/100*porcentaje;
+                if (cantidadDescuento > cantidadMaxima) {
+                    return (carcularTotal()+calcularPrecioTransporte())- cantidadMaxima;
+                } else {
+                    return (carcularTotal()+calcularPrecioTransporte()) - cantidadDescuento;
+                }
+
+            }
+        }
+        return (carcularTotal()+calcularPrecioTransporte()); 
+    }
+
+    private double calcularPrecioTransporte(){
+        precioTransporte = (double)(distanciaEnKmHastaSupermercado)*0.8;
+        return precioTransporte;
+    }
+    private double carcularTotal(){
         double total = 0;
         for (Producto producto : productos) {
-            total = total+producto.getPrecioVentaPublico();
+            total = total+ producto.getPrecioVentaPublico();
         }
         return total;
     }
+ 
 
     private int obtenerCantidadProducto(Producto producto, ArrayList<Producto> stock) {
         int cantidad = 0;
@@ -333,12 +398,12 @@ public class Pedido implements Herramientas {
         this.totalConTransporte = totalConTransporte;
     }
 
-    public double getTotalConTransporteEIVA() {
-        return totalConTransporteEIVA;
+    public double getTotalConTransporteDescuentoEIVA() {
+        return totalConTransporteDescuentoEIVA;
     }
 
-    public void setTotalConTransporteEIVA(double totalConTransporteEIVA) {
-        this.totalConTransporteEIVA = totalConTransporteEIVA;
+    public double getPrecioTransporte() {
+        return precioTransporte;
     }
 
     public Factura getFactura() {
@@ -381,4 +446,8 @@ public class Pedido implements Herramientas {
         IDgenerator++;
         return IDgenerator;
     }
+    public Descuento getDescuento() {
+        return descuento;
+    }
+
 }

@@ -1,4 +1,6 @@
-public class Ubicacion {
+import java.io.Serializable;
+
+public class Ubicacion implements Serializable {
     private String pais;
     private String provincia;
     private String localidad;
@@ -61,5 +63,9 @@ public class Ubicacion {
     
     public void setMasInformacion(String masInformacion) {
         this.masInformacion = masInformacion;
+    }
+
+    public String toStringBasic() {
+        return "Pais -> " + pais + ", provincia -> " + provincia + ", localidad -> " + localidad;
     }
 }

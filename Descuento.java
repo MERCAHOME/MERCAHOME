@@ -1,4 +1,6 @@
-public class Descuento {
+import java.io.Serializable;
+
+public class Descuento implements Serializable{
     private static int IDgenerator = 0;
     private int id;
     private boolean activo;

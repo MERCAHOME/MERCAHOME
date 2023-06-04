@@ -2,12 +2,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Empleado extends Persona {
+    //crear método mostrar
     //Se puede poner plus de salario por tiempo dado de alta
-    //Dar de alta vehiculos y gente a su cargo en el metodo establecerTipoDeEmpleado();
-    //ImplementarHorarios
+    //Un conductor no puede tener un horario antes o después de las horas del supermercado disponible
+
     private LocalDate fechaDeAlta;
     private Horario horariotrabajador;
-    private TipoDeEmpledo tipoDeEmpleado;
+    private TipoDeEmpleado tipoDeEmpleado;
     private double salario;
     private EstablecimientoPropio establecimientodeEmpleado;
     private Vehiculo vehiculo;
@@ -15,14 +16,15 @@ public class Empleado extends Persona {
     private Empleado encargado;
     private Empleado gerente;
 
-    public Empleado(EstablecimientoPropio establecimiento) {
+    public Empleado(EstablecimientoPropio establecimiento, Empresa empresaMercahome) {
+        super(empresaMercahome);
         if (altaEmpleado(establecimiento)) {
             System.out.println("El empleado "+ super.getNombre() + " " + super.getApellidos()+" ha sido dado de alta correctamente.");
         } else {
             System.out.println("No se ha podido dar de alta al cliente "+ super.getNombre() + " " + super.getApellidos()+".\nContacte con el administrador");
         }
     }
-
+    
     public boolean altaEmpleado(EstablecimientoPropio establecimiento) {
         try {
             this.fechaDeAlta = LocalDate.now();
@@ -58,15 +60,18 @@ public class Empleado extends Persona {
         } while (respuesta < 1 || respuesta > 6);
         switch (respuesta) {
             case 1:
-                this.tipoDeEmpleado = TipoDeEmpledo.GERENTE;
+                this.tipoDeEmpleado = TipoDeEmpleado.GERENTE;
                 this.salario = this.tipoDeEmpleado.salario;
+                this.horariotrabajador = crearHorario();
                 break;
             case 2:
-                this.tipoDeEmpleado = TipoDeEmpledo.ENCARGADO;
+                this.tipoDeEmpleado = TipoDeEmpleado.ENCARGADO;
                 this.salario = this.tipoDeEmpleado.salario;
+                this.horariotrabajador = crearHorario();
+                //poner empleados a su cargo
                 break;
             case 3:
-                this.tipoDeEmpleado = TipoDeEmpledo.CONDUCTOR;
+                this.tipoDeEmpleado = TipoDeEmpleado.CONDUCTOR;
                 this.salario = this.tipoDeEmpleado.salario;
                 if(establecimientodeEmpleado instanceof Supermercado){
                     Supermercado supermercado = (Supermercado)establecimientodeEmpleado;
@@ -79,10 +84,13 @@ public class Empleado extends Persona {
                     } else {
                         if (supermercado.vehiculosDisponibles()) {
                             Vehiculo vehiculoDisponible = supermercado.devolverVehiculoDisponible();
-                            if(vehiculoDisponible.asignarHorario() == 0){
-                                //Implementar Horario mañanas
-                            }else if (vehiculoDisponible.asignarHorario() == 1) {
-                                //implementar Horario tardes
+                            int tipoDeHorario = vehiculoDisponible.asignarHorario(this);
+                            if( tipoDeHorario == 0){
+                                this.horariotrabajador = new Horario("08:00", "13:59");
+                                agregarEncargado();
+                            }else if ( tipoDeHorario == 1) {
+                                this.horariotrabajador = new Horario(":00", "20:00");
+                                agregarEncargado();
                             }else{
                                 System.out.println("Se ha producido un error al asignar el vehiculo a "+super.getNombre() + " " + super.getApellidos()+" intentelo de nuevo, si sigue teniendo problemas asigne otro cargo al empleado y contacte con el administrador para que lo solucione cuanto antes.");
                                 System.out.println("Establezca otro cargo para "+super.getNombre() + " " + super.getApellidos());
@@ -104,20 +112,85 @@ public class Empleado extends Persona {
                 }
                 break;
             case 4:
-                this.tipoDeEmpleado = TipoDeEmpledo.MOZODEALMACEN;
+                this.tipoDeEmpleado = TipoDeEmpleado.MOZODEALMACEN;
                 this.salario = this.tipoDeEmpleado.salario;
+                this.horariotrabajador = crearHorario();
+                agregarEncargado();
                 break;
             case 5:
-                this.tipoDeEmpleado = TipoDeEmpledo.CAJERODESUPERMERCADO;
+                this.tipoDeEmpleado = TipoDeEmpleado.CAJERODESUPERMERCADO;
                 this.salario = this.tipoDeEmpleado.salario;
+                this.horariotrabajador = crearHorario();
+                agregarEncargado();
                 break;
             case 6:
-                this.tipoDeEmpleado = TipoDeEmpledo.REPONEDORSUPERMERCADO;
+                this.tipoDeEmpleado = TipoDeEmpleado.REPONEDORSUPERMERCADO;
                 this.salario = this.tipoDeEmpleado.salario;
+                this.horariotrabajador = crearHorario();
+                agregarEncargado();
                 break;
             default:
                 break;
         }
+    }
+
+    public Horario crearHorario(){
+        System.out.println("Vamos a establecer el horario de este trabajador");
+        int respuesta = 0;
+        do {
+            System.out.println("Va a tener descanso este trabajador?");
+            System.out.println("1- Si");
+            System.out.println("2- No");
+            System.out.print("Respuesta: ");
+            respuesta = Herramientas.pedirEnteroPositivo();
+            if (respuesta<1||respuesta>2) {
+                System.out.println("Error, solo puede introducir 1 o 2");
+            }
+        } while (respuesta<1||respuesta>2);
+        
+        String horarInicio = "";
+        String horaFinal = "";
+        int comparador = 0;
+        do {
+            System.out.println("A que hora iniciará su jornada laboral "+this.getNombre()+" "+this.getApellidos()+"?");
+            horarInicio = Herramientas.pedirHora();
+            System.out.println("A que hora terminará su jornada laboral "+this.getNombre()+" "+this.getApellidos()+"?");
+            horaFinal = Herramientas.pedirHora();
+            comparador=Herramientas.compararHora(horarInicio, horaFinal);
+            if (comparador!=-1) {
+                System.out.println("Error, la hora de fin ha de ser mas tarde que la hora de inicio");
+                System.out.println("Introduzca las horas de nuevo");
+            }
+        } while (comparador!=-1);
+        
+
+        if (respuesta == 1) {
+            String horaInicioDescanso = "";
+            String horaFinDescanso = "";
+            do {
+                System.out.println("A que hora iniciará su descanso "+this.getNombre()+" "+this.getApellidos()+"?");
+                horaInicioDescanso = Herramientas.pedirHora();
+                if (Herramientas.compararHora(horarInicio,horaInicioDescanso)!=-1||Herramientas.compararHora(horaInicioDescanso, horaFinal)!=-1) {
+                    System.out.println("Error, el descanso no puede empezar antes o después de su jornada laboral");
+                }
+                
+            } while (Herramientas.compararHora(horarInicio,horaInicioDescanso)!=-1||Herramientas.compararHora(horaInicioDescanso, horaFinal)!=-1);
+            do {
+                System.out.println("A que hora terminará su descanso "+this.getNombre()+" "+this.getApellidos()+"?");
+                horaFinDescanso = Herramientas.pedirHora();
+                if (Herramientas.compararHora(horaFinDescanso,horaInicioDescanso)!=1||Herramientas.compararHora(horaFinal, horaFinDescanso)!=1) {
+                    System.out.println("Error, el descanso no puede terminar antes de su descanso o después de su jornada laboral");
+                }
+                
+            } while (Herramientas.compararHora(horaFinDescanso,horaInicioDescanso)!=1||Herramientas.compararHora(horaFinal, horaFinDescanso)!=1);
+            return new Horario(horarInicio, horaFinal, horaInicioDescanso, horaFinDescanso);
+        }
+        return new Horario(horarInicio, horaFinal);
+    }
+
+    public void mostrarNombreYDNI(){
+        System.out.println("Nombre: " +this.getNombre());
+        System.out.println("Dni: "+this.getDNI());
     }
 
     public LocalDate getFechaDeAlta() {
@@ -138,6 +211,30 @@ public class Empleado extends Persona {
         
     }
 
+  
+
+    public void agregarEncargado(){
+        if (establecimientodeEmpleado.getEncargados().size()!=1) {
+            if (establecimientodeEmpleado.getEncargados().size()!=0) {
+                establecimientodeEmpleado.mostrarEncargados();
+                System.out.println("Indique el dni de el encargado que desea establecerle al trabajador");
+                System.out.print("DNI: ");
+                String dni = Herramientas.crearDNI();
+                for (Empleado encargado : establecimientodeEmpleado.getEncargados()) {
+                    if (encargado.getDNI().equalsIgnoreCase(dni)) {
+                        this.encargado = encargado;
+                    }
+                }
+                System.out.println("No se ha encontrado ningún encargado con este DNI");
+                System.out.println("Indiquelo de nuevo");
+                agregarEncargado();
+            }
+            
+        }else{
+            this.encargado = establecimientodeEmpleado.getEncargados().get(0);
+        }
+    }
+
     public Horario getHorario() {
         return horariotrabajador;
     }
@@ -145,8 +242,16 @@ public class Empleado extends Persona {
     public void setHorario(Horario horario) {
         this.horariotrabajador = horario;
     }
+    
+    public TipoDeEmpleado getTipoDeEmpleado() {
+        return tipoDeEmpleado;
+    }
 
-    public enum TipoDeEmpledo {
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    /* public enum TipoDeEmpleado {
         GERENTE(3000.00),
         ENCARGADO(2800.00),
         CONDUCTOR(1700.00),
@@ -156,7 +261,7 @@ public class Empleado extends Persona {
 
         private double salario;
 
-        TipoDeEmpledo(double salario) {
+        TipoDeEmpleado(double salario) {
             this.salario = salario;
         }
 
@@ -164,5 +269,5 @@ public class Empleado extends Persona {
             return salario;
         }
 
-    }
+    } */
 }

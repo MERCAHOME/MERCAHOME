@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Nevera {
+public class Nevera implements Serializable {
     // Cuando se agrega o elimina un producto se modifica su cantidad de espacio disponible
     private int capacidad;
     private double temperatura;
-    private ArrayList<Producto> productos;
+    private ArrayList<Producto> productos = new ArrayList<>();
     private int id;
 
     private static int generadordenumerodeneveras = 0;
@@ -13,7 +14,6 @@ public class Nevera {
         this.id=generadordenumerodeneveras;
         this.capacidad=capacidad;
         this.temperatura = 2;
-        this.productos = new ArrayList<>();
     }
     public int getespacioDisponible(){
         

@@ -239,7 +239,7 @@ public class Pedido implements Herramientas {
 
         System.out.println("*********************************************************************");
     }
-    private void mostrarProductosPedidoConTotal(){
+    public void mostrarProductosPedidoConTotal(){
         String stringVacio = " ";
         mostrarProductosPedido();
         total = carcularTotal();

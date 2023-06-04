@@ -19,7 +19,7 @@ public class Empresa extends EstablecimientoPropio {
     private ArrayList<Descuento> descuentos = new ArrayList<>();
     private ArrayList<Producto> stock = new ArrayList<>();
     private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
-    
+
     public Empresa() {
         Herramientas.limpiarPantalla();
         System.out.println("Vamos a dar de alta el primer almacén");
@@ -174,9 +174,9 @@ public class Empresa extends EstablecimientoPropio {
     }
 
     public Almacen devolverAlmacen() {
-        
+
         if (almacenes.size() > 0) {
-            
+
             String cifAlmacen = "";
             do {
                 mostrarAlmacenes();
@@ -223,34 +223,34 @@ public class Empresa extends EstablecimientoPropio {
                         matriculaValida = false;
                         System.out.println("Ya existe un vehiculo con esta matricula dado de alta");
                         System.out.println("Introduzca la matrícula de nuevo");
-                        
-                    }else{
-                        matriculaValida=true;
+
+                    } else {
+                        matriculaValida = true;
                     }
                 }
             } while (!matriculaValida);
             Vehiculo vehiculo = new Vehiculo(matricula);
             vehiculosSupermercado.add(vehiculo);
             vehiculos.add(vehiculo);
-            System.out.println("Se ha dado de alta el "+(i+1)+"º vehiculo");
+            System.out.println("Se ha dado de alta el " + (i + 1) + "º vehiculo");
         }
         return vehiculosSupermercado;
     }
 
-    public Cliente devolverCliente(){
-        if (clientes.size()>0) {
+    public Cliente devolverCliente() {
+        if (clientes.size() > 0) {
             boolean noEncontrado = false;
             do {
                 System.out.println("*****************************");
                 System.out.println("          CLIENTES");
                 System.out.println("*****************************");
                 for (Cliente clienteNuevo : clientes) {
-                    System.out.println("Nombre: "+clienteNuevo.getNombre()+" "+clienteNuevo.getApellidos());
-                    System.out.print("DNI: "+clienteNuevo.getDNI());
+                    System.out.println("Nombre: " + clienteNuevo.getNombre() + " " + clienteNuevo.getApellidos());
+                    System.out.print("DNI: " + clienteNuevo.getDNI());
                     System.out.println("*****************************");
 
                 }
-                if(noEncontrado){
+                if (noEncontrado) {
                     System.out.println("No existe ningún cliente con el DNI indicado");
                     System.out.println("Indiquelo de nuevo");
                 }
@@ -264,12 +264,48 @@ public class Empresa extends EstablecimientoPropio {
                     }
 
                 }
-               noEncontrado=true;
-                
+                noEncontrado = true;
+
             } while (true);
-            
+
         } else {
             System.out.println("No hay clientes dados de alta");
+            return null;
+        }
+    }
+
+    public Supermercado devolverSupermercado() {
+        if (supermercados.size() > 0) {
+            boolean noEncontrado = false;
+            do {
+                System.out.println("*****************************");
+                System.out.println("        SUPERMERCADOS");
+                System.out.println("*****************************");
+                for (Supermercado superm : supermercados) {
+                    System.out.println("Ubicación: " + superm.getUbicacion().getLocalidad());
+                    System.out.println("Calle: " + superm.getUbicacion().getCalle());
+                    System.out.println("CIF: " + superm.getCIF());
+                    System.out.println("*****************************");
+                }
+                if (noEncontrado) {
+                    System.out.println("No existe ningún supermercado con el CIF indicado");
+                    System.out.println("Indiquelo de nuevo");
+                }
+                System.out.println("Selenccione uno de los supermercados mostrados previamente");
+                System.out.println("Para seleccionarlo indique su CIF");
+                System.out.println("CIF: ");
+                String cif = Herramientas.pedirString();
+                for (Supermercado superm : supermercados) {
+                    if (superm.getCIF().equalsIgnoreCase(cif)) {
+                        return superm;
+                    }
+                }
+                noEncontrado = true;
+
+            } while (true);
+
+        } else {
+            System.out.println("No existen supermercados, contacte con el administrador");
             return null;
         }
     }
@@ -350,157 +386,7 @@ public class Empresa extends EstablecimientoPropio {
         this.stock = stock;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void IniciarApp(){
+    public void IniciarApp() {
         leerDatosSupermercados();
         leerDatosTrabajadores();
         leerDatosDistribuidores();
@@ -520,7 +406,7 @@ public class Empresa extends EstablecimientoPropio {
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        } 
+        }
     }
 
     private void leerDatosTrabajadores() {
@@ -533,7 +419,7 @@ public class Empresa extends EstablecimientoPropio {
             }
         }
     }
-    
+
     private void leerDatosDistribuidores() {
         File file = new File("./datos/distribuidores.dat");
         if (file.exists()) {
@@ -544,6 +430,7 @@ public class Empresa extends EstablecimientoPropio {
             }
         }
     }
+
     private void leerDatosClientes() {
         File file = new File("./datos/clientes.dat");
         if (file.exists()) {
@@ -554,7 +441,7 @@ public class Empresa extends EstablecimientoPropio {
             }
         }
     }
-    
+
     private void leerDatosAlmacenes() {
         File file = new File("./datos/almacenes.dat");
         if (file.exists()) {
@@ -565,7 +452,7 @@ public class Empresa extends EstablecimientoPropio {
             }
         }
     }
-    
+
     private void leerDatosFacturas() {
         File file = new File("./datos/facturas.dat");
         if (file.exists()) {
@@ -576,7 +463,7 @@ public class Empresa extends EstablecimientoPropio {
             }
         }
     }
-    
+
     private void leerDatosPedidos() {
         File file = new File("./datos/pedidos.dat");
         if (file.exists()) {
@@ -587,7 +474,7 @@ public class Empresa extends EstablecimientoPropio {
             }
         }
     }
-    
+
     private void leerDatosDescuentos() {
         File file = new File("./datos/descuentos.dat");
         if (file.exists()) {
@@ -598,7 +485,7 @@ public class Empresa extends EstablecimientoPropio {
             }
         }
     }
-    
+
     private void leerDatosStock() {
         File file = new File("./datos/stock.dat");
         if (file.exists()) {
@@ -609,7 +496,7 @@ public class Empresa extends EstablecimientoPropio {
             }
         }
     }
-        
+
     public void guardarCambios() {
         guardarDatosSupermercados();
         guardarDatosTrabajadores();
@@ -629,7 +516,7 @@ public class Empresa extends EstablecimientoPropio {
             e.printStackTrace();
         }
     }
-        
+
     private void guardarDatosTrabajadores() {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("./datos/trabajadores.dat"))) {
             out.writeObject(trabajadores);

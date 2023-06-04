@@ -8,6 +8,7 @@ public class Persona implements Herramientas, Serializable {
     private String apellidos;
     private Empresa empresa;
 
+  
     public Persona(Empresa empresaMercahome) {
         this.empresa = empresaMercahome;
         System.out.println("Indique su nombre.");
@@ -71,6 +72,9 @@ public class Persona implements Herramientas, Serializable {
         this.apellidos = apellidos;
     }
 
+    public Empresa getEmpresa() {
+        return empresa;
+    }
 
     
 }

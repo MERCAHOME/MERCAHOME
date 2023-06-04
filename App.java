@@ -165,7 +165,8 @@ public class App implements Herramientas {
                     break;
                 case 5:
                 if (empresa.getPedidos().size()>0) {
-                        
+                        empresa.mostrarPedidos();
+                        System.out.println("Volviendo...");
                 }else{
                     System.out.println("No existen pedidos en la empresa");
                     System.out.println("Volviendo...");
@@ -174,7 +175,9 @@ public class App implements Herramientas {
                     break;
                 case 6:
                 if (empresa.getStock().size()>0) {
-                        
+                    //no tinc ganes de ferlo
+                    empresa.mostrarProductos();
+                    System.out.println("Volviendo...");
                 }else{
                     System.out.println("No existen productos en la empresa");
                     System.out.println("Volviendo...");
@@ -183,7 +186,8 @@ public class App implements Herramientas {
                     break;
                 case 7:
                 if (empresa.getDescuentos().size()>0) {
-                        
+                    empresa.mostrarDescuentos();
+                    System.out.println("Volviendo...");
                 }else{
                     System.out.println("No existen descuentos en la empresa");
                     System.out.println("Volviendo...");
@@ -200,6 +204,34 @@ public class App implements Herramientas {
                 }
                     break;
                 case 9:
+                    int respuestaNueva = 0;
+                    do {
+                        System.out.println("Que tipo de descuento quieres agregar?");
+                        System.out.println("1- Descuento cantidad");
+                        System.out.println("2- Descuento de porcentaje");
+                        respuestaNueva = Herramientas.pedirEnteroPositivo();
+                        if(respuestaNueva<1||respuestaNueva>2){
+                            System.out.println("Error, solo puedes introducir 1 o 2");
+                        }
+                    } while (respuestaNueva<1||respuestaNueva>2);
+
+                    if (respuestaNueva==1) {
+                        System.out.println("Indique el importe mínimo que ha de gastar el cliente para poder aplicar este descuento");
+                        System.out.print("Importe mínimo: ");
+                        double minimo = Herramientas.pedirDoublePositivo();
+                        System.out.println("Cuál va a ser la cantidad que va a restar este descuento?");
+                        System.out.print("Cantidad: ");
+                        double cantidad = Herramientas.pedirDoublePositivo();
+                        empresa.getDescuentos().add( new DescuentoCantidad(true, minimo, cantidad));
+                    } else {
+                        System.out.println("Cuál va a ser la cantidad porcentual a descontar?");
+                        System.out.print("Porcentaje: ");
+                        int porcentaje = Herramientas.pedirEnteroPositivo();
+                        System.out.println("Cuál será la cantidad máxima que se podrá descontar con este descuento?");
+                        System.out.print("Cantidad máxima: ");
+                        double cantidadMax = Herramientas.pedirDoublePositivo();
+                        empresa.getDescuentos().add(new DescuentoPorcentual(true, porcentaje, cantidadMax));
+                    }
 
                     break;
                 case 10:

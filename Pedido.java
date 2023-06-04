@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -5,7 +6,7 @@ import java.util.Iterator;
 //agregar factura y pedido a el super empresa y cliente
 //agregar descuento
 //al consultar el estado de el pedido d¡se ha de modificar su estado dependiendo de la fecha actual
-public class Pedido implements Herramientas {
+public class Pedido implements Herramientas, Serializable {
     private ArrayList<Producto> productos = new ArrayList<>();
     private double total;
     private double totalConTransporte;

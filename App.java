@@ -110,13 +110,14 @@ public class App implements Herramientas {
                     "5- Mostrar todos los pedidos",
                     "6- Mostrar todos los productos",
                     "7- Mostrar todos los descuentos",
+                    "8- Mostrar todos los distribuidores",
                     "",
-                    "8- Agregar descuento",
-                    "9- Modificar estado descuento",
+                    "9- Agregar descuento",
+                    "10- Modificar estado descuento",
                     "",
-                    "10- Agregar supermercado",
-                    "11- Agregar Almacén",
-                    "12- Agregar distribuidor",
+                    "11- Agregar supermercado",
+                    "12- Agregar Almacén",
+                    "13- Agregar distribuidor",
                     "",
                     "0- Volver al menú principal"
             };
@@ -124,40 +125,159 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
-
+                    if (empresa.getClientes().size()>0) {
+                        empresa.mostrarClientes();
+                        System.out.println("Volviendo...");
+                    }else{
+                        System.out.println("No existen clientes en la empresa");
+                        System.out.println("Volviendo...");
+                    }
                     break;
                 case 2:
+                if (empresa.getTrabajadores().size()>0) {
+                        empresa.mostrarTrabajadores();
+                        System.out.println("Volviendo...");
+                }else{
+                    System.out.println("No existen trabajadores en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 3:
+                if (empresa.getFacturas().size()>0) {
+                        empresa.mostrarFacturas();
+                        System.out.println("Volviendo...");
+                }else{
+                    System.out.println("No existen facturas en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 4:
+                if (empresa.getVehiculos().size()>0) {
+                        empresa.mostrarVehiculos();
+                        System.out.println("Volviendo...");
+                }else{
+                    System.out.println("No existen vehículos en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 5:
+                if (empresa.getPedidos().size()>0) {
+                        empresa.mostrarPedidos();
+                        System.out.println("Volviendo...");
+                }else{
+                    System.out.println("No existen pedidos en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 6:
+                if (empresa.getStock().size()>0) {
+                    System.out.println("Método no implementado todavía");
+                    //no tinc ganes de ferlo
+                    /* 
+                    empresa.mostrarProductos(); */
+                    System.out.println("Volviendo...");
+                }else{
+                    System.out.println("No existen productos en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 7:
+                if (empresa.getDescuentos().size()>0) {
+                    empresa.mostrarDescuentos();
+                    System.out.println("Volviendo...");
+                }else{
+                    System.out.println("No existen descuentos en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 8:
+                if (empresa.getDistribuidores().size()>0) {
+                        empresa.mostrarProveedores();
+                }else{
+                    System.out.println("No existen distribuidores en la empresa");
+                    System.out.println("Volviendo...");
 
+                }
                     break;
                 case 9:
+                    int respuestaNueva = 0;
+                    do {
+                        System.out.println("Que tipo de descuento quieres agregar?");
+                        System.out.println("1- Descuento cantidad");
+                        System.out.println("2- Descuento de porcentaje");
+                        respuestaNueva = Herramientas.pedirEnteroPositivo();
+                        if(respuestaNueva<1||respuestaNueva>2){
+                            System.out.println("Error, solo puedes introducir 1 o 2");
+                        }
+                    } while (respuestaNueva<1||respuestaNueva>2);
+
+                    if (respuestaNueva==1) {
+                        System.out.println("Indique el importe mínimo que ha de gastar el cliente para poder aplicar este descuento");
+                        System.out.print("Importe mínimo: ");
+                        double minimo = Herramientas.pedirDoublePositivo();
+                        System.out.println("Cuál va a ser la cantidad que va a restar este descuento?");
+                        System.out.print("Cantidad: ");
+                        double cantidad = Herramientas.pedirDoublePositivo();
+                        empresa.getDescuentos().add( new DescuentoCantidad(true, minimo, cantidad));
+                        System.out.println("¡Hecho!");
+                    } else {
+                        System.out.println("Cuál va a ser la cantidad porcentual a descontar?");
+                        System.out.print("Porcentaje: ");
+                        int porcentaje = Herramientas.pedirEnteroPositivo();
+                        System.out.println("Cuál será la cantidad máxima que se podrá descontar con este descuento?");
+                        System.out.print("Cantidad máxima: ");
+                        double cantidadMax = Herramientas.pedirDoublePositivo();
+                        empresa.getDescuentos().add(new DescuentoPorcentual(true, porcentaje, cantidadMax));
+                        System.out.println("¡Hecho!");
+                    }
+                    System.out.println("Volviendo...");
 
                     break;
                 case 10:
-
+                    if (empresa.getDescuentos().size()>0) {
+                        Descuento desc = empresa.devolverDescuento();
+                        if (desc.isActivo()) {
+                            desc.setActivo(false);
+                        } else {
+                            desc.setActivo(true);
+                        }
+                        empresa.mostrarDescuentos();
+                        System.out.println("¡Hecho!");
+                        System.out.println("Volviendo...");
+                    } else {
+                        System.out.println("Todavía no hay descuentos dados de alta");
+                    }
+                    
                     break;
                 case 11:
-
+                System.out.println("Vamos a agregar un supermercado");
+                System.out.println();
+                    empresa.getSupermercados().add(new Supermercado(empresa));
+                    
+                    System.out.println("¡Hecho!");
+                    System.out.println("Volviendo...");
                     break;
                 case 12:
-
+                
+                System.out.println("Vamos a agregar un almacén");
+                System.out.println();
+                    empresa.getAlmacenes().add(new Almacen(empresa));
+                    System.out.println("¡Hecho!");
+                    System.out.println("Volviendo...");
+                    break;
+                case 13:
+                
+                System.out.println("Vamos a agregar un distribuidor");
+                System.out.println();
+                    empresa.getDistribuidores().add(new Distribuidor());
+                    System.out.println("¡Hecho!");
+                    System.out.println("Volviendo...");
                     break;
                 case 0:
                     guardarDatosEmpresa();
@@ -165,7 +285,7 @@ public class App implements Herramientas {
                     break;
 
                 default:
-                    System.out.println("Error, solo puedes introducir un número del 0 al 12");
+                    System.out.println("Error, solo puedes introducir un número del 0 al 13");
                     break;
             }
 
@@ -180,16 +300,15 @@ public class App implements Herramientas {
 
             };
             String[] opciones = {
-                    "1- Agregar almacén",
-                    "2- Mostrar productos de un almacen",
-                    "3- Agregar producto a un almacen",
-                    "4- Eliminar producto de un almacen",
-                    "5- Agregar empleado a un almacén",
-                    "6- Eliminar empleado a un almacén",//Tiene que haber mínimo un encargado, un gerente, y dos mozos de almacén, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
-                    "7- Agregar estantería a un almacén",
-                    "8- Agregar nevera a un almacén",
-                    "9- Eliminar estanteria de un almacén",//Tiene que estar vacía o hay que reubicar productos
-                    "10- Eliminar nevera de un almacén",//Tiene que estar vacía o hay que reubicar productos
+                    "1- Mostrar productos de un almacen",
+                    "2- Agregar producto a un almacen",
+                    "3- Eliminar producto de un almacen",
+                    "4- Agregar empleado a un almacén",
+                    "5- Eliminar empleado a un almacén",//Tiene que haber mínimo un encargado, un gerente, y dos mozos de almacén, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
+                    "6- Agregar estantería a un almacén",
+                    "7- Agregar nevera a un almacén",
+                    "8- Eliminar estanteria de un almacén",//Tiene que estar vacía o hay que reubicar productos
+                    "9- Eliminar nevera de un almacén",//Tiene que estar vacía o hay que reubicar productos
                     "0- Volver al menú principal"
             };
             respuesta = Herramientas.crearMenu(titulo, opciones);
@@ -222,16 +341,13 @@ public class App implements Herramientas {
                 case 9:
                     
                     break;
-                case 10:
-                    
-                    break;
                 case 0:
                     guardarDatosEmpresa();
                     System.out.println("volviendo...");
                     break;
 
                 default:
-                    System.out.println("Error, solo puedes introducir un número del 0 al 10");
+                    System.out.println("Error, solo puedes introducir un número del 0 al 9");
                     break;
             }
 
@@ -246,19 +362,18 @@ public class App implements Herramientas {
 
             };
             String[] opciones = {
-                    "1- Agregar supermercado",
-                    "2- Mostrar productos de un supermercado",
-                    "3- Agregar producto a un supermercado",
-                    "4- Eliminar producto de un supermercado",
-                    "5- Agregar empleado a un supermercado",
-                    "6- Eliminar empleado a un supermercado",//Tiene que haber mínimo un encargado, un gerente, un conductor, y un cajero, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
-                    "7- Agregar estantería a un supermercado",
-                    "8- Agregar nevera a un supermercado",
-                    "9- Eliminar estanteria de un supermercado",//Tiene que estar vacía o hay que reubicar productos
-                    "10- Eliminar nevera de un supermercado",//Tiene que estar vacía o hay que reubicar productos
-                    "11- Mostrar pedidos de un supermercado",
-                    "12- Mostrar facturas de un supermercado",
-                    "13- Mostrar vehículos de un supermercado",
+                    "1- Mostrar productos de un supermercado",
+                    "2- Agregar producto a un supermercado",
+                    "3- Eliminar producto de un supermercado",
+                    "4- Agregar empleado a un supermercado",
+                    "5- Eliminar empleado a un supermercado",//Tiene que haber mínimo un encargado, un gerente, un conductor, y un cajero, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
+                    "6- Agregar estantería a un supermercado",
+                    "7- Agregar nevera a un supermercado",
+                    "8- Eliminar estanteria de un supermercado",//Tiene que estar vacía o hay que reubicar productos
+                    "9- Eliminar nevera de un supermercado",//Tiene que estar vacía o hay que reubicar productos
+                    "10- Mostrar pedidos de un supermercado",
+                    "11- Mostrar facturas de un supermercado",
+                    "12- Mostrar vehículos de un supermercado",
                     "0- Volver al menú principal"
             };
             respuesta = Herramientas.crearMenu(titulo, opciones);
@@ -309,7 +424,7 @@ public class App implements Herramientas {
                     break;
 
                 default:
-                    System.out.println("Error, solo puedes introducir un número del 0 al 13");
+                    System.out.println("Error, solo puedes introducir un número del 0 al 12");
                     break;
             }
 

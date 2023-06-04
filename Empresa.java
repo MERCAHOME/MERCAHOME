@@ -274,6 +274,67 @@ public class Empresa extends EstablecimientoPropio {
         }
     }
 
+    public Descuento devolverDescuento(){
+        if (descuentos.size() > 0) {
+            boolean noEncontrado = false;
+            do {
+                System.out.println("*****************************");
+                System.out.println("          DESCUENTOS");
+                System.out.println("*****************************");
+                for (Descuento desc : descuentos) {
+                    if (desc instanceof DescuentoCantidad) {
+                        DescuentoCantidad descuen = (DescuentoCantidad)desc;
+                        System.out.println("Tipo: Descuento cantidad");
+                        System.out.println("Importe mínimo: "+descuen.getImporteMinimo());
+                        System.out.println("Cantidad de descuento: "+descuen.getCantidadDescuento());
+                        System.out.println("ID: "+descuen.getId());
+                        if (descuen.isActivo()) {
+                            System.out.println("Descuento aplicable");
+                        } else {
+                            System.out.println("Descuento no aplicable");
+                        }
+
+                    }else if(desc instanceof DescuentoPorcentual){
+                        DescuentoPorcentual descuent = (DescuentoPorcentual) desc;
+                        System.out.println("Tipo: Descuento cantidad");
+                        System.out.println("Importe máximo: "+descuent.getCantidadMaximaDescuento());
+                        System.out.println("Porcentaje de descuento: "+descuent.getPorcentajeDescuento());
+                        System.out.println("ID: "+descuent.getId());
+                        if (descuent.isActivo()) {
+                            System.out.println("Descuento aplicable");
+                        } else {
+                            System.out.println("Descuento no aplicable");
+                        }
+                    }
+                    System.out.println("*****************************");
+                }
+                if (noEncontrado) {
+                    System.out.println("No existe ningún descuento con el ID indicado");
+                    System.out.println("Indiquelo de nuevo");
+                }
+                System.out.println("Selenccione uno de los descuentos mostrados previamente");
+                System.out.println("Para seleccionarlo indique su ID");
+                System.out.println("Indique 0 para cancelar");
+                System.out.println("ID: ");
+                int idn = Herramientas.pedirEnteroPositivo();
+                if (idn == 0) {
+                    return null;
+                }
+                for (Descuento desc : descuentos) {
+                    if (desc.getId() == idn) {
+                        return desc;
+                    }
+                }
+                noEncontrado = true;
+
+            } while (true);
+
+        } else {
+            System.out.println("No existen descuentos disponibles");
+            return null;
+        }
+    }
+
     public Supermercado devolverSupermercado() {
         if (supermercados.size() > 0) {
             boolean noEncontrado = false;

@@ -28,6 +28,21 @@ public class Pedido implements Herramientas {
         System.out.println("Cuantos Km hay desde el supermercado hasta la ubicación de entrega de el pedido?");
         System.out.print("Km: ");
         this.distanciaEnKmHastaSupermercado = Herramientas.pedirEnteroPositivo();
+        int respuesta =0;
+        do {
+            System.out.println("Tiene algún código de descuento ?");
+            System.out.println("1- Si");
+            System.out.println("2- No");
+            respuesta = Herramientas.pedirEnteroPositivo();
+            if (respuesta<1||respuesta>2) {
+                System.out.println("Error, solo puede introducir 1 o 2");
+                System.out.println("Introduzca un valor válido");
+            }
+        } while (respuesta<1||respuesta>2);
+        if (respuesta==1) {
+            this.descuento = supermercado.getEmpresa().devolverDescuento();
+        }
+
         if (realizarPedido(supermercado)) {
             System.out.println("Pedido realizado con éxito");
             this.estadoDePedido = EstadoDePedido.ACEPTADO;

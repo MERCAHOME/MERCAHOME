@@ -332,16 +332,65 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
-                    
+                    if (empresa.getDistribuidores().size()>0) {
+                        Distribuidor proveedor = null;
+
+                        do {
+                            empresa.mostrarProveedores();
+                            String cif = Herramientas.pedirString();
+                            proveedor = empresa.devolverProveedor(cif);
+                            if (proveedor == null) {
+                                System.out.println("No existe ningún proveedor con este cif");
+                            }
+                        } while (proveedor == null);
+
+                        proveedor.mostrarProductosQueDistribuye();
+                        
+                    }else{
+                        System.out.println("No existe nigún proveedor");
+                        System.out.println("Volviendo...");
+                    }
                     break;
                 case 2:
-                    
+                if (empresa.getDistribuidores().size()>0) {
+                    Distribuidor proveedor = null;
+
+                    do {
+                        empresa.mostrarProveedores();
+                        String cif = Herramientas.pedirString();
+                        proveedor = empresa.devolverProveedor(cif);
+                        if (proveedor == null) {
+                            System.out.println("No existe ningún proveedor con este cif");
+                        }
+                    } while (proveedor == null);
+                    proveedor.darDeAltaUnproducto();
+                }else{
+                    System.out.println("No existe nigún proveedor");
+                    System.out.println("Volviendo...");
+                }
                     break;
                 case 3:
-                    
+                if (empresa.getDistribuidores().size()>0) {
+                    Distribuidor proveedor = null;
+
+                    do {
+                        empresa.mostrarProveedores();
+                        String cif = Herramientas.pedirString();
+                        proveedor = empresa.devolverProveedor(cif);
+                        if (proveedor == null) {
+                            System.out.println("No existe ningún proveedor con este cif");
+                        }
+                    } while (proveedor == null);
+
+                    proveedor.eliminarProductoQueDistribuye();
+                }else{
+                    System.out.println("No existe nigún proveedor");
+                    System.out.println("Volviendo...");
+                }
                     break;
                 case 0:
                     guardarDatosEmpresa();
+                    System.out.println("Volviendo...");
                     break;
 
                 default:

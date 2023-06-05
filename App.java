@@ -176,10 +176,9 @@ public class App implements Herramientas {
                 case 6:
                     if (empresa.getStock().size() > 0) {
                         System.out.println("Método no implementado todavía");
-                        // no tinc ganes de ferlo
-                        /*
-                         * empresa.mostrarProductos();
-                         */
+                        
+                          empresa.mostrarProductos();
+                         
                         System.out.println("Volviendo...");
                     } else {
                         System.out.println("No existen productos en la empresa");
@@ -574,11 +573,23 @@ public class App implements Herramientas {
             };
             respuesta = Herramientas.crearMenu(titulo, opciones);
 
+            Supermercado spmcd = null;
+            if (empresa.getSupermercados().size()>0) {
+                do {
+                    spmcd = empresa.devolverSupermercado();
+                } while (spmcd==null);
+                
+            }else{
+                System.out.println("No puede realizar ninguna operación, ya que no hay supermercados dados de alta");
+                respuesta = 0;
+            }
+
             switch (respuesta) {
                 case 1:
-
+                    spmcd.mostrarProductos();
                     break;
                 case 2:
+                
 
                     break;
                 case 3:

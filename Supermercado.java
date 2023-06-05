@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.temporal.IsoFields;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class Supermercado extends EstablecimientoPropio {
@@ -333,6 +334,32 @@ public class Supermercado extends EstablecimientoPropio {
             return false;
         }
         
+    }
+
+    public boolean mostrarProductos() {
+        if (stock.size() > 0) {
+            System.out.println("*****************************");
+            System.out.println("          PRODUCTOS");
+            System.out.println("*****************************");
+            ArrayList<String> nombresVistos = new ArrayList<>();
+            System.out.printf("| %-28s | %-16s | %-12s |%n", "PRODUCTO", "CANTIDAD", "PRECIO/u");
+            System.out.printf("| %-28s | %-16s | %-12s |%n", " ", " ", " ", " ");
+            for (Producto producto : stock) {
+                if (!nombresVistos.contains(producto.getNombre())) {
+                    nombresVistos.add(producto.getNombre());
+                    String nombreProducto = producto.getNombre();
+                    double precioProducto = producto.getPrecioVentaPublico();
+                    int cantidadProducto = cantidad(stock, producto);
+                    System.out.printf("| %-28s | %-16.2f | %-12.2f |%n", nombreProducto, cantidadProducto,
+                            precioProducto);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    public int cantidad(ArrayList<Producto> productos, Producto producto) {
+        return Collections.frequency(productos, producto);
     }
 
    

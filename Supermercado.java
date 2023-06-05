@@ -157,6 +157,22 @@ public class Supermercado extends EstablecimientoPropio {
             return false;
         }
     }
+
+    public void mostrarPedidos(){
+        if (pedidos.size()>0) {
+            System.out.println("*********************************************************************");
+            System.out.println("                            PEDIDOS");
+            System.out.println("*********************************************************************");
+            System.out.println();
+            for (Pedido p : pedidos) {
+               p.mostrarProductosPedidoConTotal();
+
+            }
+        }else{
+            System.out.println("Todavía no hay pedidos dados de alta");
+        }
+    }
+
     public boolean eliminarTrabajador(){
         if (empleados.size()>0) {
             Empleado empleadoAEliminar = devolverTrabajador();

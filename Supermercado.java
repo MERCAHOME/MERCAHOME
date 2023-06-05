@@ -173,6 +173,8 @@ public class Supermercado extends EstablecimientoPropio {
         }
     }
 
+    
+
     public boolean eliminarTrabajador(){
         if (empleados.size()>0) {
             Empleado empleadoAEliminar = devolverTrabajador();

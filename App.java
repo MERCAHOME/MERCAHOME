@@ -125,85 +125,86 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
-                    if (empresa.getClientes().size()>0) {
+                    if (empresa.getClientes().size() > 0) {
                         empresa.mostrarClientes();
                         System.out.println("Volviendo...");
-                    }else{
+                    } else {
                         System.out.println("No existen clientes en la empresa");
                         System.out.println("Volviendo...");
                     }
                     break;
                 case 2:
-                if (empresa.getTrabajadores().size()>0) {
+                    if (empresa.getTrabajadores().size() > 0) {
                         empresa.mostrarTrabajadores();
                         System.out.println("Volviendo...");
-                }else{
-                    System.out.println("No existen trabajadores en la empresa");
-                    System.out.println("Volviendo...");
+                    } else {
+                        System.out.println("No existen trabajadores en la empresa");
+                        System.out.println("Volviendo...");
 
-                }
+                    }
                     break;
                 case 3:
-                if (empresa.getFacturas().size()>0) {
+                    if (empresa.getFacturas().size() > 0) {
                         empresa.mostrarFacturas();
                         System.out.println("Volviendo...");
-                }else{
-                    System.out.println("No existen facturas en la empresa");
-                    System.out.println("Volviendo...");
+                    } else {
+                        System.out.println("No existen facturas en la empresa");
+                        System.out.println("Volviendo...");
 
-                }
+                    }
                     break;
                 case 4:
-                if (empresa.getVehiculos().size()>0) {
+                    if (empresa.getVehiculos().size() > 0) {
                         empresa.mostrarVehiculos();
                         System.out.println("Volviendo...");
-                }else{
-                    System.out.println("No existen vehículos en la empresa");
-                    System.out.println("Volviendo...");
+                    } else {
+                        System.out.println("No existen vehículos en la empresa");
+                        System.out.println("Volviendo...");
 
-                }
+                    }
                     break;
                 case 5:
-                if (empresa.getPedidos().size()>0) {
+                    if (empresa.getPedidos().size() > 0) {
                         empresa.mostrarPedidos();
                         System.out.println("Volviendo...");
-                }else{
-                    System.out.println("No existen pedidos en la empresa");
-                    System.out.println("Volviendo...");
+                    } else {
+                        System.out.println("No existen pedidos en la empresa");
+                        System.out.println("Volviendo...");
 
-                }
+                    }
                     break;
                 case 6:
-                if (empresa.getStock().size()>0) {
-                    System.out.println("Método no implementado todavía");
-                    //no tinc ganes de ferlo
-                    /* 
-                    empresa.mostrarProductos(); */
-                    System.out.println("Volviendo...");
-                }else{
-                    System.out.println("No existen productos en la empresa");
-                    System.out.println("Volviendo...");
+                    if (empresa.getStock().size() > 0) {
+                        System.out.println("Método no implementado todavía");
+                        // no tinc ganes de ferlo
+                        /*
+                         * empresa.mostrarProductos();
+                         */
+                        System.out.println("Volviendo...");
+                    } else {
+                        System.out.println("No existen productos en la empresa");
+                        System.out.println("Volviendo...");
 
-                }
+                    }
                     break;
                 case 7:
-                if (empresa.getDescuentos().size()>0) {
-                    empresa.mostrarDescuentos();
-                    System.out.println("Volviendo...");
-                }else{
-                    System.out.println("No existen descuentos en la empresa");
-                    System.out.println("Volviendo...");
+                    if (empresa.getDescuentos().size() > 0) {
+                        empresa.mostrarDescuentos();
+                        System.out.println("Volviendo...");
+                    } else {
+                        System.out.println("No existen descuentos en la empresa");
+                        System.out.println("Volviendo...");
 
-                }
+                    }
                     break;
                 case 8:
-                if (empresa.getDistribuidores().size()>0) {
+                    if (empresa.getDistribuidores().size() > 0) {
                         empresa.mostrarProveedores();
-                }else{
-                    System.out.println("No existen distribuidores en la empresa");
-                    System.out.println("Volviendo...");
+                    } else {
+                        System.out.println("No existen distribuidores en la empresa");
+                        System.out.println("Volviendo...");
 
-                }
+                    }
                     break;
                 case 9:
                     int respuestaNueva = 0;
@@ -212,19 +213,20 @@ public class App implements Herramientas {
                         System.out.println("1- Descuento cantidad");
                         System.out.println("2- Descuento de porcentaje");
                         respuestaNueva = Herramientas.pedirEnteroPositivo();
-                        if(respuestaNueva<1||respuestaNueva>2){
+                        if (respuestaNueva < 1 || respuestaNueva > 2) {
                             System.out.println("Error, solo puedes introducir 1 o 2");
                         }
-                    } while (respuestaNueva<1||respuestaNueva>2);
+                    } while (respuestaNueva < 1 || respuestaNueva > 2);
 
-                    if (respuestaNueva==1) {
-                        System.out.println("Indique el importe mínimo que ha de gastar el cliente para poder aplicar este descuento");
+                    if (respuestaNueva == 1) {
+                        System.out.println(
+                                "Indique el importe mínimo que ha de gastar el cliente para poder aplicar este descuento");
                         System.out.print("Importe mínimo: ");
                         double minimo = Herramientas.pedirDoublePositivo();
                         System.out.println("Cuál va a ser la cantidad que va a restar este descuento?");
                         System.out.print("Cantidad: ");
                         double cantidad = Herramientas.pedirDoublePositivo();
-                        empresa.getDescuentos().add( new DescuentoCantidad(true, minimo, cantidad));
+                        empresa.getDescuentos().add(new DescuentoCantidad(true, minimo, cantidad));
                         System.out.println("¡Hecho!");
                     } else {
                         System.out.println("Cuál va a ser la cantidad porcentual a descontar?");
@@ -240,7 +242,7 @@ public class App implements Herramientas {
 
                     break;
                 case 10:
-                    if (empresa.getDescuentos().size()>0) {
+                    if (empresa.getDescuentos().size() > 0) {
                         Descuento desc = empresa.devolverDescuento();
                         if (desc.isActivo()) {
                             desc.setActivo(false);
@@ -253,28 +255,28 @@ public class App implements Herramientas {
                     } else {
                         System.out.println("Todavía no hay descuentos dados de alta");
                     }
-                    
+
                     break;
                 case 11:
-                System.out.println("Vamos a agregar un supermercado");
-                System.out.println();
+                    System.out.println("Vamos a agregar un supermercado");
+                    System.out.println();
                     empresa.getSupermercados().add(new Supermercado(empresa));
-                    
+
                     System.out.println("¡Hecho!");
                     System.out.println("Volviendo...");
                     break;
                 case 12:
-                
-                System.out.println("Vamos a agregar un almacén");
-                System.out.println();
+
+                    System.out.println("Vamos a agregar un almacén");
+                    System.out.println();
                     empresa.getAlmacenes().add(new Almacen(empresa));
                     System.out.println("¡Hecho!");
                     System.out.println("Volviendo...");
                     break;
                 case 13:
-                
-                System.out.println("Vamos a agregar un distribuidor");
-                System.out.println();
+
+                    System.out.println("Vamos a agregar un distribuidor");
+                    System.out.println();
                     empresa.getDistribuidores().add(new Distribuidor());
                     System.out.println("¡Hecho!");
                     System.out.println("Volviendo...");
@@ -300,46 +302,237 @@ public class App implements Herramientas {
 
             };
             String[] opciones = {
-                    "1- Mostrar productos de un almacen",
-                    "2- Agregar producto a un almacen",
-                    "3- Eliminar producto de un almacen",
-                    "4- Agregar empleado a un almacén",
-                    "5- Eliminar empleado a un almacén",//Tiene que haber mínimo un encargado, un gerente, y dos mozos de almacén, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
-                    "6- Agregar estantería a un almacén",
-                    "7- Agregar nevera a un almacén",
-                    "8- Eliminar estanteria de un almacén",//Tiene que estar vacía o hay que reubicar productos
-                    "9- Eliminar nevera de un almacén",//Tiene que estar vacía o hay que reubicar productos
+                    "1- Mostrar productos de un almacen", // done
+                    "2- Agregar producto a un almacen", // done
+                    "3- Eliminar producto de un almacen", // done
+                    "4- Agregar empleado a un almacén", // done
+                    "5- Eliminar empleado a un almacén",
+                    "6- Agregar estantería a un almacén", // done
+                    "7- Agregar nevera a un almacén", // done
+                    "8- Eliminar estanteria de un almacén",
+                    "9- Eliminar nevera de un almacén",
                     "0- Volver al menú principal"
             };
             respuesta = Herramientas.crearMenu(titulo, opciones);
-
+            Almacen almacenM = null;
+            int cantidad = 0;
+            int capacidad = 0;
+            int niveles = 0;
+            while (almacenM == null) {
+                almacenM = empresa.devolverAlmacen();
+            }
             switch (respuesta) {
                 case 1:
-                    
+
+                    almacenM.mostrarProductos();
+
+                    /*
+                     * if (empresa.getDistribuidores().size()>0) {
+                     * Distribuidor proveedor = null;
+                     * 
+                     * do {
+                     * empresa.mostrarProveedores();
+                     * String cif = Herramientas.pedirString();
+                     * proveedor = empresa.devolverProveedor(cif);
+                     * if (proveedor == null) {
+                     * System.out.println("No existe ningún proveedor con este cif");
+                     * }
+                     * } while (proveedor == null);
+                     * 
+                     * proveedor.mostrarProductosQueDistribuye();
+                     * 
+                     * }else{
+                     * System.out.println("No existe nigún proveedor");
+                     * System.out.println("Volviendo...");
+                     * }
+                     * break;
+                     */
                     break;
                 case 2:
-                    
+                    almacenM.agregarProducto();
+
                     break;
                 case 3:
-                    
+                    Producto productoE = null;
+                    while (productoE == null) {
+                        almacenM.mostrarProductos();
+                        System.out.println("Dime la ID del producto que quieres eliminar.");
+                        System.out.print("ID: ");
+                        int id = Herramientas.pedirEnteroPositivo();
+                        for (Producto producto : almacenM.getStock()) {
+                            if (producto.getId() == id) {
+                                productoE = producto;
+                                break;
+                            }
+                        }
+                    }
+
+                    almacenM.eliminarProducto(productoE);
                     break;
                 case 4:
-                    
+                    almacenM.agregarTrabajador();
                     break;
                 case 5:
-                    
+                    // eliminar empleado
+                    // Tiene que haber mínimo un encargado, un gerente, y dos mozos
+                    // de almacén, si se elimina un encargado, todos los empleados
+                    // a su cargo se tienen que asignar a otro encargado
+
+                    Empleado empleadoE = null;
+                    int numEncargado = 0;
+                    int numGerente = 0;
+                    int numMozos = 0;
+                    while (empleadoE == null) {
+                        almacenM.mostrarTrabajadores();
+                        System.out.println("Qué trabajador quiere eliminar? ");
+                        System.out.print("DNI: ");
+                        String dniE = Herramientas.crearDNI();
+                        for (Empleado empleado : empresa.getTrabajadores()) {
+                            if (empleado.getDNI().equals(dniE)) {
+                                empleadoE = empleado;
+                            }
+                            if (empleado.getTipoDeEmpleado() == TipoDeEmpleado.GERENTE) {
+                                numGerente++;
+                            }
+                            if (empleado.getTipoDeEmpleado() == TipoDeEmpleado.ENCARGADO) {
+                                numEncargado++;
+                            }
+                            if (empleado.getTipoDeEmpleado() == TipoDeEmpleado.MOZODEALMACEN) {
+                                numMozos++;
+                            }
+                        }
+                    }
+
+                    if (empleadoE.getTipoDeEmpleado() == TipoDeEmpleado.ENCARGADO
+                            || empleadoE.getTipoDeEmpleado() == TipoDeEmpleado.GERENTE
+                            || empleadoE.getTipoDeEmpleado() == TipoDeEmpleado.MOZODEALMACEN) {
+                        if (numEncargado < 1 || numGerente < 1 || numMozos < 2) {
+                            System.out.println("No se puede eliminar un " + empleadoE.getTipoDeEmpleado().name()
+                                    + ", no hay suficientes...");
+                        }
+                    } else {
+                        almacenM.eliminarEmpleado(empleadoE);
+                    }
+
                     break;
                 case 6:
-                    
+
+                    while (cantidad == 0) {
+                        cantidad = Herramientas.pedirEnteroPositivo();
+                    }
+
+                    while (capacidad == 0) {
+                        capacidad = Herramientas.pedirEnteroPositivo();
+                    }
+
+                    while (niveles == 0) {
+                        niveles = Herramientas.pedirEnteroPositivo();
+                    }
+
+                    almacenM.agregarEstanterias(cantidad, capacidad, niveles);
                     break;
                 case 7:
-                    
+                    while (cantidad == 0) {
+                        cantidad = Herramientas.pedirEnteroPositivo();
+                    }
+
+                    while (capacidad == 0) {
+                        capacidad = Herramientas.pedirEnteroPositivo();
+                    }
+                    almacenM.agregarNeveras(cantidad, capacidad);
                     break;
                 case 8:
-                    
+                    // eliminar estanteria
+                    // Tiene que estar vacía o hay que reubicar productos
+                    int numeroEstanteria = 0;
+                    Estanteria estanteriaE = null;
+                    while (estanteriaE == null) {
+                        almacenM.mostrarEstanterias();
+                        System.out.println(
+                                "Indica la estantería que quiere eliminar. (Ten en cuenta que si no esta vacía habrá que reubicar los productos).");
+                        System.out.print("Número: ");
+                        numeroEstanteria = Herramientas.pedirEnteroPositivo();
+                        for (Estanteria estanteria : almacenM.getEstanterias()) {
+                            if (estanteria.getNumeroEstanteria() == numeroEstanteria) {
+                                estanteriaE = estanteria;
+                            }
+                        }
+                    }
+
+                    if (estanteriaE.getProductos().isEmpty()) {
+                        almacenM.eliminarEstanteria(estanteriaE);
+                    } else {
+                        Estanteria estanteriaMoverProductos = null;
+                        while (estanteriaMoverProductos == null) {
+                            almacenM.mostrarEstanterias();
+                            System.out.println("A qué estantería quieres mover los productos?");
+                            System.out.print("Número: ");
+                            int estanteriaNumeroMover = Herramientas.pedirEnteroPositivo();
+                            if (estanteriaNumeroMover == numeroEstanteria) {
+                                System.out.println("No puedes mover los productos a la misma estantería...");
+                            } else{
+                                for (Estanteria estanteria2 : almacenM.getEstanterias()) {
+                                    if (estanteria2.getNumeroEstanteria() == estanteriaNumeroMover) {
+                                        estanteriaMoverProductos = estanteria2;
+                                    }
+                                }
+                            }
+                        }
+
+                        // MOVER PRODUCTOS DE estanteriaE a estanteriaMoverProductos, luego eliminar estanteriaE
+                        for (Producto producto : estanteriaE.getProductos()) {
+                            estanteriaMoverProductos.agregarProducto(producto);
+                            estanteriaE.eliminarProducto(producto);
+
+                        }
+                        almacenM.eliminarEstanteria(estanteriaE);
+                    }
                     break;
                 case 9:
-                    
+                    // eliminar nevera
+                    // Tiene que estar vacía o hay que reubicar productos
+                    int idNevera = 0;
+                    Nevera neveraE = null;
+                    while (neveraE == null) {
+                        almacenM.mostrarNeveras();
+                        System.out.println(
+                                "Indica la nevera que quiere eliminar. (Ten en cuenta que si no esta vacía habrá que reubicar los productos).");
+                        System.out.print("ID: ");
+                        idNevera = Herramientas.pedirEnteroPositivo();
+                        for (Nevera nevera : almacenM.getNeveras()) {
+                            if (nevera.getId() == idNevera) {
+                                neveraE = nevera;
+                            }
+                        }
+                    }
+
+                    if (neveraE.getProductos().isEmpty()) {
+                        almacenM.eliminarNevera(neveraE);
+                    } else {
+                        Nevera neveraMoverProductos = null;
+                        while (neveraMoverProductos == null) {
+                            almacenM.mostrarNeveras();
+                            System.out.println("A qué nevera quieres mover los productos?");
+                            System.out.print("ID: ");
+                            int neveraIdMover = Herramientas.pedirEnteroPositivo();
+                            if (neveraIdMover == idNevera) {
+                                System.out.println("No puedes mover los productos a la misma nevera...");
+                            } else{
+                                for (Nevera nevera2 : almacenM.getNeveras()) {
+                                    if (nevera2.getId() == neveraIdMover) {
+                                        neveraMoverProductos = nevera2;
+                                    }
+                                }
+                            }
+                        }
+
+                        // MOVER PRODUCTOS DE neveraE a neveraMoverProductos, luego eliminar estanteriaE
+                        for (Producto producto : neveraE.getProductos()) {
+                            neveraMoverProductos.agregarproducto(producto);
+                            neveraE.eliminarProducto(producto);
+                        }
+                        almacenM.eliminarNevera(neveraE);
+                    }
                     break;
                 case 0:
                     guardarDatosEmpresa();
@@ -366,11 +559,14 @@ public class App implements Herramientas {
                     "2- Agregar producto a un supermercado",
                     "3- Eliminar producto de un supermercado",
                     "4- Agregar empleado a un supermercado",
-                    "5- Eliminar empleado a un supermercado",//Tiene que haber mínimo un encargado, un gerente, un conductor, y un cajero, si se elimina un encargado, todos los empleados a su cargo se tienen que asignar a otro encargado
+                    "5- Eliminar empleado a un supermercado", // Tiene que haber mínimo un encargado, un gerente, un
+                                                              // conductor, y un cajero, si se elimina un encargado,
+                                                              // todos los empleados a su cargo se tienen que asignar a
+                                                              // otro encargado
                     "6- Agregar estantería a un supermercado",
                     "7- Agregar nevera a un supermercado",
-                    "8- Eliminar estanteria de un supermercado",//Tiene que estar vacía o hay que reubicar productos
-                    "9- Eliminar nevera de un supermercado",//Tiene que estar vacía o hay que reubicar productos
+                    "8- Eliminar estanteria de un supermercado", // Tiene que estar vacía o hay que reubicar productos
+                    "9- Eliminar nevera de un supermercado", // Tiene que estar vacía o hay que reubicar productos
                     "10- Mostrar pedidos de un supermercado",
                     "11- Mostrar facturas de un supermercado",
                     "12- Mostrar vehículos de un supermercado",
@@ -380,43 +576,43 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
-                    
+
                     break;
                 case 2:
-                    
+
                     break;
                 case 3:
-                    
+
                     break;
                 case 4:
-                    
+
                     break;
                 case 5:
-                    
+
                     break;
                 case 6:
-                    
+
                     break;
                 case 7:
-                    
+
                     break;
                 case 8:
-                    
+
                     break;
                 case 9:
-                    
+
                     break;
                 case 10:
-                    
+
                     break;
                 case 11:
-                    
+
                     break;
                 case 12:
-                    
+
                     break;
                 case 13:
-                    
+
                     break;
                 case 0:
                     guardarDatosEmpresa();
@@ -447,7 +643,7 @@ public class App implements Herramientas {
 
             switch (respuesta) {
                 case 1:
-                    if (empresa.getDistribuidores().size()>0) {
+                    if (empresa.getDistribuidores().size() > 0) {
                         Distribuidor proveedor = null;
 
                         do {
@@ -460,48 +656,48 @@ public class App implements Herramientas {
                         } while (proveedor == null);
 
                         proveedor.mostrarProductosQueDistribuye();
-                        
-                    }else{
+
+                    } else {
                         System.out.println("No existe nigún proveedor");
                         System.out.println("Volviendo...");
                     }
                     break;
                 case 2:
-                if (empresa.getDistribuidores().size()>0) {
-                    Distribuidor proveedor = null;
+                    if (empresa.getDistribuidores().size() > 0) {
+                        Distribuidor proveedor = null;
 
-                    do {
-                        empresa.mostrarProveedores();
-                        String cif = Herramientas.pedirString();
-                        proveedor = empresa.devolverProveedor(cif);
-                        if (proveedor == null) {
-                            System.out.println("No existe ningún proveedor con este cif");
-                        }
-                    } while (proveedor == null);
-                    proveedor.darDeAltaUnproducto();
-                }else{
-                    System.out.println("No existe nigún proveedor");
-                    System.out.println("Volviendo...");
-                }
+                        do {
+                            empresa.mostrarProveedores();
+                            String cif = Herramientas.pedirString();
+                            proveedor = empresa.devolverProveedor(cif);
+                            if (proveedor == null) {
+                                System.out.println("No existe ningún proveedor con este cif");
+                            }
+                        } while (proveedor == null);
+                        proveedor.darDeAltaUnproducto();
+                    } else {
+                        System.out.println("No existe nigún proveedor");
+                        System.out.println("Volviendo...");
+                    }
                     break;
                 case 3:
-                if (empresa.getDistribuidores().size()>0) {
-                    Distribuidor proveedor = null;
+                    if (empresa.getDistribuidores().size() > 0) {
+                        Distribuidor proveedor = null;
 
-                    do {
-                        empresa.mostrarProveedores();
-                        String cif = Herramientas.pedirString();
-                        proveedor = empresa.devolverProveedor(cif);
-                        if (proveedor == null) {
-                            System.out.println("No existe ningún proveedor con este cif");
-                        }
-                    } while (proveedor == null);
+                        do {
+                            empresa.mostrarProveedores();
+                            String cif = Herramientas.pedirString();
+                            proveedor = empresa.devolverProveedor(cif);
+                            if (proveedor == null) {
+                                System.out.println("No existe ningún proveedor con este cif");
+                            }
+                        } while (proveedor == null);
 
-                    proveedor.eliminarProductoQueDistribuye();
-                }else{
-                    System.out.println("No existe nigún proveedor");
-                    System.out.println("Volviendo...");
-                }
+                        proveedor.eliminarProductoQueDistribuye();
+                    } else {
+                        System.out.println("No existe nigún proveedor");
+                        System.out.println("Volviendo...");
+                    }
                     break;
                 case 0:
                     guardarDatosEmpresa();

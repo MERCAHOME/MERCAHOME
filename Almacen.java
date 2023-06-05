@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class Almacen extends EstablecimientoPropio implements Stock {
@@ -11,6 +12,7 @@ public class Almacen extends EstablecimientoPropio implements Stock {
     private ArrayList<Estanteria> estanterias = new ArrayList<>();
     private ArrayList<Nevera> neveras = new ArrayList<>();
     private ArrayList<Empleado> empleados = new ArrayList<>();
+
     public int capacidadAlmacen;
 
     public Almacen(Empresa empresa) {
@@ -33,7 +35,7 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         } else {
             Herramientas.limpiarPantalla();
             System.out.println(
-                
+
                     "No se ha agregado ninguna estantería, contacte con el administrador si no era su intención");
         }
         System.out.println("Cuantas neveras quieres añadir a tu almacén?");
@@ -50,7 +52,7 @@ public class Almacen extends EstablecimientoPropio implements Stock {
             System.out
                     .println("No se ha agregado ninguna nevera, contacte con el administrador si no era su intención");
         }
-        //Herramientas.limpiarPantalla();
+        // Herramientas.limpiarPantalla();
         System.out.println("Antes de finalizar, tiene que dar de alta algun trabajador");
         System.out.println("Vamos allá!");
         agregar4Trabajadores();
@@ -162,90 +164,199 @@ public class Almacen extends EstablecimientoPropio implements Stock {
 
     }
 
+    public boolean mostrarProductos() {
+        if (stock.size() > 0) {
+            System.out.println("*****************************");
+            System.out.println("          PRODUCTOS");
+            System.out.println("*****************************");
+            ArrayList<String> nombresVistos = new ArrayList<>();
+            System.out.printf("| %-28s | %-16s | %-12s |%n", "PRODUCTO", "CANTIDAD", "PRECIO/u");
+            System.out.printf("| %-28s | %-16s | %-12s |%n", " ", " ", " ", " ");
+            for (Producto producto : stock) {
+                if (!nombresVistos.contains(producto.getNombre())) {
+                    nombresVistos.add(producto.getNombre());
+                    String nombreProducto = producto.getNombre();
+                    double precioProducto = producto.getPrecioVentaPublico();
+                    int cantidadProducto = cantidad(stock, producto);
+                    System.out.printf("| %-28s | %-16.2f | %-12.2f |%n", nombreProducto, cantidadProducto,
+                            precioProducto);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean mostrarTrabajadores() {
+        if (empleados.size() > 0) {
+            System.out.println("*****************************");
+            System.out.println("          EMPLEADOS");
+            System.out.println("*****************************");
+            System.out.printf("| %-28s | %-16s | %-12s |%n", "NOMBRE", "DNI", "CARGO");
+            System.out.printf("| %-28s | %-16s | %-12s |%n", " ", " ", " ", " ");
+            for (Empleado empleado : empleados) {
+                String nombreEmpleado = empleado.getNombre();
+                String dniEmpleado = empleado.getDNI();
+                TipoDeEmpleado cargoEmpleado = empleado.getTipoDeEmpleado();
+                System.out.printf("| %-28s | %-16.2f | %-12.2f |%n", nombreEmpleado, dniEmpleado,
+                        cargoEmpleado.name());
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    public boolean eliminarEmpleado(Empleado empleado) {
+        if (empleados.size() > 0) {
+            empleados.remove(empleado);
+            return true;
+        } else
+            return false;
+    }
+
+    public boolean mostrarEstanterias() {
+        if (estanterias.size() > 0) {
+            System.out.println("*****************************");
+            System.out.println("         ESTANTERIAS");
+            System.out.println("*****************************");
+            System.out.printf("| %-28s | %-16s | %-12s |%n", "NUMERO", "CAPACIDAD", "PRODUCTOS");
+            System.out.printf("| %-28s | %-16s | %-12s |%n", " ", " ", " ", " ");
+            for (Estanteria estanteria : estanterias) {
+                int numeroEstanteria = estanteria.getNumeroEstanteria();
+                int numProductos = estanteria.getProductos().size();
+                int capacidadEstanteria = estanteria.getCapacidad();
+                System.out.printf("| %-28s | %-16d | %-12d |%n", numeroEstanteria,
+                        capacidadEstanteria, numProductos);
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    public boolean eliminarEstanteria(Estanteria estanteria) {
+        if (estanterias.remove(estanteria)) {
+            return true;
+        } else
+            return false;
+    }
+
+    public boolean mostrarNeveras() {
+        if (estanterias.size() > 0) {
+            System.out.println("*****************************");
+            System.out.println("         ESTANTERIAS");
+            System.out.println("*****************************");
+            System.out.printf("| %-28s | %-16s | %-12s |%n", "NUMERO", "CAPACIDAD", "PRODUCTOS");
+            System.out.printf("| %-28s | %-16s | %-12s |%n", " ", " ", " ", " ");
+            for (Estanteria estanteria : estanterias) {
+                int numeroEstanteria = estanteria.getNumeroEstanteria();
+                int numProductos = estanteria.getProductos().size();
+                int capacidadEstanteria = estanteria.getCapacidad();
+                System.out.printf("| %-28s | %-16d | %-12d |%n", numeroEstanteria,
+                        capacidadEstanteria, numProductos);
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    public boolean eliminarNevera(Nevera nevera) {
+        if (neveras.remove(nevera)) {
+            return true;
+        } else
+            return false;
+    }
+
+    public int cantidad(ArrayList<Producto> productos, Producto producto) {
+        return Collections.frequency(productos, producto);
+    }
+
     public boolean agregar4Trabajadores() {
 
-        //try {
+        // try {
 
-            boolean gerente = false;
-            boolean mozo1 = false;
-            boolean mozo2 = false;
-            boolean encargado = false;
-            Empleado empleadoGerente = null;
-            Empleado empleadoMozo1 = null;
-            Empleado empleadoMozo2 = null;
-            Empleado empleadoEncargado = null;
+        boolean gerente = false;
+        boolean mozo1 = false;
+        boolean mozo2 = false;
+        boolean encargado = false;
+        Empleado empleadoGerente = null;
+        Empleado empleadoMozo1 = null;
+        Empleado empleadoMozo2 = null;
+        Empleado empleadoEncargado = null;
 
-            do {
-                if (!gerente) {
-                    System.out.println("Primero ha de dar de alta a un gerente");
-                    do {
-                        empleadoGerente = new Empleado(this, empresa);
-                        if (empleadoGerente.getTipoDeEmpleado() != TipoDeEmpleado.GERENTE) {
-                            empleadoGerente = null;
-                            System.out.println("El empleado generado no es válido");
-                            System.out.println("El empleado que se solicitaba era un gerente");
-                            System.out.println("Introduzca un empleado que si sea gerente");
-                        }
-                    } while (empleadoGerente == null);
-                    gerente = true;
-                }
-                if (!encargado) {
-                    System.out.println("Es necesario dar de alta a un encargado");
-                    do {
-                        empleadoEncargado = new Empleado(this, empresa);
-                        if (empleadoEncargado.getTipoDeEmpleado() != TipoDeEmpleado.ENCARGADO) {
-                            empleadoEncargado = null;
-                            System.out.println("El empleado generado no es válido");
-                            System.out.println("El empleado que se solicitaba era un encargado");
-                            System.out.println("Introduzca un empleado que si sea encargado");
-                        }
-                    } while (empleadoEncargado == null);
-                    encargado = true;
-                }
-                if (!mozo1) {
-                    System.out.println("Es necesario también dar de alta a un mozo de almacén");
-                    do {
-                        empleadoMozo1 = new Empleado(this, empresa);
-                        if (empleadoMozo1.getTipoDeEmpleado() != TipoDeEmpleado.MOZODEALMACEN) {
-                            empleadoMozo1 = null;
-                            System.out.println("El empleado generado no es válido");
-                            System.out.println("El empleado que se solicitaba era un mozo de almacén");
-                            System.out.println("Introduzca un empleado que si sea mozo de almacén");
-                        }
-                    } while (empleadoMozo1 == null);
-                    mozo1 = true;
-                }
-                if (!mozo2) {
-                    System.out.println("Hay que dar de alta porlomenos otro mozo de almacén");
-                    do {
-                        empleadoMozo2 = new Empleado(this, empresa);
-                        if (empleadoMozo2.getTipoDeEmpleado() != TipoDeEmpleado.MOZODEALMACEN) {
-                            empleadoMozo2 = null;
-                            System.out.println("El empleado generado no es válido");
-                            System.out.println("El empleado que se solicitaba era un mozo de almacén");
-                            System.out.println("Introduzca un empleado que si sea mozo de almacén");
-                        }
-                    } while (empleadoMozo2 == null);
-                    mozo2 = true;
-                }
+        do {
+            if (!gerente) {
+                System.out.println("Primero ha de dar de alta a un gerente");
+                do {
+                    empleadoGerente = new Empleado(this, empresa);
+                    if (empleadoGerente.getTipoDeEmpleado() != TipoDeEmpleado.GERENTE) {
+                        empleadoGerente = null;
+                        System.out.println("El empleado generado no es válido");
+                        System.out.println("El empleado que se solicitaba era un gerente");
+                        System.out.println("Introduzca un empleado que si sea gerente");
+                    }
+                } while (empleadoGerente == null);
+                gerente = true;
+            }
+            if (!encargado) {
+                System.out.println("Es necesario dar de alta a un encargado");
+                do {
+                    empleadoEncargado = new Empleado(this, empresa);
+                    if (empleadoEncargado.getTipoDeEmpleado() != TipoDeEmpleado.ENCARGADO) {
+                        empleadoEncargado = null;
+                        System.out.println("El empleado generado no es válido");
+                        System.out.println("El empleado que se solicitaba era un encargado");
+                        System.out.println("Introduzca un empleado que si sea encargado");
+                    }
+                } while (empleadoEncargado == null);
+                encargado = true;
+            }
+            if (!mozo1) {
+                System.out.println("Es necesario también dar de alta a un mozo de almacén");
+                do {
+                    empleadoMozo1 = new Empleado(this, empresa);
+                    if (empleadoMozo1.getTipoDeEmpleado() != TipoDeEmpleado.MOZODEALMACEN) {
+                        empleadoMozo1 = null;
+                        System.out.println("El empleado generado no es válido");
+                        System.out.println("El empleado que se solicitaba era un mozo de almacén");
+                        System.out.println("Introduzca un empleado que si sea mozo de almacén");
+                    }
+                } while (empleadoMozo1 == null);
+                mozo1 = true;
+            }
+            if (!mozo2) {
+                System.out.println("Hay que dar de alta porlomenos otro mozo de almacén");
+                do {
+                    empleadoMozo2 = new Empleado(this, empresa);
+                    if (empleadoMozo2.getTipoDeEmpleado() != TipoDeEmpleado.MOZODEALMACEN) {
+                        empleadoMozo2 = null;
+                        System.out.println("El empleado generado no es válido");
+                        System.out.println("El empleado que se solicitaba era un mozo de almacén");
+                        System.out.println("Introduzca un empleado que si sea mozo de almacén");
+                    }
+                } while (empleadoMozo2 == null);
+                mozo2 = true;
+            }
 
-            } while (!gerente && !mozo1 && !encargado && !mozo2);
-            empleadoMozo1.agregarEncargado();
-            empleadoMozo2.agregarEncargado();
-            empresa.getTrabajadores().add(empleadoEncargado);
-            empresa.getTrabajadores().add(empleadoMozo1);
-            empresa.getTrabajadores().add(empleadoMozo2);
-            empresa.getTrabajadores().add(empleadoGerente);
-            empleados.add(empleadoEncargado);
-            empleados.add(empleadoMozo1);
-            empleados.add(empleadoMozo2);
-            empleados.add(empleadoGerente);
-            this.setGerente(empleadoGerente);
-            this.agregarEncargado(empleadoEncargado);
-            return true;
-        //} catch (Exception e) {
-        //    return false;
-        //}
+        } while (!gerente && !mozo1 && !encargado && !mozo2);
+        empleadoMozo1.agregarEncargado();
+        empleadoMozo2.agregarEncargado();
+        empresa.getTrabajadores().add(empleadoEncargado);
+        empresa.getTrabajadores().add(empleadoMozo1);
+        empresa.getTrabajadores().add(empleadoMozo2);
+        empresa.getTrabajadores().add(empleadoGerente);
+        empleados.add(empleadoEncargado);
+        empleados.add(empleadoMozo1);
+        empleados.add(empleadoMozo2);
+        empleados.add(empleadoGerente);
+        this.setGerente(empleadoGerente);
+        this.agregarEncargado(empleadoEncargado);
+        return true;
+        // } catch (Exception e) {
+        // return false;
+        // }
 
     }
 
@@ -453,8 +564,13 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         this.neveras = neveras;
     }
 
+    public ArrayList<Empleado> getEmpleados() {
+        return empleados;
+    }
+
     @Override
     public int obtenerCantidadProductos() {
         return stock.size();
     }
+
 }

@@ -173,6 +173,21 @@ public class Supermercado extends EstablecimientoPropio {
         }
     }
 
+    public void mostrarFacturas(){
+        if (facturas.size()>0) {
+            System.out.println("*********************************************************************");  
+            System.out.println("                            FACTURAS");
+            System.out.println("*********************************************************************");
+            System.out.println();
+
+            for (Factura f : facturas) {
+                f.mostrar();
+
+            }
+        }else{
+            System.out.println("Todavía no hay facturas dadas de alta");
+        }
+    }
     
 
     public boolean eliminarTrabajador(){

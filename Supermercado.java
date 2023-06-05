@@ -173,6 +173,31 @@ public class Supermercado extends EstablecimientoPropio {
         }
     }
 
+    public void mostrarVehiculos(){
+        if (vehiculos.size()>0) {
+            
+            System.out.println("*****************************");
+            System.out.println("         VEHICULOS");
+            System.out.println("*****************************");
+            System.out.println();
+
+            for (Vehiculo v : vehiculos) {
+                System.out.println("Matrícula: "+v.getMatricula());
+                if (v.getConductorManyana()!=null) {
+                    System.out.println("Conductor mañanas:"+v.getConductorManyana().getNombre()+" "+v.getConductorManyana().getApellidos());
+                }
+                if (v.getConductorTarde()!=null) {
+                    System.out.println("Conductor tardes:"+v.getConductorTarde().getNombre()+" "+v.getConductorTarde().getApellidos());
+                }
+                System.out.println("*****************************");
+
+            }
+        }else{
+            System.out.println("Todavía no hay vehículos dadas de alta");
+        }
+    }
+
+
     public void mostrarFacturas(){
         if (facturas.size()>0) {
             System.out.println("*********************************************************************");  

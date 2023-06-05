@@ -569,6 +569,9 @@ public class App implements Herramientas {
                     "10- Mostrar pedidos de un supermercado",
                     "11- Mostrar facturas de un supermercado",
                     "12- Mostrar vehículos de un supermercado",
+                    //mostrar trabajadores
+                    //mostrarEncargado
+                    //mostrar encargado(s)
                     "0- Volver al menú principal"
             };
             respuesta = Herramientas.crearMenu(titulo, opciones);
@@ -589,7 +592,7 @@ public class App implements Herramientas {
                     spmcd.mostrarProductos();
                     break;
                 case 2:
-                
+
 
                     break;
                 case 3:
@@ -614,13 +617,13 @@ public class App implements Herramientas {
 
                     break;
                 case 10:
-
+                    spmcd.mostrarPedidos();
                     break;
                 case 11:
-
+                    spmcd.mostrarFacturas();
                     break;
                 case 12:
-
+                    spmcd.mostrarVehiculos();
                     break;
                 case 13:
 

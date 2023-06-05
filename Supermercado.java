@@ -172,6 +172,12 @@ public class Supermercado extends EstablecimientoPropio {
             System.out.println("Todavía no hay pedidos dados de alta");
         }
     }
+/* 
+    public void agregarNevera(){
+        
+    }
+
+    public void agregarEstanteria(){} */
 
     public void mostrarVehiculos(){
         if (vehiculos.size()>0) {

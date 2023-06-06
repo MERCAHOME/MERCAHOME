@@ -650,11 +650,13 @@ public class Supermercado extends EstablecimientoPropio {
     
             do {
                 if (!gerente) {
-                    System.out.println("Primero ha de dar de alta a un gerente");
+                    Herramientas.limpiarPantalla();
+                    System.out.println("Para poder crear el supermercado primero ha de dar de alta a un gerente");
                     do {
                         empleadoGerente = new Empleado(this,empresa);
                         if (empleadoGerente.getTipoDeEmpleado() != TipoDeEmpleado.GERENTE) {
                             empleadoGerente = null;
+                            Herramientas.limpiarPantalla();
                             System.out.println("El empleado generado no es válido");
                             System.out.println("El empleado que se solicitaba era un gerente");
                             System.out.println("Introduzca un empleado que si sea gerente");
@@ -664,11 +666,12 @@ public class Supermercado extends EstablecimientoPropio {
                 }
                 if (!encargado) {
                     Herramientas.limpiarPantalla();
-                    System.out.println("Es necesario dar de alta a un encargado");  
+                    System.out.println("Es necesario también dar de alta a un encargado");  
                     do {
                         empleadoEncargado = new Empleado(this,empresa);
                         if (empleadoEncargado.getTipoDeEmpleado() != TipoDeEmpleado.ENCARGADO) {
                             empleadoEncargado = null;
+                            Herramientas.limpiarPantalla();
                             System.out.println("El empleado generado no es válido");
                             System.out.println("El empleado que se solicitaba era un encargado");
                             System.out.println("Introduzca un empleado que si sea encargado");
@@ -678,11 +681,12 @@ public class Supermercado extends EstablecimientoPropio {
                 }
                 if (!conductor) {
                     Herramientas.limpiarPantalla();
-                    System.out.println("Es necesariotambién dar de alta a un conductor");
+                    System.out.println("Es necesario también dar de alta a un conductor para este supermercado");
                     do {
                         empleadoConductor = new Empleado(this,empresa);
                         if (empleadoConductor.getTipoDeEmpleado() != TipoDeEmpleado.CONDUCTOR) {
                             empleadoConductor = null;
+                            Herramientas.limpiarPantalla();
                             System.out.println("El empleado generado no es válido");
                             System.out.println("El empleado que se solicitaba era un conductor");
                             System.out.println("Introduzca un empleado que si sea conductor");
@@ -692,11 +696,12 @@ public class Supermercado extends EstablecimientoPropio {
                 }
                 if (!cajero) {
                     Herramientas.limpiarPantalla();
-                    System.out.println("También necesitarás un cajero");
+                    System.out.println("Para finalizar necesitarás dar de alta un cajero");
                     do {
                         empleadoCajero = new Empleado(this,empresa);
                         if (empleadoCajero.getTipoDeEmpleado() != TipoDeEmpleado.CAJERODESUPERMERCADO) {
                             empleadoCajero = null;
+                            Herramientas.limpiarPantalla();
                             System.out.println("El empleado generado no es válido");
                             System.out.println("El empleado que se solicitaba era un cajero");
                             System.out.println("Introduzca un empleado que si sea cajero");

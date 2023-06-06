@@ -289,11 +289,12 @@ public class Almacen extends EstablecimientoPropio implements Stock {
 
         do {
             if (!gerente) {
-                System.out.println("Primero ha de dar de alta a un gerente");
+                System.out.println("Para un funcionamiento óptimo primero ha de dar de alta a un gerente");
                 do {
                     empleadoGerente = new Empleado(this, empresa);
                     if (empleadoGerente.getTipoDeEmpleado() != TipoDeEmpleado.GERENTE) {
                         empleadoGerente = null;
+                        Herramientas.limpiarPantalla();
                         System.out.println("El empleado generado no es válido");
                         System.out.println("El empleado que se solicitaba era un gerente");
                         System.out.println("Introduzca un empleado que si sea gerente");
@@ -302,11 +303,13 @@ public class Almacen extends EstablecimientoPropio implements Stock {
                 gerente = true;
             }
             if (!encargado) {
-                System.out.println("Es necesario dar de alta a un encargado");
+                Herramientas.limpiarPantalla();
+                System.out.println("Es necesario dar de alta también a un encargado");
                 do {
                     empleadoEncargado = new Empleado(this, empresa);
                     if (empleadoEncargado.getTipoDeEmpleado() != TipoDeEmpleado.ENCARGADO) {
                         empleadoEncargado = null;
+                        Herramientas.limpiarPantalla();
                         System.out.println("El empleado generado no es válido");
                         System.out.println("El empleado que se solicitaba era un encargado");
                         System.out.println("Introduzca un empleado que si sea encargado");
@@ -315,11 +318,13 @@ public class Almacen extends EstablecimientoPropio implements Stock {
                 encargado = true;
             }
             if (!mozo1) {
+                Herramientas.limpiarPantalla();
                 System.out.println("Es necesario también dar de alta a un mozo de almacén");
                 do {
                     empleadoMozo1 = new Empleado(this, empresa);
                     if (empleadoMozo1.getTipoDeEmpleado() != TipoDeEmpleado.MOZODEALMACEN) {
                         empleadoMozo1 = null;
+                        Herramientas.limpiarPantalla();
                         System.out.println("El empleado generado no es válido");
                         System.out.println("El empleado que se solicitaba era un mozo de almacén");
                         System.out.println("Introduzca un empleado que si sea mozo de almacén");
@@ -328,11 +333,13 @@ public class Almacen extends EstablecimientoPropio implements Stock {
                 mozo1 = true;
             }
             if (!mozo2) {
-                System.out.println("Hay que dar de alta porlomenos otro mozo de almacén");
+                Herramientas.limpiarPantalla();
+                System.out.println("Para finalizar hay que dar de alta porlomenos otro mozo de almacén");
                 do {
                     empleadoMozo2 = new Empleado(this, empresa);
                     if (empleadoMozo2.getTipoDeEmpleado() != TipoDeEmpleado.MOZODEALMACEN) {
                         empleadoMozo2 = null;
+                        Herramientas.limpiarPantalla();
                         System.out.println("El empleado generado no es válido");
                         System.out.println("El empleado que se solicitaba era un mozo de almacén");
                         System.out.println("Introduzca un empleado que si sea mozo de almacén");

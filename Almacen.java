@@ -214,6 +214,7 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         } else
             return false;
     }
+    
 
     public boolean mostrarEstanterias() {
         if (estanterias.size() > 0) {

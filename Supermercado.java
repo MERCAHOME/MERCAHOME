@@ -14,6 +14,9 @@ public class Supermercado extends EstablecimientoPropio {
     private ArrayList<Factura> facturas = new ArrayList<>();
     private ArrayList<Empleado> empleados = new ArrayList<>();
     private ArrayList<HorarioPedido> horasDisParaPedidos = new ArrayList<>();
+    private ArrayList<Estanteria> estanterias = new ArrayList<>();
+    private ArrayList<Nevera> neveras = new ArrayList<>();
+    public int capacidadSupermercado;//Cambiar por super
     private final Empresa empresa;
     private final Almacen almacen;
     //Asegurarse de crear un almacen al arrancar la app minimo, no se puede crear un supermercado si no existe almenos un almacen
@@ -46,6 +49,42 @@ public class Supermercado extends EstablecimientoPropio {
         }else{
             Herramientas.limpiarPantalla();
             System.out.println("No se han podido crear los horarios para los pedidos, contacte con el administrador");
+        }
+
+
+        System.out.println("La capacidad del supermercado va a depender de sus estantenrias y neveras");
+        System.out.println("Vamos a añadir estanterias y neveras a tu supermercado");
+        System.out.println("Cuantas estanterias quieres añadir a tu supermercado?");
+        System.out.print("Cantidad: ");
+        int estanterias = Herramientas.pedirEnteroPositivo();
+        System.out.println("De cuantos niveles van a ser estas estanterias?");
+        System.out.print("Niveles: ");
+        int niveles = Herramientas.pedirEnteroPositivo();
+        System.out.println("Cual va a ser la capacidad total de esta estantería?");
+        System.out.print("Capacidad: ");
+        int capacidad = Herramientas.pedirEnteroPositivo();
+        if (agregarEstanterias(estanterias, capacidad, niveles)) {
+            Herramientas.limpiarPantalla();
+            System.out.println("Estantería(s) agregada(s) con éxito!");
+        } else {
+            Herramientas.limpiarPantalla();
+            System.out.println(
+
+                    "No se ha agregado ninguna estantería, contacte con el administrador si no era su intención");
+        }
+        System.out.println("Cuantas neveras quieres añadir a tu supermercado?");
+        System.out.print("Cantidad: ");
+        int neveras = Herramientas.pedirEnteroPositivo();
+        System.out.println("Que capacidad va(n) a tener la(s) nevera(s)?");
+        System.out.print("Capacidad: ");
+        capacidad = Herramientas.pedirEnteroPositivo();
+        if (agregarNeveras(neveras, capacidad)) {
+            Herramientas.limpiarPantalla();
+            System.out.println("Nevera(s) agregada(s) con éxito!");
+        } else {
+            Herramientas.limpiarPantalla();
+            System.out
+                    .println("No se ha agregado ninguna nevera, contacte con el administrador si no era su intención");
         }
     }
 
@@ -157,17 +196,132 @@ public class Supermercado extends EstablecimientoPropio {
             return false;
         }
     }
+
+    public void mostrarPedidos(){
+        if (pedidos.size()>0) {
+            System.out.println("*********************************************************************");
+            System.out.println("                            PEDIDOS");
+            System.out.println("*********************************************************************");
+            System.out.println();
+            for (Pedido p : pedidos) {
+               p.mostrarProductosPedidoConTotal();
+
+            }
+        }else{
+            System.out.println("Todavía no hay pedidos dados de alta");
+        }
+    }
+/* 
+    public void agregarNevera(){
+        
+    }
+
+    public void agregarEstanteria(){} */
+
+    public void mostrarVehiculos(){
+        if (vehiculos.size()>0) {
+            
+            System.out.println("*****************************");
+            System.out.println("         VEHICULOS");
+            System.out.println("*****************************");
+            System.out.println();
+
+            for (Vehiculo v : vehiculos) {
+                System.out.println("Matrícula: "+v.getMatricula());
+                if (v.getConductorManyana()!=null) {
+                    System.out.println("Conductor mañanas:"+v.getConductorManyana().getNombre()+" "+v.getConductorManyana().getApellidos());
+                }
+                if (v.getConductorTarde()!=null) {
+                    System.out.println("Conductor tardes:"+v.getConductorTarde().getNombre()+" "+v.getConductorTarde().getApellidos());
+                }
+                System.out.println("*****************************");
+
+            }
+        }else{
+            System.out.println("Todavía no hay vehículos dadas de alta");
+        }
+    }
+
+
+    public void mostrarFacturas(){
+        if (facturas.size()>0) {
+            System.out.println("*********************************************************************");  
+            System.out.println("                            FACTURAS");
+            System.out.println("*********************************************************************");
+            System.out.println();
+
+            for (Factura f : facturas) {
+                f.mostrar();
+
+            }
+        }else{
+            System.out.println("Todavía no hay facturas dadas de alta");
+        }
+    }
+    
+    public boolean agregarNeveras(int cantidad, int capacidad) {
+        try {
+            for (int i = 0; i < cantidad; i++) {
+                neveras.add(new Nevera(capacidad));
+                capacidadSupermercado = capacidadSupermercado + capacidad;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Se ha producido un error inesperado, contacte con el administrador");
+            return false;
+        }
+
+    }
+
+    public boolean agregarEstanterias(int cantidad, int capacidad, int niveles) {
+
+        try {
+            for (int i = 0; i < cantidad; i++) {
+                estanterias.add(new Estanteria(capacidad, niveles));
+                capacidadSupermercado = capacidadSupermercado + capacidad;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Se ha producido un error inesperado, contacte con el administrador");
+            return false;
+        }
+
+    }
+
     public boolean eliminarTrabajador(){
         if (empleados.size()>0) {
             Empleado empleadoAEliminar = devolverTrabajador();
-            empresa.getTrabajadores().remove(empleadoAEliminar);
-            empleados.remove(empleadoAEliminar);
-            return true;
+            if (empleadoAEliminar.getTipoDeEmpleado()!=TipoDeEmpleado.GERENTE||getEncargados().size()>1) {
+                boolean reasignarEncargado = false;
+                if (empleadoAEliminar.getTipoDeEmpleado() == TipoDeEmpleado.ENCARGADO) {
+                    reasignarEncargado =true;
+                }
+                empresa.getTrabajadores().remove(empleadoAEliminar);
+                empleados.remove(empleadoAEliminar);
+                if (reasignarEncargado) {
+                    if (getEncargados().size()>1) {
+                        System.out.println("Vamos a tener que reasignar un encargado para cada trabajador");
+                    }
+                    for (Empleado empleado : empleados) {
+                        if (empleado.getTipoDeEmpleado()!=TipoDeEmpleado.GERENTE&&empleado.getTipoDeEmpleado()!=TipoDeEmpleado.ENCARGADO) {
+                            empleado.agregarEncargado();
+                        }
+                    }
+                }
+                return true;
+                
+            }else{
+                System.out.println("No se puede eliminar un gerente, o un encargado si solo hay uno");
+                return false;
+            }
         }else{
             System.out.println("No hay trabajadores en este supermercado");
             return false;
         }
     }
+    
     public void mostrarTrabajadores(){
         System.out.println("*****************************");
         System.out.println("          EMPLEADOS");
@@ -204,6 +358,26 @@ public class Supermercado extends EstablecimientoPropio {
             }
         } while (!trabajadorEncontrado);
         return trabajadorARetornar;
+    }
+
+    public void agregarEmpleado(){
+        Empleado empleado = new Empleado(this, empresa);
+
+        while (empleado.getTipoDeEmpleado()== TipoDeEmpleado.GERENTE) {
+            if (empleado.getTipoDeEmpleado()== TipoDeEmpleado.GERENTE) {
+                Herramientas.limpiarPantalla();
+                System.out.println("No se puede dar de alta un gerente porque ya existe un gerente en este supermercado");
+                empleado = new Empleado(this, empresa);
+            }
+        }
+
+        while (empleado == null) {
+            Herramientas.limpiarPantalla();
+            System.out.println("Se ha producido un error generando el empleado, tiene que generarlo de nuevo");
+            empleado = new Empleado(this, empresa);
+        }
+        empresa.getTrabajadores().add(empleado);
+        empleados.add(empleado);
     }
 
 

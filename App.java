@@ -317,8 +317,10 @@ public class App implements Herramientas {
             int cantidad = 0;
             int capacidad = 0;
             int niveles = 0;
-            while (almacenM == null) {
-                almacenM = empresa.devolverAlmacen();
+            if (respuesta!=0) {
+                while (almacenM == null) {
+                    almacenM = empresa.devolverAlmacen();
+                }
             }
             switch (respuesta) {
                 case 1:
@@ -600,14 +602,18 @@ public class App implements Herramientas {
             respuesta = Herramientas.crearMenu(titulo, opciones);
 
             Supermercado spmcd = null;
-            if (empresa.getSupermercados().size()>0) {
-                do {
-                    spmcd = empresa.devolverSupermercado();
-                } while (spmcd==null);
+
+            if (respuesta!=0) {
+                if (empresa.getSupermercados().size()>0) {
+                    do {
+                        spmcd = empresa.devolverSupermercado();
+                    } while (spmcd==null);
+                    
+                }else{
+                    System.out.println("No puede realizar ninguna operación, ya que no hay supermercados dados de alta");
+                    respuesta = 0;
+                }
                 
-            }else{
-                System.out.println("No puede realizar ninguna operación, ya que no hay supermercados dados de alta");
-                respuesta = 0;
             }
 
             switch (respuesta) {

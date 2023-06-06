@@ -176,9 +176,9 @@ public class App implements Herramientas {
                 case 6:
                     if (empresa.getStock().size() > 0) {
                         System.out.println("Método no implementado todavía");
-                        
-                          empresa.mostrarProductos();
-                         
+
+                        empresa.mostrarProductos();
+
                         System.out.println("Volviendo...");
                     } else {
                         System.out.println("No existen productos en la empresa");
@@ -469,7 +469,7 @@ public class App implements Herramientas {
                             int estanteriaNumeroMover = Herramientas.pedirEnteroPositivo();
                             if (estanteriaNumeroMover == numeroEstanteria) {
                                 System.out.println("No puedes mover los productos a la misma estantería...");
-                            } else{
+                            } else {
                                 for (Estanteria estanteria2 : almacenM.getEstanterias()) {
                                     if (estanteria2.getNumeroEstanteria() == estanteriaNumeroMover) {
                                         estanteriaMoverProductos = estanteria2;
@@ -478,7 +478,8 @@ public class App implements Herramientas {
                             }
                         }
 
-                        // MOVER PRODUCTOS DE estanteriaE a estanteriaMoverProductos, luego eliminar estanteriaE
+                        // MOVER PRODUCTOS DE estanteriaE a estanteriaMoverProductos, luego eliminar
+                        // estanteriaE
                         for (Producto producto : estanteriaE.getProductos()) {
                             estanteriaMoverProductos.agregarProducto(producto);
                             estanteriaE.eliminarProducto(producto);
@@ -516,7 +517,7 @@ public class App implements Herramientas {
                             int neveraIdMover = Herramientas.pedirEnteroPositivo();
                             if (neveraIdMover == idNevera) {
                                 System.out.println("No puedes mover los productos a la misma nevera...");
-                            } else{
+                            } else {
                                 for (Nevera nevera2 : almacenM.getNeveras()) {
                                     if (nevera2.getId() == neveraIdMover) {
                                         neveraMoverProductos = nevera2;
@@ -569,9 +570,9 @@ public class App implements Herramientas {
                     "10- Mostrar pedidos de un supermercado",
                     "11- Mostrar facturas de un supermercado",
                     "12- Mostrar vehículos de un supermercado",
-                    //mostrar trabajadores
-                    //mostrarEncargado
-                    //mostrar encargado(s)
+                    "13- Mostrar trabajadores",
+                    "14- Mostrar gerente",
+                    "15- Mostrar encargado(s)",
                     "0- Volver al menú principal"
             };
             respuesta = Herramientas.crearMenu(titulo, opciones);
@@ -648,8 +649,17 @@ public class App implements Herramientas {
                     spmcd.mostrarVehiculos();
                     break;
                 case 13:
-
+                    spmcd.mostrarTrabajadores();
+                    
                     break;
+                case 14:
+                    spmcd.mostrarGerente();
+                      
+                    break;
+                case 15:
+                    spmcd.mostrarEncargados();
+                            
+                            break;
                 case 0:
                     guardarDatosEmpresa();
                     System.out.println("volviendo...");

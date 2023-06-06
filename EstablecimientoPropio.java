@@ -63,5 +63,20 @@ public class EstablecimientoPropio extends Establecimiento {
             System.out.println("Este establecimiento no tiene ningún encargado dado de alta");
         }
     }
+
+    public void mostrarGerente(){
+        if (this.gerente!=null) {
+            
+            System.out.println("*****************************");
+            System.out.println("          GERENTE");
+            System.out.println("*****************************");
+            System.out.println("Nombre: "+this.gerente.getNombre()+" "+this.gerente.getApellidos());
+            System.out.println("DNI: "+this.gerente.getDNI());
+            System.out.println("*****************************");
+
+        } else {
+            
+        }
+    }
  
 }

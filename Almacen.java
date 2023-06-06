@@ -511,6 +511,21 @@ public class Almacen extends EstablecimientoPropio implements Stock {
                     }
                     if (nombreValido) {
                         if (prodADevolver.size()==cantidad) {
+
+                            for (Producto producto : prodADevolver) {
+                                
+                                for (Nevera nev : neveras) {
+                                    if (nev.contieneProducto(producto)) {
+                                        nev.eliminarProducto(producto);
+                                    }
+                                }
+                                for (Estanteria estant : estanterias) {
+                                    if (estant.contieneProducto(producto)) {
+                                        estant.eliminarProducto(producto);
+                                    }
+                                }
+                            }
+
                             return prodADevolver;
                         }else{
                             System.out.println("Existen "+cantidadEncontrados+ " productos llamados "+nombre);

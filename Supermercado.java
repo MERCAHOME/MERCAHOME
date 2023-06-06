@@ -339,6 +339,51 @@ public class Supermercado extends EstablecimientoPropio {
         
     }
 
+    private void agregarProductos(){
+        ArrayList<Producto> prodAAgregar = almacen.darProducto();
+        if (prodAAgregar!=null) {
+            for (Producto producto : prodAAgregar) {
+                if (producto.isRefrigerado()) {
+                    Nevera nevera = null;
+                    for (Nevera neveraaa : neveras) {
+                        if (neveraaa.getespacioDisponible()>=prodAAgregar.size()) {
+                            nevera = neveraaa;
+                            break;
+                        }
+                    }
+
+                    if (nevera!=null) {
+                        
+                        
+                    }else{
+                        System.out.println("No se han podido agregar los productos, porque ninguna nevera tenía suficiente espacio");
+                    }
+
+                    //agregar a nevera
+                }else{
+
+                    Estanteria estante = null;
+                    for (Estanteria estanteria : estanterias) {
+                        if (estanteria.getespacioDisponible()>=prodAAgregar.size()) {
+                            estante = estanteria;
+                            break;
+                        }
+                    }
+
+                    if (estante!=null) {
+                        
+                    }else{
+                        System.out.println("No se han podido agregar los productos, porque ninguna nevera tenía suficiente espacio");
+                    }
+
+                    //agregar a estanteria
+                }
+            }
+        } else {
+            
+        }
+    }
+
     private Producto devolverProductoAEliminar(){
         String nombre = null;
         do {

@@ -599,7 +599,7 @@ public class App implements Herramientas {
 
                     break;
                 case 4:
-
+                    spmcd.agregarEmpleado();
                     break;
                 case 5:
 

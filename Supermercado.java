@@ -270,6 +270,26 @@ public class Supermercado extends EstablecimientoPropio {
         return trabajadorARetornar;
     }
 
+    public void agregarEmpleado(){
+        Empleado empleado = new Empleado(this, empresa);
+
+        while (empleado.getTipoDeEmpleado()== TipoDeEmpleado.GERENTE) {
+            if (empleado.getTipoDeEmpleado()== TipoDeEmpleado.GERENTE) {
+                Herramientas.limpiarPantalla();
+                System.out.println("No se puede dar de alta un gerente porque ya existe un gerente en este supermercado");
+                empleado = new Empleado(this, empresa);
+            }
+        }
+
+        while (empleado == null) {
+            Herramientas.limpiarPantalla();
+            System.out.println("Se ha producido un error generando el empleado, tiene que generarlo de nuevo");
+            empleado = new Empleado(this, empresa);
+        }
+        empresa.getTrabajadores().add(empleado);
+        empleados.add(empleado);
+    }
+
 
     public boolean agregar4Trabajadores(){
 

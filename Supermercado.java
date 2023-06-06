@@ -321,7 +321,47 @@ public class Supermercado extends EstablecimientoPropio {
             return false;
         }
     }
-    
+
+    public void eliminarProducto(){
+        if (stock.size()>0) {
+            
+            Producto producto = devolverProductoAEliminar();
+            if (producto!=null) {
+                eliminarProductoSupermercadoYEmpresa(producto);
+                
+            }else{
+                System.out.println("No se ha podido eliminar el producto, contacte con el administrador");
+            }
+            
+        }else{
+            System.out.println("No hay productos que eliminar");
+        }
+        
+    }
+
+    private Producto devolverProductoAEliminar(){
+        String nombre = null;
+        do {
+            mostrarProductos();
+            System.out.println("Indique el nombre de el producto a eliminar");
+            System.out.println("Nombre: ");
+            nombre = Herramientas.pedirString();
+           
+            for (Producto prod : stock) {
+                if (prod.getNombre().equalsIgnoreCase(nombre)) {
+                    System.out.println("Producto encontrado, indique el motivo por el que desea eliminar el producto "+ nombre);
+                    System.out.println("Motivo: ");
+                    Herramientas.pedirString();
+                    return prod;
+                }
+            }
+            nombre = null;
+            System.out.println("No se ha encontrado ningún producto con este nombre");
+            System.out.println("Indique el nombre de el producto a eliminar de nuevo");
+        } while (nombre == null);
+        return null;
+    }
+
     public void mostrarTrabajadores(){
         System.out.println("*****************************");
         System.out.println("          EMPLEADOS");

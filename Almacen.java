@@ -608,6 +608,163 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         return true;
     }
 
+
+    public void eliminarEstanteria(){
+        
+        if (estanterias.size()>0) {
+            Estanteria estante = null;
+            do {
+                int id = 0;
+                mostrarEstanterias2();
+                System.out.println("Indique el número que identifica la estantería a eliminar");
+                System.out.print("ID: ");
+                id = Herramientas.pedirEnteroPositivo();
+                for (Estanteria esta : estanterias) {
+                    if (esta.getNumeroEstanteria() == id) {
+                        estante = esta;
+                        
+                    }
+                }
+                if (estante!=null) {
+                    break;
+                }else{
+                    System.out.println("No se ha encontrado una estantería con el id seleccionado, introsuzca un id valido");
+                }
+                
+            } while (true);
+
+            if (estante.getCapacidad()==estante.getespacioDisponible()) {
+                estanterias.remove(estante);
+                System.out.println("estantería eliminada con éxito");
+            }else{
+                int cantidadDeProductos = estante.getCapacidad()-estante.getespacioDisponible();
+                int espacioDisponible = 0;
+                for (Estanteria estanteriaX : estanterias) {
+                    if (estanteriaX != estante) {
+                        espacioDisponible = espacioDisponible+estanteriaX.getespacioDisponible();
+                    }
+                }
+                if (espacioDisponible>=cantidadDeProductos) {
+                    ArrayList<Producto> productosAMover =  estante.getProductos();
+
+                    for (Producto producto : productosAMover) {
+                        for (Estanteria estant : estanterias) {
+                            if (estant != estante) {
+                                if (estant.getespacioDisponible()>0) {
+                                    estant.agregarProducto(producto);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    estanterias.remove(estante);
+                    System.out.println("estantería eliminada con éxito");
+
+                } else {
+                    System.out.println("No se puede eliminar la estantería porque no hay espacio suficiente en el establecimiento");
+                }
+                
+            }
+        }else{
+            System.out.println("No hay estanterias que eliminar en este establecimiento");
+        }
+    }
+
+
+    public void eliminarNevera(){
+        
+        if (neveras.size()>0) {
+            Nevera nevera = null;
+            do {
+                int id = 0;
+                mostrarNeveras2();
+                System.out.println("Indique el número que identifica la nevera a eliminar");
+                System.out.print("ID: ");
+                id = Herramientas.pedirEnteroPositivo();
+                for (Nevera neve : neveras) {
+                    if (neve.getId() == id) {
+                        nevera = neve;
+                        
+                    }
+                }
+                if (nevera!=null) {
+                    break;
+                }else{
+                    System.out.println("No se ha encontrado una nevera con el id seleccionado, introsuzca un id valido");
+                }
+                
+            } while (true);
+
+            if (nevera.getCapacidad()==nevera.getespacioDisponible()) {
+                neveras.remove(nevera);
+            }else{
+                int cantidadDeProductos = nevera.getCapacidad()-nevera.getespacioDisponible();
+                int espacioDisponible = 0;
+                for (Nevera neve : neveras) {
+                    if (neve != nevera) {
+                        espacioDisponible = espacioDisponible+neve.getespacioDisponible();
+                    }
+                }
+                if (espacioDisponible>=cantidadDeProductos) {
+                    ArrayList<Producto> productosAMover =  nevera.getProductos();
+
+                    for (Producto producto : productosAMover) {
+                        for (Nevera neveraa : neveras) {
+                            if (neveraa != nevera) {
+                                if (neveraa.getespacioDisponible()>0) {
+                                    neveraa.agregarproducto(producto);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    neveras.remove(nevera);
+                } else {
+                    System.out.println("No se puede eliminar la nevera porque no hay espacio suficiente en el establecimiento");
+                }
+                
+            }
+        }else{
+            System.out.println("No hay neveras que eliminar en este establecimiento");
+        }
+    }
+
+    public void mostrarEstanterias2(){
+        if (estanterias.size()>0) {
+            System.out.println("*****************************");
+            System.out.println("         ESTANTERIAS");
+            System.out.println("*****************************");
+            for (Estanteria est : estanterias) {
+                System.out.println("Numero de estantería: "+est.getNumeroEstanteria());
+                System.out.println("Capacidad: "+est.getCapacidad());
+                System.out.println("Espacio disponible: "+est.getespacioDisponible());
+                System.out.println("*****************************");
+            }
+            
+        }else{
+            System.out.println("No hay estanterias en este establecimiento");
+        }
+    }
+
+    public void mostrarNeveras2(){
+        if (neveras.size()>0) {
+            System.out.println("*****************************");
+            System.out.println("          NEVERAS");
+            System.out.println("*****************************");
+            for (Nevera nev : neveras) {
+                System.out.println("Numero de estantería: "+nev.getId());
+                System.out.println("Capacidad: "+nev.getCapacidad());
+                System.out.println("Espacio disponible: "+nev.getespacioDisponible());
+                System.out.println("*****************************");
+            }
+            
+        }else{
+            System.out.println("No hay neveras en este establecimiento");
+        }
+    }
+
     public ArrayList<Producto> getStock() {
         return stock;
     }

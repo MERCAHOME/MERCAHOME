@@ -461,6 +461,9 @@ public class App implements Herramientas {
                     if (estanteriaE.getProductos().isEmpty()) {
                         almacenM.eliminarEstanteria(estanteriaE);
                     } else {
+
+
+
                         Estanteria estanteriaMoverProductos = null;
                         while (estanteriaMoverProductos == null) {
                             almacenM.mostrarEstanterias();
@@ -470,6 +473,8 @@ public class App implements Herramientas {
                             if (estanteriaNumeroMover == numeroEstanteria) {
                                 System.out.println("No puedes mover los productos a la misma estantería...");
                             } else {
+
+
                                 for (Estanteria estanteria2 : almacenM.getEstanterias()) {
                                     if (estanteria2.getNumeroEstanteria() == estanteriaNumeroMover) {
                                         estanteriaMoverProductos = estanteria2;
@@ -477,6 +482,8 @@ public class App implements Herramientas {
                                 }
                             }
                         }
+
+
 
                         // MOVER PRODUCTOS DE estanteriaE a estanteriaMoverProductos, luego eliminar
                         // estanteriaE

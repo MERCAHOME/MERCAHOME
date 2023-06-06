@@ -377,7 +377,7 @@ public class App implements Herramientas {
                     // de almacén, si se elimina un encargado, todos los empleados
                     // a su cargo se tienen que asignar a otro encargado
 
-                    Empleado empleadoE = null;
+                    /* Empleado empleadoE = null;
                     int numEncargado = 0;
                     int numGerente = 0;
                     int numMozos = 0;
@@ -411,7 +411,12 @@ public class App implements Herramientas {
                         }
                     } else {
                         almacenM.eliminarEmpleado(empleadoE);
+                    } */
+
+                    if (almacenM.eliminarTrabajador()) {
+                        System.out.println("Empleado eliminado con éxito");
                     }
+                    
 
                     break;
                 case 6:

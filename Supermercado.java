@@ -14,6 +14,9 @@ public class Supermercado extends EstablecimientoPropio {
     private ArrayList<Factura> facturas = new ArrayList<>();
     private ArrayList<Empleado> empleados = new ArrayList<>();
     private ArrayList<HorarioPedido> horasDisParaPedidos = new ArrayList<>();
+    private ArrayList<Estanteria> estanterias = new ArrayList<>();
+    private ArrayList<Nevera> neveras = new ArrayList<>();
+    public int capacidadSupermercado;//Cambiar por super
     private final Empresa empresa;
     private final Almacen almacen;
     //Asegurarse de crear un almacen al arrancar la app minimo, no se puede crear un supermercado si no existe almenos un almacen
@@ -46,6 +49,42 @@ public class Supermercado extends EstablecimientoPropio {
         }else{
             Herramientas.limpiarPantalla();
             System.out.println("No se han podido crear los horarios para los pedidos, contacte con el administrador");
+        }
+
+
+        System.out.println("La capacidad del supermercado va a depender de sus estantenrias y neveras");
+        System.out.println("Vamos a añadir estanterias y neveras a tu supermercado");
+        System.out.println("Cuantas estanterias quieres añadir a tu supermercado?");
+        System.out.print("Cantidad: ");
+        int estanterias = Herramientas.pedirEnteroPositivo();
+        System.out.println("De cuantos niveles van a ser estas estanterias?");
+        System.out.print("Niveles: ");
+        int niveles = Herramientas.pedirEnteroPositivo();
+        System.out.println("Cual va a ser la capacidad total de esta estantería?");
+        System.out.print("Capacidad: ");
+        int capacidad = Herramientas.pedirEnteroPositivo();
+        if (agregarEstanterias(estanterias, capacidad, niveles)) {
+            Herramientas.limpiarPantalla();
+            System.out.println("Estantería(s) agregada(s) con éxito!");
+        } else {
+            Herramientas.limpiarPantalla();
+            System.out.println(
+
+                    "No se ha agregado ninguna estantería, contacte con el administrador si no era su intención");
+        }
+        System.out.println("Cuantas neveras quieres añadir a tu supermercado?");
+        System.out.print("Cantidad: ");
+        int neveras = Herramientas.pedirEnteroPositivo();
+        System.out.println("Que capacidad va(n) a tener la(s) nevera(s)?");
+        System.out.print("Capacidad: ");
+        capacidad = Herramientas.pedirEnteroPositivo();
+        if (agregarNeveras(neveras, capacidad)) {
+            Herramientas.limpiarPantalla();
+            System.out.println("Nevera(s) agregada(s) con éxito!");
+        } else {
+            Herramientas.limpiarPantalla();
+            System.out
+                    .println("No se ha agregado ninguna nevera, contacte con el administrador si no era su intención");
         }
     }
 
@@ -220,13 +259,49 @@ public class Supermercado extends EstablecimientoPropio {
         }
     }
     
+    public boolean agregarNeveras(int cantidad, int capacidad) {
+        try {
+            for (int i = 0; i < cantidad; i++) {
+                neveras.add(new Nevera(capacidad));
+                capacidadSupermercado = capacidadSupermercado + capacidad;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Se ha producido un error inesperado, contacte con el administrador");
+            return false;
+        }
+
+    }
+
+    public boolean agregarEstanterias(int cantidad, int capacidad, int niveles) {
+
+        try {
+            for (int i = 0; i < cantidad; i++) {
+                estanterias.add(new Estanteria(capacidad, niveles));
+                capacidadSupermercado = capacidadSupermercado + capacidad;
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Se ha producido un error inesperado, contacte con el administrador");
+            return false;
+        }
+
+    }
 
     public boolean eliminarTrabajador(){
         if (empleados.size()>0) {
             Empleado empleadoAEliminar = devolverTrabajador();
-            empresa.getTrabajadores().remove(empleadoAEliminar);
-            empleados.remove(empleadoAEliminar);
-            return true;
+            if (empleadoAEliminar.getTipoDeEmpleado()!=TipoDeEmpleado.GERENTE||getEncargados().size()>1) {
+                empresa.getTrabajadores().remove(empleadoAEliminar);
+                empleados.remove(empleadoAEliminar);
+                return true;
+                
+            }else{
+                System.out.println("No se puede eliminar un gerente, o un encargado si solo hay uno");
+                return false;
+            }
         }else{
             System.out.println("No hay trabajadores en este supermercado");
             return false;

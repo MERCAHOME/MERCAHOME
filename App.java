@@ -602,13 +602,35 @@ public class App implements Herramientas {
                     spmcd.agregarEmpleado();
                     break;
                 case 5:
-
+                    if (spmcd.eliminarTrabajador()) {
+                        System.out.println("Empleado eliminado con éxito");
+                    }
                     break;
                 case 6:
+                    System.out.println("Cuantas estanterias quieres añadir a tu supermercado?");
+                    System.out.print("Cantidad: ");
+                    int estanterias = Herramientas.pedirEnteroPositivo();
+                    System.out.println("De cuantos niveles van a ser estas estanterias?");
+                    System.out.print("Niveles: ");
+                    int niveles = Herramientas.pedirEnteroPositivo();
+                    System.out.println("Cual va a ser la capacidad total de esta estantería?");
+                    System.out.print("Capacidad: ");
+                    int capacidad = Herramientas.pedirEnteroPositivo();
+                    if (spmcd.agregarEstanterias(estanterias, capacidad, niveles)) {
+                        System.out.println("Estanteria(s) agregada(s) con éxito");
+                    }
 
                     break;
                 case 7:
-
+                    System.out.println("Cuantas neveras quieres añadir a tu supermercado?");
+                    System.out.print("Cantidad: ");
+                    int neveras = Herramientas.pedirEnteroPositivo();
+                    System.out.println("Que capacidad va(n) a tener la(s) nevera(s)?");
+                    System.out.print("Capacidad: ");
+                    int capacidad2 = Herramientas.pedirEnteroPositivo();
+                    if (spmcd.agregarNeveras(neveras, capacidad2)) {
+                        System.out.println("Nevera(s) agregada(s) con éxito");
+                    }
                     break;
                 case 8:
 

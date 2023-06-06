@@ -469,6 +469,77 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         }
         return true;
     }
+    //al llamar este metodo ha de existir almenos un producto
+    public ArrayList<Producto> darProducto(){
+      
+        if (stock.size()>0) {
+            ArrayList<Producto> productos = devolverProductos();
+            stock.removeAll(productos);
+            return productos;
+        }else{
+            System.out.println("No hay productos en este almacén");
+            return null;
+        }
+
+    }
+
+    private ArrayList<Producto> devolverProductos(){
+
+        do {
+                    mostrarProductos();
+                    ArrayList<Producto> prodADevolver = new ArrayList<>();
+                    int cantidad = 0;
+                    int cantidadEncontrados =0;
+                    String nombre= "";
+                    boolean nombreValido = false;
+            
+                    System.out.println("Indique el nombre de el producto a ceder al supermercado");
+                    System.out.print("Nombre: ");
+                    nombre = Herramientas.pedirString();
+                    System.out.println("Que cantidad de este producto necesita?");
+                    System.out.print("Cantidad: ");
+                    cantidad=Herramientas.pedirEnteroPositivo();
+            
+                    for (Producto prod : stock) {
+                        if (prod.getNombre().equalsIgnoreCase(nombre)) {
+                            nombreValido=true;
+                            if (prodADevolver.size()<cantidad) {
+                                prodADevolver.add(prod);
+                                cantidadEncontrados++;
+                            }
+                        }
+                    }
+                    if (nombreValido) {
+                        if (prodADevolver.size()==cantidad) {
+
+                            for (Producto producto : prodADevolver) {
+                                
+                                for (Nevera nev : neveras) {
+                                    if (nev.contieneProducto(producto)) {
+                                        nev.eliminarProducto(producto);
+                                    }
+                                }
+                                for (Estanteria estant : estanterias) {
+                                    if (estant.contieneProducto(producto)) {
+                                        estant.eliminarProducto(producto);
+                                    }
+                                }
+                            }
+
+                            return prodADevolver;
+                        }else{
+                            System.out.println("Existen "+cantidadEncontrados+ " productos llamados "+nombre);
+                            System.out.println("Seleccione una cantidad válida");
+                        }
+                        
+                    }else{
+                        System.out.println("No existe ningun producto con este nombre en el almacén");
+                    }
+                    cantidadEncontrados = 0;
+            
+        } while (true);
+       
+    }
 
     // Hacer el método persistente
     public boolean eliminarProducto(Producto producto) {

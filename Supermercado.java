@@ -321,7 +321,105 @@ public class Supermercado extends EstablecimientoPropio {
             return false;
         }
     }
-    
+
+    public void eliminarProducto(){
+        if (stock.size()>0) {
+            
+            Producto producto = devolverProductoAEliminar();
+            if (producto!=null) {
+                eliminarProductoSupermercadoYEmpresa(producto);
+                
+            }else{
+                System.out.println("No se ha podido eliminar el producto, contacte con el administrador");
+            }
+            
+        }else{
+            System.out.println("No hay productos que eliminar");
+        }
+        
+    }
+
+    public void agregarProductos(){
+        ArrayList<Producto> prodAAgregar = almacen.darProducto();
+        if (prodAAgregar!=null) {
+            for (Producto producto : prodAAgregar) {
+                if (producto.isRefrigerado()) {
+                    Nevera nevera = null;
+                    for (Nevera neveraaa : neveras) {
+                        if (neveraaa.getespacioDisponible()>=prodAAgregar.size()) {
+                            nevera = neveraaa;
+                            break;
+                        }
+                    }
+
+                    if (nevera!=null) {
+                        for (Producto producto2 : prodAAgregar) {
+                            nevera.agregarproducto(producto2);
+                        }
+                        stock.addAll(prodAAgregar);
+                        System.out.println("Productos agregados con éxito");
+
+                    }else{
+                        System.out.println("No se han podido agregar los productos, porque ninguna nevera tenía suficiente espacio");
+                        for (Producto producto2 : prodAAgregar) {
+                            almacen.agregarProducto(producto2);
+                        }
+
+                    }
+
+                }else{
+
+                    Estanteria estante = null;
+                    for (Estanteria estanteria : estanterias) {
+                        if (estanteria.getespacioDisponible()>=prodAAgregar.size()) {
+                            estante = estanteria;
+                            break;
+                        }
+                    }
+
+                    if (estante!=null) {
+                        for (Producto producto2 : prodAAgregar) {
+                            estante.agregarProducto(producto2);
+                        }
+                        stock.addAll(prodAAgregar);
+                        System.out.println("Productos agregados con éxito");
+                    }else{
+                        System.out.println("No se han podido agregar los productos, porque ninguna nevera tenía suficiente espacio");
+                        for (Producto producto2 : prodAAgregar) {
+                            almacen.agregarProducto(producto2);
+                        }
+                    }
+
+                }
+            }
+        } else {
+            System.out.println("Error 475: contacte con el administrador");
+        }
+    }
+
+    private Producto devolverProductoAEliminar(){
+        String nombre = null;
+        do {
+            mostrarProductos();
+            System.out.println("Indique el nombre de el producto a eliminar");
+            System.out.println("Nombre: ");
+            nombre = Herramientas.pedirString();
+           
+            for (Producto prod : stock) {
+                if (prod.getNombre().equalsIgnoreCase(nombre)) {
+                    System.out.println("Producto encontrado, indique el motivo por el que desea eliminar el producto "+ nombre);
+                    System.out.println("Motivo: ");
+                    Herramientas.pedirString();
+                    return prod;
+                }
+            }
+            nombre = null;
+            System.out.println("No se ha encontrado ningún producto con este nombre");
+            System.out.println("Indique el nombre de el producto a eliminar de nuevo");
+        } while (nombre == null);
+        return null;
+    }
+
     public void mostrarTrabajadores(){
         System.out.println("*****************************");
         System.out.println("          EMPLEADOS");

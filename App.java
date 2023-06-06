@@ -443,6 +443,8 @@ public class App implements Herramientas {
                 case 8:
                     // eliminar estanteria
                     // Tiene que estar vacía o hay que reubicar productos
+
+                    /* 
                     int numeroEstanteria = 0;
                     Estanteria estanteriaE = null;
                     while (estanteriaE == null) {
@@ -493,11 +495,17 @@ public class App implements Herramientas {
 
                         }
                         almacenM.eliminarEstanteria(estanteriaE);
-                    }
+                    } */
+
+                    almacenM.eliminarEstanteria();
                     break;
                 case 9:
                     // eliminar nevera
                     // Tiene que estar vacía o hay que reubicar productos
+
+
+
+                    /* 
                     int idNevera = 0;
                     Nevera neveraE = null;
                     while (neveraE == null) {
@@ -539,7 +547,9 @@ public class App implements Herramientas {
                             neveraE.eliminarProducto(producto);
                         }
                         almacenM.eliminarNevera(neveraE);
-                    }
+                    } */
+
+                    almacenM.eliminarNevera();
                     break;
                 case 0:
                     guardarDatosEmpresa();
@@ -641,10 +651,10 @@ public class App implements Herramientas {
                     }
                     break;
                 case 8:
-
+                    spmcd.eliminarEstanteria();
                     break;
                 case 9:
-
+                    spmcd.eliminarNevera();
                     break;
                 case 10:
                     spmcd.mostrarPedidos();

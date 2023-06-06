@@ -593,11 +593,11 @@ public class App implements Herramientas {
                     spmcd.mostrarProductos();
                     break;
                 case 2:
-
+                    spmcd.agregarProductos();
 
                     break;
                 case 3:
-
+                    spmcd.eliminarProducto();
                     break;
                 case 4:
                     spmcd.agregarEmpleado();
@@ -666,7 +666,7 @@ public class App implements Herramientas {
                     break;
 
                 default:
-                    System.out.println("Error, solo puedes introducir un número del 0 al 12");
+                    System.out.println("Error, solo puedes introducir un número del 0 al 15");
                     break;
             }
 

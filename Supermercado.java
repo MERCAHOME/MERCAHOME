@@ -339,7 +339,7 @@ public class Supermercado extends EstablecimientoPropio {
         
     }
 
-    private void agregarProductos(){
+    public void agregarProductos(){
         ArrayList<Producto> prodAAgregar = almacen.darProducto();
         if (prodAAgregar!=null) {
             for (Producto producto : prodAAgregar) {
@@ -353,13 +353,20 @@ public class Supermercado extends EstablecimientoPropio {
                     }
 
                     if (nevera!=null) {
-                        
-                        
+                        for (Producto producto2 : prodAAgregar) {
+                            nevera.agregarproducto(producto2);
+                        }
+                        stock.addAll(prodAAgregar);
+                        System.out.println("Productos agregados con éxito");
+
                     }else{
                         System.out.println("No se han podido agregar los productos, porque ninguna nevera tenía suficiente espacio");
+                        for (Producto producto2 : prodAAgregar) {
+                            almacen.agregarProducto(producto2);
+                        }
+
                     }
 
-                    //agregar a nevera
                 }else{
 
                     Estanteria estante = null;
@@ -371,16 +378,22 @@ public class Supermercado extends EstablecimientoPropio {
                     }
 
                     if (estante!=null) {
-                        
+                        for (Producto producto2 : prodAAgregar) {
+                            estante.agregarProducto(producto2);
+                        }
+                        stock.addAll(prodAAgregar);
+                        System.out.println("Productos agregados con éxito");
                     }else{
                         System.out.println("No se han podido agregar los productos, porque ninguna nevera tenía suficiente espacio");
+                        for (Producto producto2 : prodAAgregar) {
+                            almacen.agregarProducto(producto2);
+                        }
                     }
 
-                    //agregar a estanteria
                 }
             }
         } else {
-            
+            System.out.println("Error 475: contacte con el administrador");
         }
     }
 

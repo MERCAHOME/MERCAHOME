@@ -294,8 +294,22 @@ public class Supermercado extends EstablecimientoPropio {
         if (empleados.size()>0) {
             Empleado empleadoAEliminar = devolverTrabajador();
             if (empleadoAEliminar.getTipoDeEmpleado()!=TipoDeEmpleado.GERENTE||getEncargados().size()>1) {
+                boolean reasignarEncargado = false;
+                if (empleadoAEliminar.getTipoDeEmpleado() == TipoDeEmpleado.ENCARGADO) {
+                    reasignarEncargado =true;
+                }
                 empresa.getTrabajadores().remove(empleadoAEliminar);
                 empleados.remove(empleadoAEliminar);
+                if (reasignarEncargado) {
+                    if (getEncargados().size()>1) {
+                        System.out.println("Vamos a tener que reasignar un encargado para cada trabajador");
+                    }
+                    for (Empleado empleado : empleados) {
+                        if (empleado.getTipoDeEmpleado()!=TipoDeEmpleado.GERENTE&&empleado.getTipoDeEmpleado()!=TipoDeEmpleado.ENCARGADO) {
+                            empleado.agregarEncargado();
+                        }
+                    }
+                }
                 return true;
                 
             }else{

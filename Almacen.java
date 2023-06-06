@@ -765,6 +765,62 @@ public class Almacen extends EstablecimientoPropio implements Stock {
         }
     }
 
+    public boolean eliminarTrabajador(){
+        if (empleados.size()>0) {
+            Empleado empleadoAEliminar = devolverTrabajador();
+            if (empleadoAEliminar.getTipoDeEmpleado()!=TipoDeEmpleado.GERENTE||getEncargados().size()>1) {
+                boolean reasignarEncargado = false;
+                if (empleadoAEliminar.getTipoDeEmpleado() == TipoDeEmpleado.ENCARGADO) {
+                    reasignarEncargado =true;
+                }
+                empresa.getTrabajadores().remove(empleadoAEliminar);
+                empleados.remove(empleadoAEliminar);
+                if (reasignarEncargado) {
+                    if (getEncargados().size()>1) {
+                        System.out.println("Vamos a tener que reasignar un encargado para cada trabajador");
+                    }
+                    for (Empleado empleado : empleados) {
+                        if (empleado.getTipoDeEmpleado()!=TipoDeEmpleado.GERENTE&&empleado.getTipoDeEmpleado()!=TipoDeEmpleado.ENCARGADO) {
+                            empleado.agregarEncargado();
+                        }
+                    }
+                }
+                return true;
+                
+            }else{
+                System.out.println("No se puede eliminar un gerente, o un encargado si solo hay uno");
+                return false;
+            }
+        }else{
+            System.out.println("No hay trabajadores en este almacen");
+            return false;
+        }
+    }
+
+    public Empleado devolverTrabajador(){
+        String dni = "";
+        boolean trabajadorEncontrado = true;
+        Empleado trabajadorARetornar=null;
+        do {
+            mostrarTrabajadores();
+            if (!trabajadorEncontrado) {
+                System.out.println("No se ha encontrado ningún trabajador con el DNI: "+dni);
+            }
+            System.out.println("Indique el DNI de el trabajador");
+            System.out.print("DNI: ");
+            dni = Herramientas.pedirString();
+            Iterator<Empleado> iteradorDeEmpleados = empleados.iterator();
+            while (iteradorDeEmpleados.hasNext()) {
+                Empleado trabajadorIterado  = iteradorDeEmpleados.next();
+                if (trabajadorIterado.getDNI().equalsIgnoreCase(dni)) {
+                    trabajadorEncontrado=true;
+                    trabajadorARetornar = trabajadorIterado;
+                }
+            }
+        } while (!trabajadorEncontrado);
+        return trabajadorARetornar;
+    }
+
     public ArrayList<Producto> getStock() {
         return stock;
     }
